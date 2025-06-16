@@ -1,0 +1,26 @@
+{{define "footer"}}
+<footer class="footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <img src="{{.AppConfig.Branding.LogoMain}}" alt="{{.AppConfig.Site.Name}}" class="footer-logo">
+      </div>
+      <div class="footer-links">
+        <a href="/blog">Blog</a>
+        {{if .Config.CalendarEnabled}}
+        <a href="/calendar">Book Time</a>
+        {{else}}
+        <a href="#contact">Contact</a>
+        {{end}}
+        <a href="https://github.com/lancekrogers" target="_blank">GitHub</a>
+        <a href="https://twitter.com/LKRBuilds" target="_blank">Twitter</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>
+        &copy; 2025 {{.AppConfig.Site.Name}}. {{.AppConfig.Site.Description}}.
+      </p>
+    </div>
+  </div>
+</footer>
+{{end}}

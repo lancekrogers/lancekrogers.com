@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Boot Sequence Test</title>
+  <style>
+    body {
+      background: #0a0a0a;
+      color: #fff;
+      font-family: monospace;
+      padding: 50px;
+    }
+    .test-container {
+      position: relative;
+      height: 400px;
+      border: 1px solid #333;
+    }
+    .glitch {
+      font-size: 3rem;
+      text-align: center;
+      margin-top: 100px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Boot Sequence Test</h1>
+  <div class="test-container">
+    <div class="hero-content">
+      <h1 class="glitch" data-text="BLOCKHEAD CONSULTING" data-hero-style="professional">
+        BLOCKHEAD CONSULTING
+      </h1>
+    </div>
+  </div>
+  
+  <script src="/static/boot-sequence.js"></script>
+  <script>
+    // Test the boot sequence directly
+    setTimeout(() => {
+      console.log("Testing boot sequence...");
+      const glitchElement = document.querySelector('.glitch');
+      if (glitchElement) {
+        const duration = createBootSequence('professional', glitchElement);
+        console.log("Boot sequence duration:", duration);
+      } else {
+        console.error("Glitch element not found!");
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

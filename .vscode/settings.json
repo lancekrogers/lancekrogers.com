@@ -1,0 +1,12 @@
+{
+    "yaml.validate": false,
+    "yaml.schemas": {},
+    "files.associations": {
+        "site.yml": "yaml"
+    },
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
+    "yaml.schemaStore.enable": false,
+    "redhat.telemetry.enabled": false
+}

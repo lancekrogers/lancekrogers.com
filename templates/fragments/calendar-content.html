@@ -1,0 +1,303 @@
+{{define "calendar-content"}}
+<section class="calendar-section">
+  <div class="container">
+    <h1 class="page-title">Book a Consultation</h1>
+    <p class="page-subtitle">
+      Select a time that works for you. All times are in Mountain Time (MT).
+    </p>
+    <div class="booking-container">
+      <div class="booking-sidebar">
+        <h3>Consultation Types</h3>
+        <div class="consultation-types">
+          <div class="consultation-type">
+            <h4>Discovery Call</h4>
+            <p class="duration">30 minutes</p>
+            <p>Initial discussion about your project needs and how I can help.</p>
+          </div>
+          <div class="consultation-type">
+            <h4>Technical Deep Dive</h4>
+            <p class="duration">60 minutes</p>
+            <p>Detailed technical discussion about architecture, implementation strategies.</p>
+          </div>
+          <div class="consultation-type">
+            <h4>Strategy Session</h4>
+            <p class="duration">90 minutes</p>
+            <p>Comprehensive planning session for complex projects.</p>
+          </div>
+        </div>
+      </div>
+      <div class="booking-main">
+        <div id="calendar-container">
+          <div class="calendar-header">
+            <h3>Available Times</h3>
+            <div class="calendar-nav">
+              <button id="prev-week">←</button>
+              <span id="current-week"></span>
+              <button id="next-week">→</button>
+            </div>
+          </div>
+          <div id="time-slots" class="time-slots-grid">
+            <div class="loading">Loading available times...</div>
+          </div>
+        </div>
+        <div id="booking-form" class="booking-form hidden">
+          <h3>Complete Your Booking</h3>
+          <form id="booking-details">
+            <input type="hidden" id="selected-slot" name="slotId" />
+            <div class="form-group">
+              <label>Selected Time</label>
+              <div id="selected-time" class="selected-time"></div>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Name *</label>
+                <input type="text" name="name" required />
+              </div>
+              <div class="form-group">
+                <label>Email *</label>
+                <input type="email" name="email" required />
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Company</label>
+              <input type="text" name="company" />
+            </div>
+            <div class="form-group">
+              <label>Service Type *</label>
+              <select name="serviceType" required>
+                <option value="">Select a service</option>
+                <option value="crypto-infrastructure">{{.AppConfig.Services.Crypto.Title}}</option>
+                <option value="ai-llm">{{.AppConfig.Services.AI.Title}}</option>
+                <option value="both">Both Services</option>
+                <option value="other">Other/General Inquiry</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Project Details</label>
+              <textarea name="message" rows="4" placeholder="Brief description of your project or questions..."></textarea>
+            </div>
+            <div class="form-actions">
+              <button type="button" id="cancel-booking" class="btn-secondary">Back</button>
+              <button type="submit" class="btn-primary">Confirm Booking</button>
+            </div>
+            <div id="booking-response"></div>
+          </form>
+        </div>
+        <div id="confirmation" class="confirmation hidden">
+          <div class="confirmation-icon">✓</div>
+          <h3>Booking Confirmed!</h3>
+          <p>You'll receive a confirmation email with meeting details shortly.</p>
+          <p class="confirmation-details" id="confirmation-details"></p>
+          <a href="/" class="btn-primary">Return Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script nonce="{{.Config.CSPNonce}}">
+  // Calendar functionality
+  let currentWeekOffset = 0;
+  let availableSlots = [];
+  let selectedSlot = null;
+
+  async function loadSlots() {
+    try {
+      const response = await fetch("/api/slots");
+      availableSlots = await response.json();
+      displaySlots();
+    } catch (error) {
+      document.getElementById("time-slots").innerHTML =
+        '<p class="error">Error loading available times. Please try again.</p>';
+    }
+  }
+
+  function displaySlots() {
+    const container = document.getElementById("time-slots");
+    const startDate = new Date();
+    startDate.setDate(startDate.getDate() + currentWeekOffset * 7);
+
+    const endDate = new Date(startDate);
+    endDate.setDate(endDate.getDate() + 7);
+
+    // Filter slots for current week
+    const weekSlots = availableSlots.filter((slot) => {
+      const slotDate = new Date(slot.date);
+      return slotDate >= startDate && slotDate < endDate;
+    });
+
+    if (weekSlots.length === 0) {
+      container.innerHTML =
+        '<p class="no-slots">No available times this week. Try another week.</p>';
+      return;
+    }
+
+    // Group by date
+    const slotsByDate = {};
+    weekSlots.forEach((slot) => {
+      if (!slotsByDate[slot.date]) {
+        slotsByDate[slot.date] = [];
+      }
+      slotsByDate[slot.date].push(slot);
+    });
+
+    // Display
+    container.innerHTML = "";
+    Object.entries(slotsByDate).forEach(([date, slots]) => {
+      const dateDiv = document.createElement("div");
+      dateDiv.className = "date-group";
+
+      const dateObj = new Date(date + "T00:00:00");
+      const dayName = dateObj.toLocaleDateString("en-US", {
+        weekday: "short",
+      });
+      const monthDay = dateObj.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      });
+
+      dateDiv.innerHTML = `
+        <div class="date-header">
+          <div class="day-name">${dayName}</div>
+          <div class="month-day">${monthDay}</div>
+        </div>
+        <div class="time-slots">
+          ${slots
+            .map(
+              (slot) => `
+              <button class="time-slot" data-slot-id="${slot.id}" data-date="${slot.date}" data-time="${slot.time}">
+                ${slot.time}
+              </button>
+            `,
+            )
+            .join("")}
+        </div>
+      `;
+
+      container.appendChild(dateDiv);
+    });
+
+    // Add click handlers
+    document.querySelectorAll(".time-slot").forEach((button) => {
+      button.addEventListener("click", selectSlot);
+    });
+
+    // Update week display
+    updateWeekDisplay(startDate, endDate);
+  }
+
+  function updateWeekDisplay(start, end) {
+    const display = document.getElementById("current-week");
+    const startStr = start.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+    const endStr = end.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+    display.textContent = `${startStr} - ${endStr}`;
+  }
+
+  function selectSlot(e) {
+    const button = e.target;
+    selectedSlot = {
+      id: button.dataset.slotId,
+      date: button.dataset.date,
+      time: button.dataset.time,
+    };
+
+    // Update UI
+    document
+      .querySelectorAll(".time-slot")
+      .forEach((btn) => btn.classList.remove("selected"));
+    button.classList.add("selected");
+
+    // Show booking form
+    showBookingForm();
+  }
+
+  function showBookingForm() {
+    document.getElementById("calendar-container").classList.add("hidden");
+    document.getElementById("booking-form").classList.remove("hidden");
+
+    // Display selected time
+    const dateObj = new Date(selectedSlot.date + "T00:00:00");
+    const dateStr = dateObj.toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    });
+    document.getElementById("selected-time").textContent =
+      `${dateStr} at ${selectedSlot.time} MT`;
+    document.getElementById("selected-slot").value = selectedSlot.id;
+  }
+
+  function showCalendar() {
+    document.getElementById("booking-form").classList.add("hidden");
+    document
+      .getElementById("calendar-container")
+      .classList.remove("hidden");
+  }
+
+  // Event handlers
+  document.getElementById("prev-week").addEventListener("click", () => {
+    currentWeekOffset--;
+    displaySlots();
+  });
+
+  document.getElementById("next-week").addEventListener("click", () => {
+    currentWeekOffset++;
+    displaySlots();
+  });
+
+  document
+    .getElementById("cancel-booking")
+    .addEventListener("click", showCalendar);
+
+  document
+    .getElementById("booking-details")
+    .addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const data = Object.fromEntries(formData);
+
+      try {
+        const response = await fetch("/api/book", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok) {
+          // Show confirmation
+          document.getElementById("booking-form").classList.add("hidden");
+          document
+            .getElementById("confirmation")
+            .classList.remove("hidden");
+
+          const dateObj = new Date(selectedSlot.date + "T00:00:00");
+          const dateStr = dateObj.toLocaleDateString("en-US", {
+            weekday: "long",
+            month: "long",
+            day: "numeric",
+          });
+          document.getElementById("confirmation-details").textContent =
+            `${dateStr} at ${selectedSlot.time} MT`;
+        } else {
+          document.getElementById("booking-response").innerHTML =
+            `<div class="alert error">${result.message || "Booking failed. Please try again."}</div>`;
+        }
+      } catch (error) {
+        document.getElementById("booking-response").innerHTML =
+          '<div class="alert error">An error occurred. Please try again.</div>';
+      }
+    });
+
+  // Load slots on page load
+  loadSlots();
+</script>
+{{end}}

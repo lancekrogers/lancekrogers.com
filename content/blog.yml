@@ -1,0 +1,59 @@
+---
+# Blog Configuration
+blog:
+    title: "Technical Insights"
+    subtitle: "Deep dives into blockchain, AI, and production engineering."
+
+    # Tag filter configuration - customizable buttons for blog filtering
+    tag_filters:
+        - display: "All"
+          tag: "all"
+          active: true
+
+        - display: "Blockchain"
+          tag: "blockchain"
+          aliases:
+              [
+                  "Smart Contract Security",
+                  "Solidity",
+                  "Crypto",
+                  "Ethereum",
+                  "ETH",
+                  "BTC",
+                  "Solana",
+              ]
+
+        - display: "AI/ML"
+          tag: "ai"
+          aliases:
+              [
+                  "AI",
+                  "Trading Bot",
+                  "AI/ML",
+                  "claude",
+                  "openai",
+                  "ollama",
+                  "RAG",
+                  "MCP",
+              ]
+
+        - display: "Go"
+          tag: "golang"
+          aliases: ["golang", "GO", "go"]
+
+        - display: "Python"
+          tag: "python"
+          aliases: ["Python", "python"]
+
+        # - display: "Security"
+        #   tag: "security"
+        #   aliases: ["Smart Contract Security", "Audit", "security"]
+        #
+        # - display: "Tutorial"
+        #   tag: "tutorial"
+        #   aliases: ["Tutorial", "tutorial"]
+
+    # Search configuration
+    search:
+        placeholder: "Search posts..."
+        case_sensitive: false

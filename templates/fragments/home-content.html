@@ -1,0 +1,500 @@
+{{define "home-content"}}
+<header class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-logo">
+        <img src="{{.AppConfig.Branding.LogoHero}}" alt="{{.AppConfig.Site.Name}}" class="hero-logo-img">
+      </div>
+      <h1 class="glitch" data-text="{{.AppConfig.Site.Name | upper}}" data-hero-style="{{.AppConfig.Site.HeroStyle}}">
+        {{.AppConfig.Site.Name | upper}}
+      </h1>
+      <p class="hero-subtitle">
+        {{.AppConfig.Site.Tagline}}<br />
+        {{.AppConfig.Site.Subtitle}}
+      </p>
+      <div class="hero-cta">
+        {{if .Config.CalendarEnabled}}
+        <a href="/calendar" hx-get="/content/calendar" hx-target="#main-content" hx-push-url="/calendar" class="btn-primary">Schedule Consultation</a>
+        {{else}}
+        <a href="#contact" class="btn-primary">Start a Conversation</a>
+        {{end}}
+        <a href="#services" class="btn-secondary">Explore Services</a>
+      </div>
+      <div class="hero-stats">
+        {{range .AppConfig.Stats}}
+        <div class="stat">
+          <span class="stat-value">{{.Value}}</span>
+          <span class="stat-label">{{.Label}}</span>
+        </div>
+        {{end}}
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="services" class="services">
+  <div class="container">
+    <h2 class="section-title">Services</h2>
+    <div class="service-grid">
+      <div class="service-card crypto">
+        <div class="service-icon">{{.AppConfig.Services.Crypto.Icon}}</div>
+        <h3>{{.AppConfig.Services.Crypto.Title}}</h3>
+        <ul class="service-list">
+          {{range .AppConfig.Services.Crypto.Items}}
+          <li>{{.}}</li>
+          {{end}}
+        </ul>
+        {{if .AppConfig.Services.DisplayRates}}<p class="service-rate">{{.AppConfig.Services.Crypto.Rate}}</p>{{end}}
+        <div class="service-tags">
+          {{range .AppConfig.Services.Crypto.Tags}}
+          <span class="tag">{{.}}</span>
+          {{end}}
+        </div>
+      </div>
+      <div class="service-card ai">
+        <div class="service-icon">{{.AppConfig.Services.AI.Icon}}</div>
+        <h3>{{.AppConfig.Services.AI.Title}}</h3>
+        <ul class="service-list">
+          {{range .AppConfig.Services.AI.Items}}
+          <li>{{.}}</li>
+          {{end}}
+        </ul>
+        {{if .AppConfig.Services.DisplayRates}}<p class="service-rate">{{.AppConfig.Services.AI.Rate}}</p>{{end}}
+        <div class="service-tags">
+          {{range .AppConfig.Services.AI.Tags}}
+          <span class="tag">{{.}}</span>
+          {{end}}
+        </div>
+      </div>
+    </div>
+    <div class="packages">
+      <h3 class="packages-title">Service Packages</h3>
+      <div class="package-grid">
+        <div class="package package-interactive{{if .AppConfig.Packages.Evaluation.Featured}} featured{{end}}" data-package="evaluation">
+          <div class="package-content">
+            <h4>{{.AppConfig.Packages.Evaluation.Title}}</h4>
+            {{if .AppConfig.Packages.DisplayPrices}}<p class="package-price">{{.AppConfig.Packages.Evaluation.Price}}</p>{{end}}
+            <p class="package-duration">{{.AppConfig.Packages.Evaluation.Duration}}</p>
+            <p class="package-description">{{.AppConfig.Packages.Evaluation.Description}}</p>
+            <div class="package-expand-hint">Click for details</div>
+          </div>
+        </div>
+        
+        <div class="package package-interactive{{if .AppConfig.Packages.Assessment.Featured}} featured{{end}}" data-package="assessment">
+          <div class="package-content">
+            <h4>{{.AppConfig.Packages.Assessment.Title}}</h4>
+            {{if .AppConfig.Packages.DisplayPrices}}<p class="package-price">{{.AppConfig.Packages.Assessment.Price}}</p>{{end}}
+            <p class="package-duration">{{.AppConfig.Packages.Assessment.Duration}}</p>
+            <p class="package-description">{{.AppConfig.Packages.Assessment.Description}}</p>
+            <div class="package-expand-hint">Click for details</div>
+          </div>
+        </div>
+        
+        <div class="package package-interactive{{if .AppConfig.Packages.Pilot.Featured}} featured{{end}}" data-package="pilot">
+          <div class="package-content">
+            <h4>{{.AppConfig.Packages.Pilot.Title}}</h4>
+            {{if .AppConfig.Packages.DisplayPrices}}<p class="package-price">{{.AppConfig.Packages.Pilot.Price}}</p>{{end}}
+            <p class="package-duration">{{.AppConfig.Packages.Pilot.Duration}}</p>
+            <p class="package-description">{{.AppConfig.Packages.Pilot.Description}}</p>
+            <div class="package-expand-hint">Click for details</div>
+          </div>
+        </div>
+        
+        <div class="package package-interactive{{if .AppConfig.Packages.Accelerator.Featured}} featured{{end}}" data-package="accelerator">
+          <div class="package-content">
+            <h4>{{.AppConfig.Packages.Accelerator.Title}}</h4>
+            {{if .AppConfig.Packages.DisplayPrices}}<p class="package-price">{{.AppConfig.Packages.Accelerator.Price}}</p>{{end}}
+            <p class="package-duration">{{.AppConfig.Packages.Accelerator.Duration}}</p>
+            <p class="package-description">{{.AppConfig.Packages.Accelerator.Description}}</p>
+            <div class="package-expand-hint">Click for details</div>
+          </div>
+        </div>
+        
+        <div class="package package-interactive{{if .AppConfig.Packages.AIAcceleration.Featured}} featured{{end}}" data-package="ai-acceleration">
+          <div class="package-content">
+            <h4>{{.AppConfig.Packages.AIAcceleration.Title}}</h4>
+            {{if .AppConfig.Packages.DisplayPrices}}<p class="package-price">{{.AppConfig.Packages.AIAcceleration.Price}}</p>{{end}}
+            <p class="package-duration">{{.AppConfig.Packages.AIAcceleration.Duration}}</p>
+            <p class="package-description">{{.AppConfig.Packages.AIAcceleration.Description}}</p>
+            <div class="package-expand-hint">Click for details</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Package Popups (positioned outside grid to avoid positioning issues) -->
+    {{if .AppConfig.Packages.Evaluation.DetailedInfo}}
+    <div class="package-popup" data-package-popup="evaluation">
+      <div class="package-popup-content">
+        <button class="package-popup-close">&times;</button>
+        <h4>{{.AppConfig.Packages.Evaluation.Title}}</h4>
+        {{if .AppConfig.Packages.DisplayPrices}}<p class="package-price">{{.AppConfig.Packages.Evaluation.Price}}</p>{{end}}
+        <p class="package-duration">{{.AppConfig.Packages.Evaluation.Duration}}</p>
+        
+        <div class="package-details">
+          <div class="package-detail-section">
+            <h5>What You Get</h5>
+            <ul>
+              {{range .AppConfig.Packages.Evaluation.DetailedInfo.WhatYouGet}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="package-detail-section">
+            <h5>Process</h5>
+            <ul>
+              {{range .AppConfig.Packages.Evaluation.DetailedInfo.Process}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="package-detail-section">
+            <h5>Outcomes</h5>
+            <ul>
+              {{range .AppConfig.Packages.Evaluation.DetailedInfo.Outcomes}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+    
+    {{if .AppConfig.Packages.Assessment.DetailedInfo}}
+    <div class="package-popup" data-package-popup="assessment">
+      <div class="package-popup-content">
+        <button class="package-popup-close">&times;</button>
+        <h4>{{.AppConfig.Packages.Assessment.Title}}</h4>
+        {{if .AppConfig.Packages.DisplayPrices}}<p class="package-price">{{.AppConfig.Packages.Assessment.Price}}</p>{{end}}
+        <p class="package-duration">{{.AppConfig.Packages.Assessment.Duration}}</p>
+        
+        <div class="package-details">
+          <div class="package-detail-section">
+            <h5>What You Get</h5>
+            <ul>
+              {{range .AppConfig.Packages.Assessment.DetailedInfo.WhatYouGet}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="package-detail-section">
+            <h5>Process</h5>
+            <ul>
+              {{range .AppConfig.Packages.Assessment.DetailedInfo.Process}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="package-detail-section">
+            <h5>Outcomes</h5>
+            <ul>
+              {{range .AppConfig.Packages.Assessment.DetailedInfo.Outcomes}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+    
+    {{if .AppConfig.Packages.Pilot.DetailedInfo}}
+    <div class="package-popup" data-package-popup="pilot">
+      <div class="package-popup-content">
+        <button class="package-popup-close">&times;</button>
+        <h4>{{.AppConfig.Packages.Pilot.Title}}</h4>
+        {{if .AppConfig.Packages.DisplayPrices}}<p class="package-price">{{.AppConfig.Packages.Pilot.Price}}</p>{{end}}
+        <p class="package-duration">{{.AppConfig.Packages.Pilot.Duration}}</p>
+        
+        <div class="package-details">
+          <div class="package-detail-section">
+            <h5>What You Get</h5>
+            <ul>
+              {{range .AppConfig.Packages.Pilot.DetailedInfo.WhatYouGet}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="package-detail-section">
+            <h5>Process</h5>
+            <ul>
+              {{range .AppConfig.Packages.Pilot.DetailedInfo.Process}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="package-detail-section">
+            <h5>Outcomes</h5>
+            <ul>
+              {{range .AppConfig.Packages.Pilot.DetailedInfo.Outcomes}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+    
+    {{if .AppConfig.Packages.Accelerator.DetailedInfo}}
+    <div class="package-popup" data-package-popup="accelerator">
+      <div class="package-popup-content">
+        <button class="package-popup-close">&times;</button>
+        <h4>{{.AppConfig.Packages.Accelerator.Title}}</h4>
+        {{if .AppConfig.Packages.DisplayPrices}}<p class="package-price">{{.AppConfig.Packages.Accelerator.Price}}</p>{{end}}
+        <p class="package-duration">{{.AppConfig.Packages.Accelerator.Duration}}</p>
+        
+        <div class="package-details">
+          <div class="package-detail-section">
+            <h5>What You Get</h5>
+            <ul>
+              {{range .AppConfig.Packages.Accelerator.DetailedInfo.WhatYouGet}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="package-detail-section">
+            <h5>Process</h5>
+            <ul>
+              {{range .AppConfig.Packages.Accelerator.DetailedInfo.Process}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="package-detail-section">
+            <h5>Outcomes</h5>
+            <ul>
+              {{range .AppConfig.Packages.Accelerator.DetailedInfo.Outcomes}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+    
+    {{if .AppConfig.Packages.AIAcceleration.DetailedInfo}}
+    <div class="package-popup" data-package-popup="ai-acceleration">
+      <div class="package-popup-content">
+        <button class="package-popup-close">&times;</button>
+        <h4>{{.AppConfig.Packages.AIAcceleration.Title}}</h4>
+        {{if .AppConfig.Packages.DisplayPrices}}<p class="package-price">{{.AppConfig.Packages.AIAcceleration.Price}}</p>{{end}}
+        <p class="package-duration">{{.AppConfig.Packages.AIAcceleration.Duration}}</p>
+        
+        <div class="package-details">
+          <div class="package-detail-section">
+            <h5>What You Get</h5>
+            <ul>
+              {{range .AppConfig.Packages.AIAcceleration.DetailedInfo.WhatYouGet}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="package-detail-section">
+            <h5>Process</h5>
+            <ul>
+              {{range .AppConfig.Packages.AIAcceleration.DetailedInfo.Process}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="package-detail-section">
+            <h5>Outcomes</h5>
+            <ul>
+              {{range .AppConfig.Packages.AIAcceleration.DetailedInfo.Outcomes}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+    
+  </div>
+</section>
+
+<section class="expertise">
+  <div class="container">
+    <h2 class="section-title">Technical Expertise</h2>
+    <div class="expertise-grid">
+      <div class="expertise-item expertise-interactive" data-expertise="languages">
+        <h4>{{.AppConfig.Expertise.Languages.Title}}</h4>
+        <div class="tech-list">{{.AppConfig.Expertise.Languages.Items}}</div>
+        {{if .AppConfig.Expertise.Languages.DetailedInfo}}<div class="expertise-expand-hint">Click for details</div>{{end}}
+      </div>
+      <div class="expertise-item expertise-interactive" data-expertise="blockchain">
+        <h4>{{.AppConfig.Expertise.Blockchain.Title}}</h4>
+        <div class="tech-list">{{.AppConfig.Expertise.Blockchain.Items}}</div>
+        {{if .AppConfig.Expertise.Blockchain.DetailedInfo}}<div class="expertise-expand-hint">Click for details</div>{{end}}
+      </div>
+      <div class="expertise-item expertise-interactive" data-expertise="ai_ml">
+        <h4>{{.AppConfig.Expertise.AIML.Title}}</h4>
+        <div class="tech-list">{{.AppConfig.Expertise.AIML.Items}}</div>
+        {{if .AppConfig.Expertise.AIML.DetailedInfo}}<div class="expertise-expand-hint">Click for details</div>{{end}}
+      </div>
+    </div>
+    
+    <!-- Expertise Popups -->
+    {{if .AppConfig.Expertise.Languages.DetailedInfo}}
+    <div class="expertise-popup" data-expertise-popup="languages">
+      <div class="expertise-popup-content">
+        <button class="expertise-popup-close">&times;</button>
+        <h4>{{.AppConfig.Expertise.Languages.Title}}</h4>
+        <p class="expertise-overview">{{.AppConfig.Expertise.Languages.DetailedInfo.Overview}}</p>
+        
+        <div class="expertise-details">
+          <div class="expertise-detail-section">
+            <h5>Experience</h5>
+            <ul>
+              {{range .AppConfig.Expertise.Languages.DetailedInfo.Experience}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="expertise-detail-section">
+            <h5>Technologies & Frameworks</h5>
+            <ul>
+              {{range .AppConfig.Expertise.Languages.DetailedInfo.Technologies}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="expertise-detail-section">
+            <h5>Key Achievements</h5>
+            <ul>
+              {{range .AppConfig.Expertise.Languages.DetailedInfo.Achievements}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+    
+    {{if .AppConfig.Expertise.Blockchain.DetailedInfo}}
+    <div class="expertise-popup" data-expertise-popup="blockchain">
+      <div class="expertise-popup-content">
+        <button class="expertise-popup-close">&times;</button>
+        <h4>{{.AppConfig.Expertise.Blockchain.Title}}</h4>
+        <p class="expertise-overview">{{.AppConfig.Expertise.Blockchain.DetailedInfo.Overview}}</p>
+        
+        <div class="expertise-details">
+          <div class="expertise-detail-section">
+            <h5>Experience</h5>
+            <ul>
+              {{range .AppConfig.Expertise.Blockchain.DetailedInfo.Experience}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="expertise-detail-section">
+            <h5>Technologies & Frameworks</h5>
+            <ul>
+              {{range .AppConfig.Expertise.Blockchain.DetailedInfo.Technologies}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="expertise-detail-section">
+            <h5>Key Achievements</h5>
+            <ul>
+              {{range .AppConfig.Expertise.Blockchain.DetailedInfo.Achievements}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+    
+    {{if .AppConfig.Expertise.AIML.DetailedInfo}}
+    <div class="expertise-popup" data-expertise-popup="ai_ml">
+      <div class="expertise-popup-content">
+        <button class="expertise-popup-close">&times;</button>
+        <h4>{{.AppConfig.Expertise.AIML.Title}}</h4>
+        <p class="expertise-overview">{{.AppConfig.Expertise.AIML.DetailedInfo.Overview}}</p>
+        
+        <div class="expertise-details">
+          <div class="expertise-detail-section">
+            <h5>Experience</h5>
+            <ul>
+              {{range .AppConfig.Expertise.AIML.DetailedInfo.Experience}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="expertise-detail-section">
+            <h5>Technologies & Frameworks</h5>
+            <ul>
+              {{range .AppConfig.Expertise.AIML.DetailedInfo.Technologies}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+          
+          <div class="expertise-detail-section">
+            <h5>Key Achievements</h5>
+            <ul>
+              {{range .AppConfig.Expertise.AIML.DetailedInfo.Achievements}}
+              <li>{{.}}</li>
+              {{end}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{end}}
+  </div>
+</section>
+
+<section class="bio-brief">
+  <div class="container">
+    {{if .BioBrief}}
+    <div class="bio-content">
+      <div class="bio-text">
+        {{.BioBrief.Content}}
+        <a href="/about" hx-get="/content/about" hx-target="#main-content" hx-push-url="/about" class="bio-link">Learn More →</a>
+      </div>
+      <div class="bio-image">
+        <h2 class="bio-name">Lance Rogers</h2>
+        <img src="{{.AppConfig.About.ProfileImage}}" alt="{{.AppConfig.About.Title}}" class="profile-img">
+      </div>
+    </div>
+    {{end}}
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="container">
+    <h2 class="section-title">Start a Conversation</h2>
+    <form hx-post="/contact" hx-target="#contact-response" class="contact-form">
+      <div class="form-grid">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+      </div>
+      <textarea name="message" placeholder="Tell me about your project..." rows="5" required></textarea>
+      <button type="submit" class="btn-primary">Send Message</button>
+      <div id="contact-response"></div>
+    </form>
+  </div>
+</section>{{end}}

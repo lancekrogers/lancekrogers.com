@@ -1,0 +1,25 @@
+[Unit]
+Description=Blockhead Consulting Website
+After=network.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/blockhead
+ExecStart=/opt/blockhead/bin/blockhead-server
+Restart=always
+RestartSec=5
+EnvironmentFile=/opt/blockhead/.env
+
+# Security settings
+NoNewPrivileges=true
+PrivateTmp=true
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,48 @@
+{{define "about-content"}}
+<section class="about-hero">
+  <div class="container">
+    <div class="about-header">
+      <div class="about-text">
+        {{if .Bio}}
+        <h1>{{.Bio.Title}}</h1>
+        {{if .Bio.Subtitle}}<p class="about-subtitle">{{.Bio.Subtitle}}</p>{{end}}
+        {{else}}
+        <h1>About Lance Rogers</h1>
+        <p class="about-subtitle">Strategic Systems Architect & Technical Consultant</p>
+        {{end}}
+      </div>
+      <div class="about-image">
+        <img src="/static/images/lance_profile.jpg" alt="Lance Rogers" class="profile-img-large">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="about-content">
+  <div class="container">
+    <div class="about-body">
+      {{if .Bio}}
+      {{.Bio.Content}}
+      {{else}}
+      <p>Content loading...</p>
+      {{end}}
+    </div>
+  </div>
+</section>
+
+<section class="about-cta">
+  <div class="container">
+    <div class="cta-content">
+      <h2>Ready to Transform Your Systems?</h2>
+      <p>Let's discuss how strategic technology architecture can drive your business outcomes.</p>
+      <div class="cta-buttons">
+        {{if .Config.CalendarEnabled}}
+        <a href="/calendar" hx-get="/content/calendar" hx-target="#main-content" hx-push-url="/calendar" class="btn-primary">Schedule Consultation</a>
+        {{else}}
+        <a href="/#contact" hx-get="/content/home" hx-target="#main-content" hx-push-url="/" class="btn-primary">Start a Conversation</a>
+        {{end}}
+        <a href="/blog" hx-get="/content/blog" hx-target="#main-content" hx-push-url="/blog" class="btn-secondary">Read Blog</a>
+      </div>
+    </div>
+  </div>
+</section>{{end}}

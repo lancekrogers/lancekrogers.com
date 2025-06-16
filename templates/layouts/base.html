@@ -1,0 +1,73 @@
+{{define "base"}}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{.Title}}</title>
+    <link rel="icon" type="image/svg+xml" href="/static/logos/svg/blockhead-single-medium-black.svg">
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  </head>
+  <body>
+    {{template "nav" .}}
+
+    <main id="main-content">
+      {{if eq .Page "blog"}}
+        {{template "blog-page-content" .}}
+      {{else if eq .Page "work"}}
+        {{template "work-page-content" .}}
+      {{else if eq .Page "about"}}
+        {{template "about-page-content" .}}
+      {{else if eq .Page "calendar"}}
+        {{template "calendar-page-content" .}}
+      {{else if eq .Page "home"}}
+        {{template "home-page-content" .}}
+      {{else}}
+        {{block "content" .}}{{end}}
+      {{end}}
+    </main>
+
+    {{template "footer" .}}
+    {{if .AppConfig}}
+    <script nonce="{{.Config.CSPNonce}}">
+      // Inject boot sequences from configuration
+      window.bootSequences = {
+        professional: [
+          {{range $i, $msg := .AppConfig.BootSequences.Professional.Desktop}}
+          {{if $i}},{{end}}"{{$msg}}"
+          {{end}}
+        ],
+        professionalMobile: [
+          {{range $i, $msg := .AppConfig.BootSequences.Professional.Mobile}}
+          {{if $i}},{{end}}"{{$msg}}"
+          {{end}}
+        ],
+        cyberpunk: [
+          {{range $i, $msg := .AppConfig.BootSequences.Cyberpunk.Desktop}}
+          {{if $i}},{{end}}"{{$msg}}"
+          {{end}}
+        ],
+        cyberpunkMobile: [
+          {{range $i, $msg := .AppConfig.BootSequences.Cyberpunk.Mobile}}
+          {{if $i}},{{end}}"{{$msg}}"
+          {{end}}
+        ]
+      };
+      // Set console logging based on configuration
+      debugLogging = {{.Config.ConsoleLogging}};
+      // Disable HTMX console logging in production
+      if (!debugLogging && window.htmx) {
+        htmx.config.logLevel = 'none';
+      }
+    </script>
+    {{end}}
+    <script src="/static/boot-sequence.js"></script>
+    <script src="/static/main.js"></script>
+    <script src="/static/blog.js"></script>
+    {{if eq .Config.Environment "development"}}
+    <script src="/static/mode-tests.js"></script>
+    {{end}}
+  </body>
+</html>
+{{end}}

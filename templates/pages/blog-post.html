@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{.Title}}</title>
+    <link rel="icon" type="image/svg+xml" href="/static/logos/svg/blockhead-single-medium-black.svg">
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+  </head>
+  <body>
+    {{template "nav" .}}
+
+    <main id="main-content">
+      <article class="blog-post">
+        <div class="container">
+          <div class="blog-content">
+            <header class="blog-header">
+              <div class="blog-nav">
+                <a href="/blog" hx-get="/content/blog" hx-target="#main-content" hx-push-url="/blog" class="back-link">← Back to Blog</a>
+              </div>
+              <div class="blog-date">
+                {{.Post.Date.Format "January 2, 2006"}} • {{.Post.ReadingTime}} min read
+              </div>
+              <h1>{{.Post.Title}}</h1>
+              {{if .Post.Tags}}
+              <div class="blog-tags">
+                {{range .Post.Tags}}
+                <span class="blog-tag">{{.}}</span>
+                {{end}}
+              </div>
+              {{end}}
+            </header>
+
+            <div class="blog-body">{{.Post.Content}}</div>
+
+            <div class="blog-footer">
+              <a href="/blog" hx-get="/content/blog" hx-target="#main-content" hx-push-url="/blog" class="btn-secondary">← Back to Blog</a>
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    {{template "footer" .}}
+    <script src="/static/main.js"></script>
+    <script src="/static/blog.js"></script>
+    <script nonce="{{.Config.CSPNonce}}">
+      // Initialize Mermaid only for client-side rendered diagrams
+      document.addEventListener('DOMContentLoaded', function() {
+        // Check if there are any client-side diagrams
+        const csrDiagrams = document.querySelectorAll('.mermaid-csr .mermaid');
+        
+        if (csrDiagrams.length > 0) {
+          // Initialize Mermaid with light theme for better visibility on white background
+          mermaid.initialize({
+            startOnLoad: true,
+            theme: 'default',
+            themeVariables: {
+              // Dark theme exactly matching code block styling
+              primaryColor: '#a6e22e',           // Bright green like code syntax
+              primaryTextColor: '#f8f8f2',       // Light gray like code text
+              primaryBorderColor: '#66d9ef',     // Blue like code keywords
+              lineColor: '#f92672',              // Pink/red like code operators
+              secondaryColor: '#66d9ef',         // Blue for secondary elements
+              tertiaryColor: '#272822',          // Dark background like code blocks
+              background: '#272822',             // Dark background like code blocks
+              mainBkg: '#3c3d38',                // Slightly lighter for nodes (like line highlight)
+              secondBkg: '#3c3d38',              // Same as mainBkg
+              tertiaryBkg: '#272822',            // Dark background
+              
+              // Light text colors matching code syntax
+              textColor: '#f8f8f2',              // Light gray like code text
+              nodeTextColor: '#f8f8f2',          // Light gray text in nodes
+              labelTextColor: '#f8f8f2',         // Light gray labels
+              
+              // Accent colors from syntax highlighting
+              clusterBkg: 'rgba(166, 226, 46, 0.1)',  // Light green tint
+              altBackground: '#3c3d38',
+              edgeLabelBackground: '#272822',
+              
+              // Special elements with syntax highlighting colors
+              activationBorderColor: '#f92672',
+              activationBkgColor: 'rgba(249, 38, 114, 0.1)',
+              sequenceNumberColor: '#f8f8f2',
+              
+              // Actor styling - matching code theme
+              actorBkg: '#3c3d38',
+              actorBorder: '#66d9ef',
+              actorTextColor: '#f8f8f2',
+              
+              // Note styling - matching code theme
+              noteBkg: '#3c3d38',
+              noteBorderColor: '#a6e22e',
+              noteTextColor: '#f8f8f2',
+              
+              // Additional settings using syntax highlighting palette
+              relationColor: '#f92672',
+              arrowColor: '#66d9ef'
+            },
+            // Diagram-specific settings for better visibility
+            flowchart: {
+              curve: 'basis',
+              htmlLabels: true,
+              padding: 20,
+              diagramPadding: 20
+            },
+            sequence: {
+              actorMargin: 60,        // More space around actors
+              width: 180,             // Wider actor boxes
+              height: 75,             // Taller actor boxes  
+              boxMargin: 12,          // More margin around boxes
+              boxTextMargin: 8,       // More text margin
+              noteMargin: 15,         // More note margin
+              messageMargin: 40,      // More space between messages
+              actorFontSize: 14,      // Larger actor font
+              messageFontSize: 14,    // Larger message font
+              noteFontSize: 12        // Larger note font
+            },
+            gantt: {
+              leftPadding: 85,
+              gridLineStartPadding: 40,
+              fontSize: 12,           // Slightly larger font
+              fontFamily: 'JetBrains Mono, Fira Code, monospace'
+            },
+            // General settings
+            deterministicIds: true
+          });
+          
+          // Manually render each client-side diagram
+          csrDiagrams.forEach((element, index) => {
+            mermaid.render(`mermaid-csr-${index}`, element.textContent, (svgCode) => {
+              element.innerHTML = svgCode;
+            });
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

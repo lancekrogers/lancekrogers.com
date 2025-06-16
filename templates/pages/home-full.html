@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{.Title}}</title>
+    <link rel="icon" type="image/svg+xml" href="/static/logos/svg/blockhead-single-medium-black.svg">
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+  </head>
+  <body>
+    {{template "nav" .}}
+    <main id="main-content">
+      {{template "home-content" .}}
+    </main>
+    {{template "footer" .}}
+    <script src="/static/boot-sequence.js"></script>
+    <script src="/static/main.js"></script>
+    <script src="/static/blockchain-animations.js"></script>
+  </body>
+</html>

@@ -1,0 +1,366 @@
+# Work Experience Configuration
+# This file contains all work experience data for easy editing
+
+intro: "Senior Backend Engineer with 9+ years building and scaling Go- and Python-based microservices for fintech, blockchain, and AI products. I've consulted with startups and enterprises to streamline workflows, improve system stability, and deliver high-impact features on tight timelines."
+
+# FinTech & Enterprise Experience
+fintech:
+    title: "FinTech & Enterprise"
+    icon: "🏦"
+    description: "Building and scaling financial systems for major institutions"
+
+    companies:
+        - name: "Bank of America"
+          role: "Senior Software Engineer (Contract)"
+          duration: "Feb 2024 - Dec 2024"
+          summary: "Transformed enterprise CI/CD infrastructure for Global Security division"
+          featured: true
+          detailed_info:
+              description: "Led modernization efforts for one of America's largest financial institutions, focusing on enterprise CI/CD infrastructure and legacy security scanning systems."
+              key_projects:
+                  - name: "CI/CD Pipeline Modernization"
+                    description: "Designed and implemented CI/CD pipeline for 15-year-old codebase"
+                    impact: "Reduced deploy times from months to hours"
+                    technologies:
+                        ["Python", "CI/CD", "Git", "Enterprise Architecture"]
+                  - name: "Security Scanning Refactor"
+                    description: "Modernized legacy Python security scanning software"
+                    impact: "Ensured compliance with modern secure coding standards"
+                    technologies: ["Python", "Security", "Code Analysis"]
+                  - name: "Developer Productivity Initiative"
+                    description: "Automation and process improvements"
+                    impact: "Reclaimed 6+ months/year of lost developer time"
+                    technologies: ["Automation", "Process Optimization"]
+              achievements:
+                  - "Resolved long-standing security blockers by sanitizing over a decade of sensitive Git history"
+                  - "Led modernization efforts including documentation, release process automation, and cross-team tooling"
+                  - "Improved sprint velocity through strategic automation initiatives"
+
+        - name: "PNC Bank"
+          role: "Software Engineer Consultant"
+          duration: "2018"
+          summary: "Audited Python pipelines for data accuracy and security"
+          detailed_info:
+              description: "Conducted comprehensive audit of data processing pipelines for major regional bank."
+              key_projects:
+                  - name: "Pipeline Security Audit"
+                    description: "Comprehensive security and accuracy audit of Python data pipelines"
+                    impact: "Found coding errors missed in an OCC remediation effort affecting thousands of customers"
+                    technologies: ["Python", "Data Pipelines", "Security Audit"]
+              achievements:
+                  - "Identified and resolved critical security vulnerabilities in data processing"
+                  - "Improved data accuracy through pipeline optimization"
+                  - "Delivered comprehensive security recommendations"
+
+        - name: "Global Payments"
+          role: "Software Engineer Consultant"
+          duration: "2019"
+          summary: "Optimized ETL processes, cutting AWS spend significantly"
+          detailed_info:
+              description: "Performance optimization of data processing systems for payment processing company."
+              key_projects:
+                  - name: "ETL Optimization"
+                    description: "Performance tuning and cost optimization of ETL processes"
+                    impact: "Cut AWS spend by $40K/month"
+                    technologies:
+                        ["Python", "ETL", "AWS", "Performance Optimization"]
+              achievements:
+                  - "Achieved 80% reduction in cloud infrastructure costs"
+                  - "Improved data processing throughput by 3x"
+                  - "Implemented cost monitoring and alerting systems"
+
+        - name: "Shutterfly"
+          role: "Software Engineer (Contract)"
+          duration: "Feb 2020 - Feb 2021"
+          summary: "Enhanced order workflow systems for major e-commerce platform"
+          detailed_info:
+              description: "Worked on order processing systems for one of the largest photo commerce platforms."
+              key_projects:
+                  - name: "Forge Workflow Enhancement"
+                    description: "Enhanced Python-based order workflow engine routing online orders to factory processes"
+                    impact: "Improved order processing reliability and throughput"
+                    technologies:
+                        [
+                            "Python",
+                            "Order Workflow Systems",
+                            "Factory Integration",
+                        ]
+                  - name: "AWS Migration Support"
+                    description: "Assisted in migration planning of Forge from on-prem servers to AWS"
+                    impact: "Modernized infrastructure for better scalability"
+                    technologies: ["AWS", "Cloud Migration", "Infrastructure"]
+              achievements:
+                  - "Improved system reliability and reduced downtime"
+                  - "Enhanced order routing efficiency"
+
+# Blockchain & Web3 Experience
+blockchain:
+    title: "Blockchain & Web3"
+    icon: "🔐"
+    description: "Building decentralized applications and blockchain infrastructure"
+
+    companies:
+        - name: "Mythical Games"
+          role: "Software Engineer, Blockchain"
+          duration: "Apr 2022 - Apr 2023"
+          summary: "Built NFT marketplace infrastructure for next-gen gaming platform"
+          featured: true
+          detailed_info:
+              description: "Blockchain infrastructure development for gaming-focused NFT marketplace handling millions in transactions per day."
+              key_projects:
+                  - name: "NFT Marketplace Backend"
+                    description: "Golang microservices handling on-chain transactions"
+                    impact: "15M+ transactions/month with 100% finality"
+                    technologies:
+                        ["Golang", "Microservices", "Blockchain", "PostgreSQL"]
+                  - name: "Smart Contract Development"
+                    description: "Solidity contracts for gaming and marketplace features"
+                    impact: "Audited contracts deployed to production"
+                    technologies:
+                        [
+                            "Solidity",
+                            "Smart Contracts",
+                            "Security",
+                            "Gas Optimization",
+                        ]
+                  - name: "Cross-Chain Bridge"
+                    description: "NFT bridge architecture to mainnet Ethereum"
+                    impact: "Enabled asset portability between networks"
+                    technologies:
+                        ["Cross-Chain", "Bridge Architecture", "Ethereum"]
+              achievements:
+                  - "Discovered critical Polygon Edge bug before mainnet launch, quickly migrated nodes to Hyperledger Besu"
+                  - "Built highly scalable transaction processing system"
+                  - "Contributed to protocol-level infrastructure decisions"
+
+        - name: "Dragonchain"
+          role: "Senior Software Engineer"
+          duration: "Jun 2019 - Jan 2020"
+          summary: "Built decentralized applications and blockchain infrastructure"
+          detailed_info:
+              description: "Developed dApps and blockchain infrastructure for enterprise blockchain platform."
+              key_projects:
+                  - name: "dApp Development Platform"
+                    description: "Python/Node.js microservices for rapid dApp prototypes and POCs"
+                    impact: "Accelerated client project delivery"
+                    technologies:
+                        ["Python", "Node.js", "Microservices", "dApps"]
+                  - name: "Cross-Chain Hackathon Platform"
+                    description: "Architected platform with weighted voting using time-held coins"
+                    impact: "Novel governance mechanism implementation"
+                    technologies:
+                        ["Blockchain", "Governance", "Smart Contracts"]
+                  - name: "Den Social Platform"
+                    description: "Smart contracts and Go backend for decentralized social media"
+                    impact: "Production social media dApp"
+                    technologies:
+                        [
+                            "Go",
+                            "Smart Contracts",
+                            "Social Media",
+                            "Decentralization",
+                        ]
+              achievements:
+                  - "Built multiple production dApps for enterprise clients"
+                  - "Contributed to core blockchain platform development"
+                  - "Designed innovative consensus and governance mechanisms"
+
+    projects:
+        - name: "ShinySwap"
+          role: "Architect & Lead Developer"
+          duration: "Apr 2023 - Paused"
+          summary: "P2P precious metals exchange with secure escrow"
+          detailed_info:
+              description: "Personal project building distributed exchange for physical precious metals trading with DeFi integration."
+              key_features:
+                  - name: "P2P Exchange Architecture"
+                    description: "Distributed system for peer-to-peer precious metals trading"
+                    impact: "Enabled physical asset liquidity access"
+                    technologies:
+                        ["Golang", "Gin", "Distributed Systems", "P2P"]
+                  - name: "Secure Escrow System"
+                    description: "On-site verification system for physical asset trades"
+                    impact: "Trustless trading of physical assets"
+                    technologies: ["Escrow", "Verification", "Security"]
+                  - name: "DeFi Integration"
+                    description: "Bridge to use physical metals in DeFi protocols"
+                    impact: "Novel asset class for DeFi"
+                    technologies:
+                        ["DeFi", "Asset Tokenization", "Smart Contracts"]
+              achievements:
+                  - "Designed innovative physical-digital asset bridge"
+                  - "Built secure verification and escrow systems"
+                  - "Created novel DeFi integration patterns"
+
+        - name: "Swapblocks"
+          role: "Founder/Developer"
+          duration: "February 2018 - July 2019"
+          summary: "RWA subnet blockchain network built on Ark"
+          detailed_info:
+              description: "Designed and developed a subnet blockchain network for automating complex asset transfers with signficant regulatory documentation requirements."
+              key_features:
+                  - name: "Custom Smart Contract Engines"
+                    description: "Consortium subnets chose the best contract engine for their particular use case."
+                    impact: "No reliance on niche developers for implementation."
+                    technologies:
+                        ["Python", "Django", "Ark", "Lisk", "Data Analytics"]
+              achievements:
+                  - "8000 Member Discord Community"
+                  - "$10M Marketcap"
+                  - "48 Community Run Nodes"
+                  - "5 Person Team Paid in SBX Tokens"
+
+        - name: "Charlotte Blockheads"
+          role: "Organizer"
+          duration: "Sept 2017 - Mar 2020"
+          summary: "Major crypto meetup in Charlotte, NC"
+          detailed_info:
+              description: "Founded and led major cryptocurrency meetup group in Charlotte, North Carolina."
+              key_activities:
+                  - name: "Educational Workshops"
+                    description: "Regular workshops teaching blockchain fundamentals"
+                    impact: "Educated 8000+ community members"
+                    technologies:
+                        ["Education", "Community Building", "Blockchain"]
+                  - name: "Networking Events"
+                    description: "Crypto networking opportunities for locals and visitors"
+                    impact: "Built thriving blockchain community"
+                    technologies: ["Community", "Networking", "Events"]
+              achievements:
+                  - "Built community of 8000+ blockchain enthusiasts and developers"
+                  - "Provided entry point for many into crypto/blockchain space"
+                  - "Established Charlotte as a blockchain hub in the Southeast"
+
+# AI & Machine Learning Experience
+ai:
+    title: "AI & Machine Learning"
+    icon: "🤖"
+    description: "Building AI systems and productivity tools"
+
+    projects:
+        - name: "Guild Agent Framework"
+          role: "Creator & Lead Developer"
+          duration: "Mar 2025 - Present"
+          summary: "Multi-agent orchestration framework for developers"
+          featured: true
+          detailed_info:
+              description: "Building comprehensive framework for managing multiple AI agents in development workflows."
+              key_features:
+                  - name: "Multi-Agent Orchestration"
+                    description: "Framework allowing developers to contextualize, monitor and interact with multiple agentic teams"
+                    impact: "Streamlined AI workflow management"
+                    technologies:
+                        [
+                            "Golang",
+                            "Agent Orchestration",
+                            "Concurrent Programming",
+                        ]
+                  - name: "LLM Integration"
+                    description: "Integrated with Ollama, OpenAI, Anthropic for flexible model support"
+                    impact: "Vendor-agnostic AI development"
+                    technologies: ["Ollama", "OpenAI", "Anthropic", "LLM APIs"]
+                  - name: "Advanced Capabilities"
+                    description: "RAG, MCP (Model Context Protocol), and Git storage capabilities"
+                    impact: "Production-ready AI development tools"
+                    technologies:
+                        ["RAG", "MCP", "Git Integration", "Context Management"]
+              achievements:
+                  - "Designed Go-based concurrent LLM workflow orchestration system"
+                  - "Created developer-friendly agent management interface"
+                  - "Built extensible framework for future AI capabilities"
+              link: "https://github.com/lancekrogers/guild"
+
+        - name: "Claude Code Go SDK"
+          role: "Author"
+          duration: "May 2025"
+          summary: "First Golang SDK for Anthropic's Claude Code CLI"
+          detailed_info:
+              description: "Published the first Golang SDK wrapping Anthropic's Claude Code CLI tool."
+              key_features:
+                  - name: "Real-time Streaming"
+                    description: "Real-time streaming support for Claude Code interactions"
+                    impact: "Enabled Go developers to integrate Claude Code"
+                    technologies: ["Golang", "Streaming", "CLI Integration"]
+                  - name: "Session Management"
+                    description: "Comprehensive session management and tool integration"
+                    impact: "Production-ready SDK for enterprise use"
+                    technologies:
+                        ["Session Management", "Tool Integration", "API Design"]
+                  - name: "Cost Optimization"
+                    description: "Enabled Go developers to save money on API calls via Claude Max subscription"
+                    impact: "Reduced AI development costs"
+                    technologies:
+                        ["Cost Optimization", "Subscription Management"]
+              achievements:
+                  - "First to market with Go SDK for Claude Code"
+                  - "Enabled cost-effective AI development for Go community"
+                  - "Built production-ready developer tooling"
+              link: "https://github.com/lancekrogers/claude-code-go"
+
+        - name: "YouTube Summarizer"
+          role: "Creator"
+          duration: "May 2025"
+          summary: "AI-powered YouTube transcript summarization tool"
+          detailed_info:
+              description: "CLI/TUI tool for generating concise summaries of YouTube videos using local LLMs."
+              key_features:
+                  - name: "Smart Transcript Processing"
+                    description: "Fetches YouTube transcripts and generates concise Markdown summaries"
+                    impact: "Rapid video content consumption"
+                    technologies:
+                        ["Python", "YouTube API", "Transcript Processing"]
+                  - name: "Local LLM Integration"
+                    description: "Uses Ollama for local LLM processing, ensuring privacy"
+                    impact: "Privacy-focused AI processing"
+                    technologies: ["Ollama", "Local LLM", "Privacy"]
+                  - name: "Advanced Features"
+                    description: "Smart chunking for long videos, caching, and batch processing"
+                    impact: "Scalable video processing pipeline"
+                    technologies:
+                        ["Caching", "Batch Processing", "Optimization"]
+              achievements:
+                  - "Built efficient video content processing pipeline"
+                  - "Implemented privacy-focused local AI processing"
+                  - "Created developer-friendly CLI/TUI interface"
+
+        # ML Projects from previous roles
+        - name: "Bank of America ML Infrastructure"
+          role: "Contributing Engineer"
+          duration: "2024"
+          summary: "ML pipeline infrastructure for security scanning systems"
+          detailed_info:
+              description: "While primarily focused on CI/CD, contributed to ML-enhanced security scanning systems."
+              key_contributions:
+                  - name: "ML Pipeline Integration"
+                    description: "Integrated ML models into security scanning workflows"
+                    impact: "Enhanced threat detection capabilities"
+                    technologies:
+                        ["Python", "ML Pipelines", "Security", "Automation"]
+              achievements:
+                  - "Improved security scanning accuracy through ML integration"
+                  - "Built scalable ML infrastructure components"
+
+        - name: "SSI Schaefer Warehouse Optimization"
+          role: "Software Engineer"
+          duration: "2016-2017"
+          summary: "ML-driven warehouse logistics optimization"
+          detailed_info:
+              description: "Applied machine learning to warehouse automation and logistics optimization."
+              key_contributions:
+                  - name: "Predictive Analytics"
+                    description: "ML models for warehouse efficiency optimization"
+                    impact: "Improved logistics and reduced operational costs"
+                    technologies:
+                        [
+                            "Python",
+                            "Machine Learning",
+                            "Predictive Analytics",
+                            "Logistics",
+                        ]
+                  - name: "Automation Integration"
+                    description: "Integrated ML predictions into warehouse automation systems"
+                    impact: "Smarter warehouse operations"
+                    technologies: ["Automation", "Integration", "Optimization"]
+              achievements:
+                  - "Built ML-driven warehouse optimization systems"
+                  - "Improved operational efficiency through predictive analytics"

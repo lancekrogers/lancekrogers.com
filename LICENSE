@@ -1,0 +1,40 @@
+Copyright (c) 2025 Lance Rogers / SWS Industries LLC dba Blockhead Consulting
+
+SOURCE-AVAILABLE ATTRIBUTION LICENSE
+
+This source code is made available for viewing and educational purposes only.
+
+PERMITTED USES:
+- View and study the source code
+- Learn from the implementation patterns and techniques
+- Use individual code snippets and algorithms in your own projects
+- Fork this repository for personal learning and experimentation
+- Create issues and submit pull requests for bug fixes
+
+PROHIBITED USES:
+- Use this code to create any website that impersonates Lance Rogers, SWS Industries LLC, or Blockhead Consulting
+- Use any Blockhead Consulting branding, logos, or visual identity
+- Copy or redistribute the website content, blog posts, or personal information
+- Deploy this codebase as-is or with minimal modifications for any purpose
+- Use this code as the foundation for a competing consulting business website
+- Remove, modify, or obscure any attribution or copyright notices
+
+CONTENT AND BRANDING:
+All blog content, articles, personal information, company descriptions, service offerings,
+logos, and branding elements remain the exclusive property of Lance Rogers / SWS Industries LLC
+and are NOT licensed for any use whatsoever.
+
+ATTRIBUTION REQUIREMENT:
+If you use significant portions of the code architecture or patterns from this repository,
+you must include attribution in your project's documentation or source code comments:
+"Inspired by techniques from github.com/lancekrogers/blockhead-consulting"
+
+NO WARRANTY:
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+For questions about acceptable use, please contact: lance@blockhead.consulting

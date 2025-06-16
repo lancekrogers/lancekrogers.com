@@ -1,0 +1,45 @@
+{{define "nav"}}
+<nav class="navbar">
+  <div class="container">
+    <div class="nav-brand">
+      <a href="/" hx-get="/content/home" hx-target="#main-content" hx-push-url="/">
+        <img src="{{.AppConfig.Branding.LogoMain}}" alt="{{.AppConfig.Site.Name}}" class="brand-logo">
+      </a>
+    </div>
+    <!-- Desktop Navigation -->
+    <div class="nav-links desktop-nav">
+      <a href="/" hx-get="/content/home" hx-target="#main-content" hx-push-url="/" {{if eq .Page "home"}}class="active"{{end}}>Home</a>
+      <a href="/about" hx-get="/content/about" hx-target="#main-content" hx-push-url="/about" {{if eq .Page "about"}}class="active"{{end}}>About</a>
+      <a href="/work" hx-get="/content/work" hx-target="#main-content" hx-push-url="/work" {{if eq .Page "work"}}class="active"{{end}}>Work</a>
+      <a href="/#services" hx-get="/content/home" hx-target="#main-content" hx-push-url="/" data-scroll-to="services" {{if eq .Page "services"}}class="active"{{end}}>Services</a>
+      {{if .Config.BlogEnabled}}
+      <a href="/blog" hx-get="/content/blog" hx-target="#main-content" hx-push-url="/blog" {{if eq .Page "blog"}}class="active"{{end}}>Blog</a>
+      {{end}}
+      {{if .Config.CalendarEnabled}}
+      <a href="/calendar" hx-get="/content/calendar" hx-target="#main-content" hx-push-url="/calendar" class="cta-button {{if eq .Page "calendar"}}active{{end}}">Book Consultation</a>
+      {{end}}
+    </div>
+
+    <!-- Mobile Navigation -->
+    <div class="mobile-nav">
+      <button class="hamburger-menu" id="hamburger-toggle">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+      <div class="mobile-menu" id="mobile-menu">
+        <a href="/" hx-get="/content/home" hx-target="#main-content" hx-push-url="/" {{if eq .Page "home"}}class="active"{{end}}>Home</a>
+        <a href="/about" hx-get="/content/about" hx-target="#main-content" hx-push-url="/about" {{if eq .Page "about"}}class="active"{{end}}>About</a>
+        <a href="/work" hx-get="/content/work" hx-target="#main-content" hx-push-url="/work" {{if eq .Page "work"}}class="active"{{end}}>Work</a>
+        <a href="/#services" hx-get="/content/home" hx-target="#main-content" hx-push-url="/" data-scroll-to="services" {{if eq .Page "services"}}class="active"{{end}}>Services</a>
+        {{if .Config.BlogEnabled}}
+        <a href="/blog" hx-get="/content/blog" hx-target="#main-content" hx-push-url="/blog" {{if eq .Page "blog"}}class="active"{{end}}>Blog</a>
+        {{end}}
+        {{if .Config.CalendarEnabled}}
+        <a href="/calendar" hx-get="/content/calendar" hx-target="#main-content" hx-push-url="/calendar" class="mobile-cta {{if eq .Page "calendar"}}active{{end}}">Book Consultation</a>
+        {{end}}
+      </div>
+    </div>
+  </div>
+</nav>
+{{end}}

@@ -1,0 +1,55 @@
+{{define "blog-content"}}
+<section class="blog-section">
+  <div class="container">
+    <h1 class="page-title">{{.BlogConfig.Blog.Title}}</h1>
+    <p class="page-subtitle">
+      {{.BlogConfig.Blog.Subtitle}}
+    </p>
+
+    <!-- Search functionality for growing blog -->
+    <div class="blog-search">
+      <input type="text" id="blog-search" placeholder="{{.BlogConfig.Blog.Search.Placeholder}}" />
+      <div class="blog-filters">
+        {{range .BlogConfig.Blog.TagFilters}}
+        <button class="filter-btn{{if .Active}} active{{end}}" data-tag="{{.Tag}}">{{.Display}}</button>
+        {{end}}
+      </div>
+    </div>
+
+    <div class="blog-grid" id="blog-grid">
+      {{range .Posts}}
+      <a href="/blog/{{.Slug}}" class="blog-post-card" data-tags="{{range .Tags}}{{.}} {{end}}">
+        <div class="blog-date">{{.Date.Format "January 2, 2006"}}</div>
+        <h3 class="blog-title">{{.Title}}</h3>
+        <p class="blog-summary">{{.Summary}}</p>
+        <div class="blog-meta">
+          <span>{{.ReadingTime}} min read</span>
+          <span class="read-more">Read more →</span>
+        </div>
+        {{if .Tags}}
+        <div class="blog-tags">
+          {{range .Tags}}
+          <span class="blog-tag">{{.}}</span>
+          {{end}}
+        </div>
+        {{end}}
+      </a>
+      {{end}}
+    </div>
+  </div>
+</section>
+
+<script>
+  // Inject blog filter configuration from server
+  window.blogFilterConfig = {
+    {{range $i, $filter := .BlogConfig.Blog.TagFilters}}
+    {{if $i}},{{end}}'{{.Tag}}': [
+      {{range $j, $alias := .Aliases}}
+      {{if $j}},{{end}}'{{$alias | lower}}'
+      {{end}}
+    ]
+    {{end}}
+  };
+</script>
+
+{{end}}

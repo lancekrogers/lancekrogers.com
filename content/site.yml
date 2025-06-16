@@ -1,0 +1,457 @@
+# yaml-language-server: $schema=null
+# yamllint disable
+# Blockhead Consulting - Site Configuration
+# This YAML file defines all site content and behavior
+
+site:
+    name: "Blockhead Consulting"
+    description: "Blockchain & AI Infrastructure"
+    tagline: "Premium crypto & AI infrastructure"
+    subtitle: "Production-grade systems • Financial-grade security"
+    hero_style: "professional"
+
+boot_sequences:
+    professional:
+        desktop:
+            - "Initializing secure blockchain infrastructure."
+            - "Loading AI integration"
+            - "Connecting to production-grade payment rails."
+            - "Strategic consulting protocols online."
+            - "Ready for high-impact collaboration."
+        mobile:
+            - "Integrating AI"
+            - "Analyzing Chain Data"
+            - "Maximizing Engineering Spend"
+            - "Ready to solve your problem"
+    cyberpunk:
+        desktop:
+            - "System initializing..."
+            - "Loading neural networks..."
+            - "Establishing secure connection..."
+            - "Ready."
+        mobile:
+            - "Booting..."
+            - "Neural link active"
+            - "Chain sync complete"
+            - "Ready."
+
+about:
+    title: "About Lance Rogers"
+    subtitle: "Strategic Systems Architect & Technical Consultant"
+    profile_image: "/static/images/lance_profile.jpg"
+
+contact:
+    email: "lance@blockhead.consulting"
+    phone: "+1 (555) 123-4567"
+
+branding:
+    logo_main: "/static/logos/svg/blockhead-three-blocks-green.svg"
+    logo_hero: "/static/logos/svg/blockhead-single-large-green.svg"
+    primary_color: "#00ff88"
+    secondary_color: "#00d4ff"
+
+services:
+    display_rates: false # Set to true to show hourly rates
+    crypto:
+        title: "Crypto Infrastructure"
+        icon: "🔐"
+        rate: "$300-500/hour"
+        tags:
+            - "ETH"
+            - "BTC"
+            - "Solana"
+            - "Layer 2"
+            - "Smart Contracts"
+        items:
+            - "Decentralized Social Media Platforms"
+            - "Cross-Chain Systems"
+            - "Custodial Wallet Systems"
+            - "Chain Listeners/Executors"
+            - "NFT/Token Platform Development"
+            - "Performance Optimizations"
+            - "Chain Migrations"
+    ai:
+        title: "AI/LLM Consulting"
+        icon: "🤖"
+        rate: "$200-400/hour"
+        tags:
+            - "Author claude-code-go"
+            - "Author Guild Agent Framework"
+            - "10x Developer Productivity"
+        items:
+            - "Custom AI Integrations"
+            - "AI-Powered Development Tools"
+            - "Complex Automation Systems"
+            - "RAG & Knowledge Systems"
+            - "Cost Optimization at Scale"
+
+packages:
+    display_prices: false # Set to true to show prices
+    evaluation:
+        title: "Idea Evaluation"
+        price: "$1000"
+        duration: "1 day"
+        description: "45-min idea teardown + next-day action brief"
+        detailed_info:
+            what_you_get:
+                - "45-minute idea analysis session"
+                - "Technical feasibility assessment"
+                - "Market opportunity review"
+                - "Next-day action brief with priorities"
+            process:
+                - "Deep-dive discussion of your concept"
+                - "Technical architecture evaluation"
+                - "Risk & opportunity identification"
+                - "Action plan delivery within 24 hours"
+            outcomes:
+                - "Clear go/no-go decision framework"
+                - "Technical roadmap outline"
+                - "Resource requirement estimates"
+    assessment:
+        title: "Technical Assessment"
+        price: "$5000"
+        duration: "1-2 weeks"
+        description: "Codebase & infra audit with week-one optimization plan"
+        detailed_info:
+            what_you_get:
+                - "Complete codebase analysis"
+                - "Infrastructure audit"
+                - "Security assessment"
+                - "Week-one optimization plan"
+                - "Performance bottleneck identification"
+            process:
+                - "Codebase deep-dive and documentation review"
+                - "Infrastructure and deployment analysis"
+                - "Security vulnerability assessment"
+                - "Performance profiling and optimization planning"
+            outcomes:
+                - "Detailed technical debt assessment"
+                - "Prioritized improvement roadmap"
+                - "Quick-win optimization strategies"
+    pilot:
+        title: "Rapid Prototype Development"
+        price: "$15,000"
+        duration: "3-6 weeks"
+        featured: false
+        description: "Clickable prototype built on proven Guild or L2 patterns"
+        detailed_info:
+            what_you_get:
+                - "Full-stack clickable prototype"
+                - "Proven architectural patterns"
+                - "Core feature implementation"
+                - "Deployment to staging environment"
+                - "Technical documentation"
+            process:
+                - "Requirements gathering and architecture design"
+                - "Core functionality development using proven patterns"
+                - "Integration testing and refinement"
+                - "Deployment and demonstration"
+            outcomes:
+                - "Demonstrable working prototype"
+                - "Validated technical approach"
+                - "Clear path to production"
+    accelerator:
+        title: "Strategic Development Partnership"
+        price: "$50,000+"
+        duration: "8+ weeks"
+        description: "Fractional CTO for high-stakes launches"
+        detailed_info:
+            what_you_get:
+                - "Fractional CTO services"
+                - "Strategic technical leadership"
+                - "Team mentoring and guidance"
+                - "Architecture and scaling decisions"
+                - "Go-to-market technical strategy"
+            process:
+                - "Strategic planning and team assessment"
+                - "Technical architecture and scaling roadmap"
+                - "Hands-on development and team leadership"
+                - "Launch preparation and execution"
+            outcomes:
+                - "Production-ready, scalable system"
+                - "Trained and empowered development team"
+                - "Sustainable technical foundation"
+    ai_acceleration:
+        title: "AI Development Acceleration"
+        price: "$25,000+"
+        duration: "4-8 weeks"
+        featured: true
+        description: "Transform your dev team into AI-powered engineers"
+        detailed_info:
+            what_you_get:
+                - "Embedded team workflow analysis"
+                - "Custom AI workflow design"
+                - "1-on-1 senior developer coaching"
+                - "Team workshops and knowledge transfer"
+                - "Documented AI development processes"
+                - "Sustainable adoption framework"
+            process:
+                - "Week 1-2: Workflow analysis and custom AI integration design"
+                - "Week 3-4: Senior developer 1-on-1 training on agentic coding"
+                - "Week 5-6: Team workshops and process refinement"
+                - "Week 7-8: Knowledge transfer and sustainability planning"
+            outcomes:
+                - "2-5x productivity improvements"
+                - "70% faster feature delivery"
+                - "90% reduction in boilerplate code"
+                - "Self-sufficient AI-powered development team"
+
+features:
+    calendar_enabled: false
+    blog_enabled: true
+    analytics_enabled: false
+
+stats:
+    - value: "9+"
+      label: "Years Experience"
+    - value: "2016"
+      label: "Early Crypto Adopter"
+    - value: "Go + Python"
+      label: "Core Languages"
+
+expertise:
+    languages:
+        title: "Core Languages"
+        items: "Go • Python • Solidity"
+        detailed_info:
+            overview: "9+ years developing production systems in Go and Python, with specialized expertise in Solidity for blockchain applications."
+            experience:
+                - "Go: 7+ years building microservices, APIs, and blockchain infrastructure"
+                - "Python: 9+ years in fintech, data pipelines, and automation systems"
+                - "Solidity: 4+ years developing and deploying smart contracts"
+            technologies:
+                - "Go: Gin, Gorilla Mux, gRPC, concurrent programming, memory optimization"
+                - "Python: Django, Flask, FastAPI, NumPy, Pandas, async programming"
+                - "Solidity: ERC standards, gas optimization, security patterns, upgradeable contracts"
+            achievements:
+                - "Authored claude-code-go SDK (first Go wrapper for Anthropic's Claude Code)"
+                - "Built Go microservices handling 15M+ transactions/month at Mythical Games"
+                - "Deployed audited smart contracts for gaming and marketplace applications"
+    blockchain:
+        title: "Blockchain"
+        items: "Ethereum • Polygon • DeFi • Smart Contracts"
+        detailed_info:
+            overview: "4+ years architecting blockchain systems from smart contracts to full-stack dApps, with deep expertise in multiple networks and protocols."
+            experience:
+                - "Smart contract development and deployment on multiple networks"
+                - "Cross-chain bridge architecture and implementation"
+                - "DeFi protocol development and integration"
+                - "NFT marketplace and gaming platform development"
+            technologies:
+                - "Networks: Ethereum, Polygon, Hyperledger Besu, Layer 2 solutions"
+                - "Tools: Hardhat, Truffle, Web3.js, ethers.js, OpenZeppelin"
+                - "Protocols: ERC-20/721/1155, DeFi primitives, cross-chain bridges"
+            achievements:
+                - "Discovered critical Polygon Edge bug before mainnet launch at Mythical Games"
+                - "Built NFT marketplace infrastructure handling millions in transactions"
+                - "Architected P2P precious metals exchange with secure escrow (ShinySwap)"
+                - "Led blockchain meetup teaching 8000+ community members"
+    ai_ml:
+        title: "AI Engineering"
+        items: "OpenAI • Claude • Agent Frameworks • RAG"
+        detailed_info:
+            overview: "Specialized in production AI systems, from LLM orchestration to multi-agent frameworks, with focus on practical business applications."
+            experience:
+                - "LLM integration and optimization for enterprise applications"
+                - "Multi-agent system design and orchestration"
+                - "RAG (Retrieval-Augmented Generation) implementation"
+                - "AI workflow automation and productivity tools"
+            technologies:
+                - "APIs: OpenAI, Anthropic Claude, Ollama for local deployment"
+                - "Frameworks: Custom agent orchestration, MCP (Model Context Protocol)"
+                - "Tools: Vector databases, embedding systems, prompt engineering"
+            achievements:
+                - "Created Guild Agent Framework for multi-agent orchestration"
+                - "Authored first Go SDK for Anthropic's Claude Code CLI"
+                - "Built YouTube summarizer with local LLM processing"
+                - "Consulting clients on AI workflow integration and productivity gains"
+
+work_experience:
+    intro: "Senior Backend Engineer with 9+ years building and scaling Go- and Python-based microservices for fintech, blockchain, and AI products. I've consulted with startups and enterprises to streamline workflows, improve system stability, and deliver high-impact features on tight timelines."
+
+    fintech:
+        title: "FinTech & Enterprise"
+        icon: "🏦"
+        companies:
+            - name: "Bank of America (Global Security)"
+              role: "Senior Software Engineer (Contract)"
+              duration: "Feb 2024 - Dec 2024"
+              description: "Transformed enterprise CI/CD infrastructure and modernized legacy security scanning systems for one of America's largest financial institutions"
+              achievements:
+                  - "Designed and implemented CI/CD pipeline for 15-year-old codebase, reducing deploy times from months to hours"
+                  - "Refactored legacy Python security scanning software, ensuring compliance with modern secure coding standards"
+                  - "Improved sprint velocity by reclaiming 6+ months/year of lost developer time through automation"
+                  - "Resolved long-standing security blockers by sanitizing over a decade of sensitive Git history"
+                  - "Led modernization efforts including documentation, release process automation, and cross-team tooling"
+              technologies:
+                  [
+                      "Python",
+                      "CI/CD",
+                      "Security",
+                      "Git",
+                      "Enterprise Architecture",
+                  ]
+
+            - name: "Shutterfly"
+              role: "Software Engineer (Contract)"
+              duration: "Feb 2020 - Feb 2021"
+              description: "Enhanced order workflow systems for Fortune 500 photo commerce platform"
+              achievements:
+                  - "Enhanced Forge, Shutterfly's Python-based order workflow engine routing online orders to factory processes"
+                  - "Assisted in migration of Forge from on-prem servers to AWS"
+              technologies: ["Python", "AWS", "Order Workflow Systems"]
+
+            - name: "Multiple Banking Institutions"
+              role: "Software Engineer Consultant"
+              duration: "Jan 2017 - Jun 2019"
+              description: "Delivered high-impact consulting across major financial institutions"
+              achievements:
+                  - "PNC Bank: Audited Python pipelines, boosting data accuracy and security"
+                  - "Global Payments: Optimized ETL, cutting AWS spend by $40K/month"
+                  - "Bank of America Treasury: Automated data quality checks, saving 1000+ man-hours/year"
+              technologies: ["Python", "ETL", "AWS", "Data Pipelines"]
+
+    crypto:
+        title: "Blockchain & Web3"
+        icon: "🔐"
+        companies:
+            - name: "Mythical Games"
+              role: "Software Engineer, Blockchain"
+              duration: "Apr 2022 - Apr 2023"
+              description: "Built NFT marketplace infrastructure for next-gen gaming platform"
+              achievements:
+                  - "Developed Golang microservices handling 15M+ on-chain transactions/month with 100% transaction finality"
+                  - "Developed and deployed Solidity smart contracts for gaming and marketplace features, audited by third-party firms"
+                  - "Assisted in designing an NFT bridge to mainnet"
+                  - "Discovered critical bug in Polygon edge before launch and quickly migrated nodes to Hyperledger Besu"
+              technologies:
+                  [
+                      "Golang",
+                      "Solidity",
+                      "Polygon",
+                      "Hyperledger",
+                      "NFT",
+                      "Smart Contracts",
+                  ]
+
+            - name: "Dragonchain"
+              role: "Senior Software Engineer"
+              duration: "Jun 2019 - Jan 2020"
+              description: "Built decentralized applications and blockchain infrastructure"
+              achievements:
+                  - "Built Python/Node.js microservices for rapid dApp prototypes and POCs"
+                  - "Architected cross-chain hackathon platform with weighted voting using time-held coins"
+                  - "Authored smart contracts and contributed to Go backend for Den decentralized social media platform"
+              technologies:
+                  ["Python", "Node.js", "Go", "Smart Contracts", "dApps"]
+
+            - name: "Blocksnap"
+              role: "Founder/Developer"
+              duration: "Feb 2022"
+              description: "NFT data intelligence tool - EthDenver hackathon 3rd place community winner"
+              achievements:
+                  - "Built NFT data aggregation and transaction pattern analysis tool"
+                  - "Helped NFT projects sell full collections, generating over 100k USD in first 2 hours"
+                  - "Won 3rd place community winner at EthDenver hackathon"
+              technologies: ["Python", "Django", "Ethereum", "Data Analytics"]
+
+            - name: "Swapblocks"
+              role: "Lead Developer"
+              duration: "Feb 2018 - Jul 2019"
+              description: "DPoS blockchain platform with custom contract VMs"
+              achievements:
+                  - "Designed sub-net based system with custom contract VMs"
+                  - "Deployed 51-node DPoS network"
+                  - "Built Discord community with over 8000 members"
+              technologies:
+                  ["Python", "Django", "Node.js", "DPoS", "Blockchain"]
+
+            - name: "ShinySwap"
+              role: "Architect & Lead Developer"
+              duration: "Apr 2023 - Paused"
+              description: "Distributed P2P precious metals exchange with secure escrow"
+              achievements:
+                  - "Architected distributed P2P precious metals exchange with secure escrow"
+                  - "Enabled physical metals owners to access liquidity and use it in DeFi"
+                  - "Designed on-site verification system for physical asset trades"
+              technologies:
+                  ["Golang", "Gin", "Distributed Systems", "P2P", "DeFi"]
+
+            - name: "Charlotte Blockheads"
+              role: "Organizer"
+              duration: "Sept 2017 - Mar 2020"
+              description: "Major crypto meetup in Charlotte, NC"
+              achievements:
+                  - "Led major crypto meetup teaching blockchain fundamentals"
+                  - "Provided crypto networking opportunities for locals and visitors"
+                  - "Built community of blockchain enthusiasts and developers"
+              technologies:
+                  [
+                      "Community Building",
+                      "Education",
+                      "Blockchain",
+                      "Networking",
+                  ]
+
+    ai:
+        title: "AI & Machine Learning"
+        icon: "🤖"
+        companies:
+            - name: "Guild Agent Framework"
+              role: "Creator & Lead Developer"
+              duration: "Mar 2025 - Present"
+              description: "Developing easily configurable AI agent framework for multi-agent orchestration"
+              achievements:
+                  - "Developing framework allowing developers to contextualize, monitor and interact with multiple agentic teams in one terminal"
+                  - "Designed Go-based concurrent LLM workflow orchestration system"
+                  - "Integrated with Ollama, OpenAI, Anthropic for flexible model support"
+                  - "Implemented RAG, MCP (Model Context Protocol), and Git storage capabilities"
+              technologies:
+                  [
+                      "Golang",
+                      "Ollama",
+                      "OpenAI",
+                      "Anthropic",
+                      "RAG",
+                      "MCP",
+                      "Agent Orchestration",
+                  ]
+              link: "https://github.com/lancekrogers/guild"
+
+            - name: "Claude Code Go SDK"
+              role: "Author"
+              duration: "May 2025"
+              description: "First Golang SDK wrapping Anthropic's Claude Code CLI"
+              achievements:
+                  - "Published first Golang SDK for Claude Code CLI with real-time streaming"
+                  - "Implemented session management, tool integration and model selection"
+                  - "Enabled Go developers to save money on API calls via Claude Max subscription"
+              technologies:
+                  [
+                      "Golang",
+                      "Anthropic Claude Code",
+                      "AI Tooling",
+                      "SDK Development",
+                  ]
+              link: "https://github.com/lancekrogers/claude-code-go"
+
+            - name: "YouTube Summarizer"
+              role: "Creator"
+              duration: "May 2025"
+              description: "CLI/TUI tool for AI-powered YouTube transcript summarization"
+              achievements:
+                  - "Created tool that fetches YouTube transcripts and generates concise Markdown summaries using local LLMs"
+                  - "Implemented smart transcript retrieval, chunking for long videos, caching, and batch processing"
+                  - "Integrated with Ollama for local LLM processing"
+              technologies: ["Python", "Ollama", "TUI", "LLM"]
+
+            - name: "Blockhead Consulting"
+              role: "Senior Software Consultant / Founder"
+              duration: "Feb 2021 - Present"
+              description: "AI and blockchain consulting services"
+              achievements:
+                  - "Designed and built Go-based AI agent framework orchestrating concurrent LLM workflows"
+                  - "Developed Python SDK and gRPC library for wallet intelligence company"
+                  - "Provided end-to-end web3 development services for NFT projects"
+                  - "Advised clients on blockchain architecture, token economics, and go-to-market strategies"
+              technologies: ["Go", "Python", "gRPC", "LLM", "Web3"]
