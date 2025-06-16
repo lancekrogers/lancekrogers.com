@@ -8,12 +8,12 @@ module.exports = {
     }]
   },
   moduleNameMapper: {
-    '\\.(css|less|scss|sass)$': '<rootDir>/test-setup.js',
+    '\\.(css|less|scss|sass)$': '<rootDir>/test/test-setup.js',
   },
-  setupFilesAfterEnv: ['<rootDir>/test-setup.js'],
+  setupFilesAfterEnv: ['<rootDir>/test/test-setup.js'],
   testMatch: [
-    '**/*.test.js',
-    '!**/e2e.test.js'
+    '**/test/*.test.js',
+    '!**/test/e2e.test.js'
   ],
   collectCoverageFrom: [
     'static/**/*.js',
