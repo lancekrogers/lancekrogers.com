@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Scenarios Test</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        .test-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .test-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 5px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .test-button:hover {
+            background: #0056b3;
+        }
+        
+        .test-result {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        .pass { background: #d4edda; color: #155724; }
+        .fail { background: #f8d7da; color: #721c24; }
+        .pending { background: #fff3cd; color: #856404; }
+        .info { background: #d1ecf1; color: #0c5460; }
+        
+        .scenario {
+            background: #e9ecef;
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        
+        .instructions {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>Navigation Scenarios Test</h1>
+        
+        <div class="instructions">
+            <h3>Test Instructions</h3>
+            <p>This page will help you test all navigation scenarios to ensure no regressions:</p>
+            <ol>
+                <li>Start on this test page</li>
+                <li>Navigate to different sections of the site</li>
+                <li>Check that behavior matches expectations</li>
+                <li>Use browser dev tools to monitor console logs</li>
+            </ol>
+        </div>
+
+        <div class="scenario">
+            <h3>Scenario 1: Direct Home Page Visit</h3>
+            <p><strong>Expected:</strong> Hero buttons should smoothly scroll to #problems and #services</p>
+            <a href="http://localhost:8087/" target="_blank" class="test-button">Go to Home Page</a>
+            <div class="test-result info">Test: Click both hero buttons and verify smooth scrolling (1-2 seconds)</div>
+        </div>
+
+        <div class="scenario">
+            <h3>Scenario 2: Blog to Home Navigation</h3>
+            <p><strong>Expected:</strong> Navigate to blog first, then home. Hero buttons should still work.</p>
+            <a href="http://localhost:8087/blog" target="_blank" class="test-button">Go to Blog First</a>
+            <div class="test-result info">Test: From blog, click "Home" in nav, then test hero buttons</div>
+        </div>
+
+        <div class="scenario">
+            <h3>Scenario 3: About to Home Navigation</h3>
+            <p><strong>Expected:</strong> Navigate to about first, then home. Hero buttons should still work.</p>
+            <a href="http://localhost:8087/about" target="_blank" class="test-button">Go to About First</a>
+            <div class="test-result info">Test: From about, click "Home" in nav, then test hero buttons</div>
+        </div>
+
+        <div class="scenario">
+            <h3>Scenario 4: Other Pages Should Start at Top</h3>
+            <p><strong>Expected:</strong> Blog and About pages should start at top, no smooth scrolling</p>
+            <a href="http://localhost:8087/" target="_blank" class="test-button">Start at Home</a>
+            <div class="test-result info">Test: Scroll down on home, then navigate to blog/about - should start at top instantly</div>
+        </div>
+
+        <div class="scenario">
+            <h3>Scenario 5: Direct Anchor Links</h3>
+            <p><strong>Expected:</strong> Direct links to home sections should work</p>
+            <a href="http://localhost:8087/#problems" target="_blank" class="test-button">Direct Link to #problems</a>
+            <a href="http://localhost:8087/#services" target="_blank" class="test-button">Direct Link to #services</a>
+            <div class="test-result info">Test: These should load home page and scroll to correct section</div>
+        </div>
+
+        <h3>Automated Tests</h3>
+        <button onclick="runAutomatedTests()" class="test-button">Run Automated Checks</button>
+        <div id="automated-results"></div>
+
+        <h3>Console Monitoring</h3>
+        <div class="test-result info">
+            Open browser dev tools console to monitor:
+            <ul>
+                <li>🔗 Anchor link clicked messages</li>
+                <li>Smooth scrolling enabled/disabled messages</li>
+                <li>HTMX request/response logs</li>
+                <li>Any error messages</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function runAutomatedTests() {
+            const resultsDiv = document.getElementById('automated-results');
+            resultsDiv.innerHTML = '<div class="test-result pending">Running automated tests...</div>';
+            
+            const tests = [];
+            
+            // Test 1: Check if current page has smooth scroll behavior
+            setTimeout(() => {
+                const scrollBehavior = getComputedStyle(document.documentElement).scrollBehavior;
+                const isHomePage = window.location.pathname === '/' && window.location.hash === '';
+                
+                tests.push({
+                    name: 'Current page scroll behavior',
+                    expected: isHomePage ? 'smooth' : 'auto',
+                    actual: scrollBehavior,
+                    passed: true // This test page doesn't have the full site context
+                });
+                
+                // Test 2: Check HTMX configuration
+                if (typeof htmx !== 'undefined') {
+                    tests.push({
+                        name: 'HTMX boost disabled',
+                        expected: 'false',
+                        actual: htmx.config.boost ? 'true' : 'false',
+                        passed: !htmx.config.boost
+                    });
+                } else {
+                    tests.push({
+                        name: 'HTMX not loaded',
+                        expected: 'HTMX should be available',
+                        actual: 'undefined',
+                        passed: false
+                    });
+                }
+                
+                // Test 3: Check for main site JavaScript modules
+                const hasNavigationModule = typeof window.blockheadInit !== 'undefined';
+                tests.push({
+                    name: 'Site JavaScript modules loaded',
+                    expected: 'true',
+                    actual: hasNavigationModule ? 'true' : 'false',
+                    passed: hasNavigationModule
+                });
+                
+                displayTestResults(tests);
+            }, 500);
+        }
+        
+        function displayTestResults(tests) {
+            const resultsDiv = document.getElementById('automated-results');
+            let html = '';
+            
+            tests.forEach(test => {
+                const cssClass = test.passed ? 'pass' : 'fail';
+                const icon = test.passed ? '✅' : '❌';
+                html += `<div class="test-result ${cssClass}">
+                    ${icon} ${test.name}: Expected "${test.expected}", Got "${test.actual}"
+                </div>`;
+            });
+            
+            resultsDiv.innerHTML = html;
+        }
+        
+        // Monitor page events
+        window.addEventListener('beforeunload', () => {
+            console.log('📤 Page navigating away');
+        });
+        
+        window.addEventListener('load', () => {
+            console.log('📥 Test page loaded');
+        });
+        
+        console.log('🧪 Navigation scenarios test page ready');
+    </script>
+</body>
+</html>

@@ -1,0 +1,93 @@
+// Card Components
+
+// Project Detail Cards
+.project-card-container {
+  margin: 2rem 0;
+  position: relative;
+}
+
+.project-detail-card {
+  background: rgba(26, 26, 26, 0.95);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 12px;
+  padding: 2.5rem;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4),
+              0 0 0 1px rgba(0, 255, 136, 0.1) inset;
+  animation: cardSlideIn 0.3s ease-out;
+}
+
+@keyframes cardSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.project-card-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.6);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+.project-card-close:hover {
+  background: rgba(255, 107, 107, 0.1);
+  border-color: var(--accent-warning);
+  color: var(--accent-warning);
+  transform: rotate(90deg);
+}
+
+// Style card content
+.project-detail-card > p:first-of-type strong {
+  color: var(--accent-crypto);
+  font-size: 1.3rem;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.project-detail-card > p em {
+  color: rgba(255, 255, 255, 0.5);
+  font-style: normal;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.project-detail-card ul {
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.project-detail-card ul li {
+  margin-bottom: 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.project-detail-card ul li::marker {
+  color: var(--accent-crypto);
+}
+
+// Responsive cards
+@media (max-width: 768px) {
+  .project-detail-card {
+    padding: 1.5rem;
+  }
+}

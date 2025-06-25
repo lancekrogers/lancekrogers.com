@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  # Main application
+  app:
+    build: .
+    ports:
+      - "8085:8085"
+    environment:
+      # Basic configuration
+      - PORT=8085
+      - ENVIRONMENT=development
+      - CALENDAR_ENABLED=false
+      - BLOG_ENABLED=true
+      - HERO_STYLE=professional
+      
+      # Git storage configuration
+      - GIT_REPO_PATH=/app/data/messages
+      - GIT_ENCRYPTION_KEY=dev_key_0123456789abcdef0123456789abcdef
+      - GIT_BRANCH=main
+      - GIT_COMMIT_AUTHOR=Blockhead Dev Bot
+      - GIT_COMMIT_EMAIL=dev@blockhead.consulting
+      - GIT_PUSH_ON_WRITE=false
+      
+      # Email configuration (using MailHog for testing)
+      - SMTP_HOST=mailhog
+      - SMTP_PORT=1025
+      - SMTP_USERNAME=test@blockhead.consulting
+      - SMTP_PASSWORD=testpass
+      - SMTP_FROM_ADDRESS=noreply@blockhead.consulting
+      - SMTP_FROM_NAME=Blockhead Consulting
+      - SMTP_TLS_ENABLED=false
+    volumes:
+      - ./data:/app/data
+      - git_storage:/app/data/messages
+    depends_on:
+      - mailhog
+    networks:
+      - blockhead_network
+
+  # MailHog for email testing
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - "1025:1025"  # SMTP port
+      - "8025:8025"  # Web UI port
+    networks:
+      - blockhead_network
+
+  # Redis for caching (optional, for future use)
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - blockhead_network
+
+  # Git server for testing git storage (Gitea)
+  gitea:
+    image: gitea/gitea:1.21
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=sqlite3
+      - GITEA__database__PATH=/data/gitea/gitea.db
+      - GITEA__security__INSTALL_LOCK=true
+      - GITEA__security__SECRET_KEY=test_secret_key_for_development_only
+      - GITEA__server__DOMAIN=gitea
+      - GITEA__server__SSH_DOMAIN=gitea
+      - GITEA__server__ROOT_URL=http://gitea:3000/
+    ports:
+      - "3000:3000"
+      - "2222:22"
+    volumes:
+      - gitea_data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    networks:
+      - blockhead_network
+
+volumes:
+  git_storage:
+  redis_data:
+  gitea_data:
+
+networks:
+  blockhead_network:
+    driver: bridge

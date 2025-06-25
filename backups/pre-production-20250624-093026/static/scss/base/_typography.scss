@@ -1,0 +1,54 @@
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+h2 {
+  font-size: 2.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+h3 {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+h4 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+h5 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+h6 {
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+code,
+.code {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  background: var(--bg-tertiary);
+  padding: 0.2em 0.4em;
+  border-radius: 3px;
+}
+

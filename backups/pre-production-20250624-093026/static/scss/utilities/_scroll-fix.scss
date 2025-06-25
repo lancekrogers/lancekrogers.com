@@ -1,0 +1,58 @@
+// Fix for jumpy scrolling
+// Ensure sections have proper spacing and no layout shifts
+
+// Prevent layout shifts during scrolling
+section {
+  // Add scroll margin for fixed navbar
+  scroll-margin-top: 80px;
+  
+  // Prevent margin collapse
+  &::before {
+    content: '';
+    display: table;
+  }
+}
+
+// Specific fix for services and problems sections
+#services,
+#problems {
+  // Ensure they're block-level with proper spacing
+  display: block;
+  position: relative;
+  
+  // Prevent any transform or transition during scroll
+  transform: none !important;
+  transition: none !important;
+  
+  // Ensure visibility
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+// Disable any animations during scrolling
+html.scrolling * {
+  animation-play-state: paused !important;
+  transition: none !important;
+}
+
+// Disable animations during navigation
+html.navigating * {
+  animation-play-state: paused !important;
+  transition: none !important;
+  pointer-events: none !important;
+}
+
+html.navigating .nav-links a,
+html.navigating .mobile-menu a {
+  opacity: 0.7;
+}
+
+// Fix for anchor links
+a[href^="#"] {
+  // Ensure no JavaScript interference
+  cursor: pointer;
+  
+  &:focus {
+    outline: none;
+  }
+}

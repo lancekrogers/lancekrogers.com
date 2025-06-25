@@ -7,15 +7,13 @@ The Blockhead Consulting website uses an encrypted git-based storage system for 
 ## How It Works
 
 ### 🔄 Contact Form Flow
-
 1. **User submits contact form** → `POST /contact`
 2. **Contact service validates** → Form data validation
-3. **Git storage encrypts** → AES-256-GCM encryption
+3. **Git storage encrypts** → AES-256-GCM encryption  
 4. **Git operations** → Auto-commit and optional push
 5. **Email notification** → Notification sent via MailHog/SMTP
 
 ### 📁 Repository Structure
-
 ```
 data/messages/
 ├── README.md                    # Repository documentation
@@ -27,14 +25,12 @@ data/messages/
 ```
 
 ### 🔐 Encryption Details
-
 - **Algorithm**: AES-256-GCM (Galois/Counter Mode)
 - **Key Source**: Environment variable `GIT_ENCRYPTION_KEY` (32 bytes)
 - **Nonce**: Cryptographically secure random nonce per message
 - **Content**: All form data (name, email, company, message) encrypted
 
 ### 📧 Git Configuration
-
 ```bash
 # Repository settings
 GIT_REPO_PATH=./data/messages
@@ -42,7 +38,7 @@ GIT_BRANCH=main
 GIT_COMMIT_AUTHOR=Blockhead Dev Bot
 GIT_COMMIT_EMAIL=dev@blockhead.consulting
 
-# Security settings
+# Security settings  
 GIT_ENCRYPTION_KEY=0123456789abcdef0123456789abcdef  # 32 bytes for AES-256
 GIT_PUSH_ON_WRITE=true  # Auto-push to remote after commit
 
@@ -53,7 +49,6 @@ git remote add origin git@github.com:Blockhead-Consulting/website-messages.git
 ## Development Setup
 
 ### Quick Start
-
 ```bash
 # Start complete development environment
 make dev-bg
@@ -68,7 +63,6 @@ make stop-dev
 ```
 
 ### Available Commands
-
 ```bash
 # Development services
 make dev-services    # Start MailHog and other dev services
@@ -88,15 +82,13 @@ make stop          # Stop website server only
 ```
 
 ### Service URLs
-
-- **Website**: <http://localhost:8087> (port from .env)
-- **MailHog UI**: <http://localhost:8025>
+- **Website**: http://localhost:8087 (port from .env)
+- **MailHog UI**: http://localhost:8025
 - **MailHog SMTP**: localhost:1025
 
 ## Message Storage
 
 ### Encrypted Message Format
-
 ```json
 {
   "id": "msg_908ed6b19364d5f0",
@@ -108,14 +100,12 @@ make stop          # Stop website server only
 ```
 
 ### Git Commit Messages
-
 ```bash
 Add message msg_908ed6b19364d5f0 from Test User
 Add message msg_48df7e955d781384 from Test User
 ```
 
 ### Viewing Messages
-
 ```bash
 # Check git status
 cd data/messages && git status
@@ -133,16 +123,14 @@ ls -la data/messages/messages/2025/05/
 ## Security Features
 
 ### ✅ What's Secure
-
 - **AES-256-GCM encryption** for all message content
-- **Unique nonces** prevent replay attacks
+- **Unique nonces** prevent replay attacks  
 - **Version-controlled storage** with full audit trail
 - **Remote backup** to private GitHub repository
 - **Environment-based keys** (not committed to code)
 - **Structured access control** via git permissions
 
 ### ⚠️ Important Security Notes
-
 - **Encryption key** must be exactly 32 bytes for AES-256
 - **Never commit** encryption keys to any repository
 - **Remote repository** should be private with restricted access
@@ -154,7 +142,6 @@ ls -la data/messages/messages/2025/05/
 ### Common Issues
 
 **"encryption key must be 32 bytes"**
-
 ```bash
 # Check key length
 echo "0123456789abcdef0123456789abcdef" | wc -c  # Should be 33 (includes newline)
@@ -162,7 +149,6 @@ echo "0123456789abcdef0123456789abcdef" | wc -c  # Should be 33 (includes newlin
 ```
 
 **"Git storage service initialization failed"**
-
 ```bash
 # Check .env file has all required variables
 grep GIT_ .env
@@ -175,7 +161,6 @@ cd data/messages && git init
 ```
 
 **"Docker daemon is not running"**
-
 ```bash
 # Start Docker Desktop on macOS
 open -a Docker
@@ -185,7 +170,6 @@ docker info
 ```
 
 **Messages not appearing in repository**
-
 ```bash
 # Check server logs
 tail -f data/server.log
@@ -199,7 +183,6 @@ curl -X POST http://localhost:8087/contact \
 ## Production Deployment
 
 ### Environment Variables
-
 ```bash
 # Production git storage
 GIT_REPO_PATH=/app/data/messages
@@ -207,7 +190,7 @@ GIT_ENCRYPTION_KEY=<secure-32-byte-production-key>
 GIT_REMOTE_URL=git@github.com:Blockhead-Consulting/website-messages.git
 GIT_PUSH_ON_WRITE=true
 
-# Production email
+# Production email  
 SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USERNAME=<gmail-username>
@@ -217,7 +200,6 @@ SMTP_TLS_ENABLED=true
 ```
 
 ### Security Checklist
-
 - [ ] Generate secure 32-byte encryption key
 - [ ] Set up private remote repository
 - [ ] Configure SSH keys for git access
@@ -230,13 +212,11 @@ SMTP_TLS_ENABLED=true
 ## Content as Submodule (Optional)
 
 The `content/` directory can optionally be a git submodule if you want to:
-
 - Share content across multiple environments
 - Separate content management from code changes
 - Have different access controls for content vs code
 
 **To set up content as submodule:**
-
 ```bash
 # Remove existing content directory
 mv content content-backup
@@ -251,4 +231,3 @@ git submodule update --remote content
 **Pros**: Separate versioning, shared content, granular access
 **Cons**: Added complexity, requires submodule knowledge
 **Recommendation**: Not necessary for single-site deployment
-

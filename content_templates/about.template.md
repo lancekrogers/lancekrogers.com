@@ -43,7 +43,7 @@ Working with select clients on high-impact engagements, {{CONSULTANT_NAME}} prov
 
 ---
 
-*Ready to discuss how {{TRANSFORMATION_FOCUS}} can drive your business outcomes? [Schedule a consultation](/calendar) to explore how we can {{SPECIFIC_OUTCOME}}.*
+*Ready to discuss how {{TRANSFORMATION_FOCUS}} can drive your business outcomes? [Contact {{CONSULTANT_NAME}}](mailto:lance@blockhead.consulting) to explore how we can {{SPECIFIC_OUTCOME}}.*
 
 <!-- 
 Template Variables to Replace:

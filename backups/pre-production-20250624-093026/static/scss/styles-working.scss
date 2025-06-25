@@ -1,0 +1,34 @@
+// Working SCSS entry file - includes only essential, working partials
+// This replaces the auto-generated styles.scss which has many broken partials
+
+// Core foundation
+@use 'partials/variables';
+@use 'partials/base';
+@use 'partials/typography';
+@use 'partials/container';
+
+// Navigation and layout
+@use 'partials/navigation';
+@use 'partials/footer';
+
+// Main sections
+@use 'partials/hero_section';
+@use 'partials/services_section';
+@use 'partials/contact';
+
+// Work/About page specific
+@use 'partials/section_background_classes_for_combined_about_page';
+@use 'partials/individual_work_container';
+@use 'partials/github_stats_styles';
+@use 'partials/technical_insights_styles';
+
+// Mobile responsiveness
+@use 'partials/mobile_responsive';
+@use 'partials/mobile_touch_indicator';
+
+// Blog and other pages
+@use 'partials/blog_styles';
+@use 'partials/packages';
+
+// Keep syntax highlighting for code blocks
+@use 'partials/syntax_highlighting_chroma_monokai_theme';

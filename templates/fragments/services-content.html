@@ -1,0 +1,95 @@
+{{define "services-content"}}
+<!-- Services Hero Section -->
+<section class="services-hero">
+  <div class="container">
+    <h1 class="page-title">{{.ServicesConfig.PageTitle}}</h1>
+    <p class="page-subtitle">{{.ServicesConfig.PageSubtitle}}</p>
+  </div>
+</section>
+
+
+<!-- Service Packages -->
+<section class="packages-section">
+  <div class="container">
+    <h2 class="section-title">Service Packages</h2>
+    <p class="section-subtitle">Structured engagements designed for different stages of growth</p>
+    
+    <div class="package-grid large-packages">
+      {{range .ServicesConfig.Packages.GetOrderedPackages}}
+      {{if .Package.Title}}
+      <div class="package package-interactive{{if .Package.Featured}} featured{{end}}" data-package="{{.Key}}">
+        <div class="package-content">
+          <h4>{{.Package.Title}}</h4>
+          {{if $.ServicesConfig.Packages.DisplayPrices}}<p class="package-price">{{.Package.Price}}</p>{{end}}
+          <p class="package-duration">{{.Package.Duration}}</p>
+          <p class="package-description">{{.Package.Description}}</p>
+          <div class="package-expand-hint">Click for details</div>
+        </div>
+      </div>
+      {{end}}
+      {{end}}
+    </div>
+  </div>
+  
+  <!-- Package Popups -->
+  {{range .ServicesConfig.Packages.GetOrderedPackages}}
+  {{if .Package.DetailedInfo}}
+  <div class="package-popup" data-package-popup="{{.Key}}">
+    <div class="package-popup-content">
+      <button class="package-popup-close">&times;</button>
+      <h4>{{.Package.Title}}</h4>
+      {{if $.ServicesConfig.Packages.DisplayPrices}}<p class="package-price">{{.Package.Price}}</p>{{end}}
+      <p class="package-duration">{{.Package.Duration}}</p>
+      
+      <div class="package-details">
+        <div class="package-detail-section">
+          <h5>What You Get</h5>
+          <ul>
+            {{range .Package.DetailedInfo.WhatYouGet}}
+            <li>{{.}}</li>
+            {{end}}
+          </ul>
+        </div>
+        
+        <div class="package-detail-section">
+          <h5>Process</h5>
+          <ul>
+            {{range .Package.DetailedInfo.Process}}
+            <li>{{.}}</li>
+            {{end}}
+          </ul>
+        </div>
+        
+        <div class="package-detail-section">
+          <h5>Outcomes</h5>
+          <ul>
+            {{range .Package.DetailedInfo.Outcomes}}
+            <li>{{.}}</li>
+            {{end}}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  {{end}}
+  {{end}}
+</section>
+
+<!-- CTA Section -->
+<section class="services-cta">
+  <div class="container">
+    <div class="cta-content">
+      <h2 class="cta-headline">{{.ServicesConfig.CTA.Headline}}</h2>
+      <p class="cta-subheadline">{{.ServicesConfig.CTA.Subheadline}}</p>
+      <div class="cta-actions">
+        {{if .Config.CalendarEnabled}}
+        <a href="/calendar" hx-get="/content/calendar" hx-target="#main-content" hx-push-url="/calendar" class="btn-cta-primary">{{.ServicesConfig.CTA.PrimaryButton}}</a>
+        {{else}}
+        <button data-contact-modal class="btn-cta-primary">{{.ServicesConfig.CTA.SecondaryButton}}</button>
+        {{end}}
+        <a href="/work" hx-get="/content/work" hx-target="#main-content" hx-push-url="/work" class="btn-cta-secondary">View Past Work</a>
+      </div>
+    </div>
+  </div>
+</section>
+{{end}}

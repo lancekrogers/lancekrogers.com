@@ -1,0 +1,192 @@
+{{define "work-content-enhanced"}}
+<section class="work-experience-enhanced">
+  <div class="container">
+    <div class="work-header">
+      <h2 class="section-title">Experience & Projects</h2>
+      <p class="section-subtitle">Building infrastructure that scales</p>
+    </div>
+
+    {{range $section := .WorkConfig.GetOrderedSections}}
+    <div class="work-sector" id="{{$section.Key}}">
+      <!-- Sector Header -->
+      <div class="sector-header">
+        <div class="sector-title">
+          <span class="sector-icon">{{$section.Section.Icon}}</span>
+          <h3>{{$section.Section.Title}}</h3>
+        </div>
+        <p class="sector-description">{{$section.Section.Description}}</p>
+      </div>
+
+      <!-- Combined Grid for Companies and Projects -->
+      <div class="work-grid">
+        {{if $section.Section.Companies}}
+        {{range $section.Section.Companies}}
+        <div class="work-card company-card{{if .Featured}} featured{{end}}{{if .DetailedInfo}} interactive{{end}}" 
+             data-work-item="{{$section.Key}}-{{.Name | slug}}">
+          <div class="card-header">
+            <div class="card-type">COMPANY</div>
+            <h4>{{.Name}}</h4>
+          </div>
+          <div class="card-meta">
+            <span class="role">{{.Role}}</span>
+            <span class="duration">{{.Duration}}</span>
+          </div>
+          <p class="card-summary">{{.Summary}}</p>
+          {{if .DetailedInfo}}
+          <div class="card-footer">
+            <span class="expand-hint">Click for details →</span>
+          </div>
+          {{end}}
+        </div>
+        {{end}}
+        {{end}}
+
+        {{if $section.Section.Projects}}
+        {{range $section.Section.Projects}}
+        <div class="work-card project-card{{if .Featured}} featured{{end}}{{if .DetailedInfo}} interactive{{end}}" 
+             data-work-item="{{$section.Key}}-project-{{.Name | slug}}">
+          <div class="card-header">
+            <div class="card-type">PROJECT</div>
+            <h4>{{.Name}}</h4>
+          </div>
+          <div class="card-meta">
+            <span class="role">{{.Role}}</span>
+            <span class="duration">{{.Duration}}</span>
+          </div>
+          <p class="card-summary">{{.Summary}}</p>
+          {{if .DetailedInfo}}
+          <div class="card-footer">
+            <span class="expand-hint">Click for details →</span>
+          </div>
+          {{end}}
+        </div>
+        {{end}}
+        {{end}}
+      </div>
+    </div>
+    {{end}}
+  </div>
+</section>
+
+<!-- Use existing work popups structure -->
+<div class="work-popups">
+  {{range $section := .WorkConfig.GetOrderedSections}}
+
+  <!-- Company Popups -->
+  {{range $section.Section.Companies}}
+  {{if .DetailedInfo}}
+  <div class="work-popup" data-work-popup="{{$section.Key}}-{{.Name | slug}}">
+    <div class="work-popup-content">
+      <button class="work-popup-close">&times;</button>
+      <div class="popup-header">
+        <h3>{{.Name}}</h3>
+        <span class="role">{{.Role}}</span>
+        <span class="duration">{{.Duration}}</span>
+      </div>
+      <p class="popup-description">{{.DetailedInfo.Description}}</p>
+
+      {{if .DetailedInfo.KeyProjects}}
+      <div class="popup-section">
+        <h4>Key Projects</h4>
+        {{range .DetailedInfo.KeyProjects}}
+        <div class="project-detail">
+          <h5>{{.Name}}</h5>
+          <p>{{.Description}}</p>
+          <p class="impact"><strong>Impact:</strong> {{.Impact}}</p>
+          <div class="tech-tags">
+            {{range .Technologies}}
+            <span class="tech-tag">{{.}}</span>
+            {{end}}
+          </div>
+        </div>
+        {{end}}
+      </div>
+      {{end}}
+
+      {{if .DetailedInfo.Achievements}}
+      <div class="popup-section">
+        <h4>Key Achievements</h4>
+        <ul>
+          {{range .DetailedInfo.Achievements}}
+          <li>{{.}}</li>
+          {{end}}
+        </ul>
+      </div>
+      {{end}}
+    </div>
+  </div>
+  {{end}}
+  {{end}}
+
+  <!-- Project Popups -->
+  {{range $section.Section.Projects}}
+  {{if .DetailedInfo}}
+  <div class="work-popup" data-work-popup="{{$section.Key}}-project-{{.Name | slug}}">
+    <div class="work-popup-content">
+      <button class="work-popup-close">&times;</button>
+      <div class="popup-header">
+        <h3>{{.Name}}</h3>
+        <span class="role">{{.Role}}</span>
+        <span class="duration">{{.Duration}}</span>
+      </div>
+      <p class="popup-description">{{.DetailedInfo.Description}}</p>
+
+      {{if .DetailedInfo.KeyFeatures}}
+      <div class="popup-section">
+        <h4>Key Features</h4>
+        {{range .DetailedInfo.KeyFeatures}}
+        <div class="project-detail">
+          <h5>{{.Name}}</h5>
+          <p>{{.Description}}</p>
+          <p class="impact"><strong>Impact:</strong> {{.Impact}}</p>
+          <div class="tech-tags">
+            {{range .Technologies}}
+            <span class="tech-tag">{{.}}</span>
+            {{end}}
+          </div>
+        </div>
+        {{end}}
+      </div>
+      {{end}}
+
+      {{if .DetailedInfo.KeyContributions}}
+      <div class="popup-section">
+        <h4>Key Contributions</h4>
+        {{range .DetailedInfo.KeyContributions}}
+        <div class="project-detail">
+          <h5>{{.Name}}</h5>
+          <p>{{.Description}}</p>
+          <p class="impact"><strong>Impact:</strong> {{.Impact}}</p>
+          <div class="tech-tags">
+            {{range .Technologies}}
+            <span class="tech-tag">{{.}}</span>
+            {{end}}
+          </div>
+        </div>
+        {{end}}
+      </div>
+      {{end}}
+
+      {{if .DetailedInfo.Achievements}}
+      <div class="popup-section">
+        <h4>Achievements</h4>
+        <ul>
+          {{range .DetailedInfo.Achievements}}
+          <li>{{.}}</li>
+          {{end}}
+        </ul>
+      </div>
+      {{end}}
+
+      {{if .Link}}
+      <div class="popup-section">
+        <a href="{{.Link}}" target="_blank" rel="noopener" class="btn-primary">View Project →</a>
+      </div>
+      {{end}}
+    </div>
+  </div>
+  {{end}}
+  {{end}}
+  {{end}}
+</div>
+{{end}}

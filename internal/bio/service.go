@@ -16,6 +16,7 @@ import (
 	"github.com/yuin/goldmark/renderer/html"
 	"github.com/yuin/goldmark/text"
 	"go.abhg.dev/goldmark/frontmatter"
+	"gopkg.in/yaml.v3"
 )
 
 // service implements the bio service using file storage
@@ -101,4 +102,27 @@ func (s *service) loadBio(requestCtx context.Context, filename string) (*Bio, er
 
 	s.logger.Printf("BIO: Successfully loaded bio: %s", bio.Title)
 	return bio, nil
+}
+
+// GetAboutConfig loads the YAML configuration for the about page
+func (s *service) GetAboutConfig(ctx context.Context) (*AboutConfig, error) {
+	s.logger.Printf("BIO: Loading about config from about.yml")
+
+	// Read the YAML file
+	filePath := filepath.Join(s.contentDir, "about.yml")
+	content, err := os.ReadFile(filePath)
+	if err != nil {
+		s.logger.Printf("BIO: Error reading %s: %v", filePath, err)
+		return nil, fmt.Errorf("failed to read about config file %s: %w", filePath, err)
+	}
+
+	// Parse YAML
+	var config AboutConfig
+	if err := yaml.Unmarshal(content, &config); err != nil {
+		s.logger.Printf("BIO: Error parsing YAML in %s: %v", filePath, err)
+		return nil, fmt.Errorf("failed to parse about config: %w", err)
+	}
+
+	s.logger.Printf("BIO: Successfully loaded about config: %s", config.Title)
+	return &config, nil
 }

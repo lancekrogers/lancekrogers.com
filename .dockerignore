@@ -1,0 +1,49 @@
+# Git
+.git
+.gitignore
+
+# Documentation
+README.md
+ARCHITECTURE.md
+DEPLOYMENT.md
+SECURITY.md
+ai_docs/
+
+# Development files
+.env
+.env.local
+.env.development
+.env.test
+
+# Node modules (if any)
+node_modules/
+npm-debug.log
+
+# Build artifacts
+/tmp/
+*.log
+*.tmp
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test files
+*_test.go
+test-setup.js
+test_node_modules/
+coverage/
+
+# Docker files
+Dockerfile*
+docker-compose*.yml
+
+# Data directories (will be mounted)
+data/messages/
+data/mermaid-temp/

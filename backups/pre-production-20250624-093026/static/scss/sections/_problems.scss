@@ -1,0 +1,152 @@
+// Problems Section
+// Challenge -> Solution -> Outcome cards
+
+.problems {
+  padding: 5rem 0;
+  background: var(--bg-secondary);
+}
+
+.problems-grid {
+  display: grid;
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.problem-card {
+  background: var(--bg-primary);
+  border: 1px solid rgba(0, 255, 136, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-warning), var(--accent-crypto));
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(0, 255, 136, 0.1);
+  }
+}
+
+.problem-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+
+  @media (min-width: 1024px) {
+    flex-wrap: nowrap;
+  }
+}
+
+.problem-challenge {
+  color: #ff6666; // Softer red for better mobile readability
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+.problem-arrow {
+  color: var(--accent-crypto);
+  font-size: 1.5rem;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+.problem-solution {
+  color: var(--text-primary);
+  font-weight: 600;
+  flex: 1;
+}
+
+.problem-outcome {
+  color: var(--accent-crypto);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.1rem;
+  flex: 1;
+}
+
+// Mobile-specific improvements for problems section
+@media (max-width: 768px) {
+  .problems {
+    padding: 3rem 0;
+  }
+  
+  .problems-grid {
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .problem-card {
+    padding: 1.5rem;
+    border-radius: 8px;
+    background: rgba(26, 26, 26, 0.8);
+    border: 1px solid rgba(0, 255, 136, 0.08);
+    
+    &:hover {
+      transform: none; // Disable hover transform on mobile
+      box-shadow: 0 4px 20px rgba(0, 255, 136, 0.08);
+    }
+  }
+  
+  .problem-content {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+  
+  .problem-challenge {
+    font-size: 1rem;
+    color: #ff7777; // Even softer on mobile
+    width: 100%;
+    margin-bottom: 0.25rem;
+  }
+  
+  .problem-arrow {
+    display: none; // Hide arrows on mobile for cleaner look
+  }
+  
+  .problem-solution {
+    font-size: 0.95rem;
+    color: #ccc;
+    width: 100%;
+    padding-left: 1rem;
+    position: relative;
+    
+    &::before {
+      content: "→";
+      position: absolute;
+      left: 0;
+      color: #666;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .problem-outcome {
+    font-size: 1rem;
+    color: var(--accent-crypto);
+    width: 100%;
+    padding-left: 1rem;
+    margin-top: 0.25rem;
+    position: relative;
+    
+    &::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      font-size: 0.9rem;
+    }
+  }
+}

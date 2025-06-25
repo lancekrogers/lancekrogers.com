@@ -1,0 +1,145 @@
+# Services Page Configuration
+page_title: "Services & Packages"
+page_subtitle: "From rapid assessments to embedded transformation"
+
+# Service Packages
+packages:
+    display_prices: false # Set to true to show prices
+    evaluation:
+        title: "Idea Evaluation"
+        price: "$1000"
+        duration: "1 day"
+        description: "45-min idea teardown + next-day action brief"
+        detailed_info:
+            what_you_get:
+                - "45-minute idea analysis session"
+                - "Technical feasibility assessment"
+                - "Market opportunity review"
+                - "Next-day action brief with priorities"
+            process:
+                - "Deep-dive discussion of your concept"
+                - "Technical architecture evaluation"
+                - "Risk & opportunity identification"
+                - "Action plan delivery within 24 hours"
+            outcomes:
+                - "Clear go/no-go decision framework"
+                - "Technical roadmap outline"
+                - "Resource requirement estimates"
+    assessment:
+        title: "Technical Assessment"
+        price: "$5000"
+        duration: "1-2 weeks"
+        description: "Codebase & infra audit with week-one optimization plan"
+        detailed_info:
+            what_you_get:
+                - "Complete codebase analysis"
+                - "Infrastructure audit"
+                - "Security assessment"
+                - "Week-one optimization plan"
+                - "Performance bottleneck identification"
+            process:
+                - "Codebase deep-dive and documentation review"
+                - "Infrastructure and deployment analysis"
+                - "Security vulnerability assessment"
+                - "Performance profiling and optimization planning"
+            outcomes:
+                - "Detailed technical debt assessment"
+                - "Prioritized improvement roadmap"
+                - "Quick-win optimization strategies"
+    pilot:
+        title: "Rapid Prototype Development"
+        price: "$15,000"
+        duration: "3-6 weeks"
+        featured: false
+        description: "Clickable prototype built on proven Guild or L2 patterns"
+        detailed_info:
+            what_you_get:
+                - "Full-stack clickable prototype"
+                - "Proven architectural patterns"
+                - "Core feature implementation"
+                - "Deployment to staging environment"
+                - "Technical documentation"
+            process:
+                - "Requirements gathering and architecture design"
+                - "Core functionality development using proven patterns"
+                - "Integration testing and refinement"
+                - "Deployment and demonstration"
+            outcomes:
+                - "Demonstrable working prototype"
+                - "Validated technical approach"
+                - "Clear path to production"
+    accelerator:
+        title: "Strategic Development Partnership"
+        price: "$50,000+"
+        duration: "8+ weeks"
+        description: "Fractional CTO for high-stakes launches"
+        detailed_info:
+            what_you_get:
+                - "Fractional CTO services"
+                - "Strategic technical leadership"
+                - "Team mentoring and guidance"
+                - "Architecture and scaling decisions"
+                - "Go-to-market technical strategy"
+            process:
+                - "Strategic planning and team assessment"
+                - "Technical architecture and scaling roadmap"
+                - "Hands-on development and team leadership"
+                - "Launch preparation and execution"
+            outcomes:
+                - "Production-ready, scalable system"
+                - "Trained and empowered development team"
+                - "Sustainable technical foundation"
+    ai_acceleration:
+        title: "AI Development Acceleration"
+        price: "$25,000+"
+        duration: "4-8 weeks"
+        featured: false
+        description: "Transform your dev team into AI-powered engineers"
+        detailed_info:
+            what_you_get:
+                - "Embedded team workflow analysis"
+                - "Custom AI workflow design"
+                - "1-on-1 senior developer coaching"
+                - "Team workshops and knowledge transfer"
+                - "Documented AI development processes"
+                - "Sustainable adoption framework"
+            process:
+                - "Week 1-2: Workflow analysis and custom AI integration design"
+                - "Week 3-4: Senior developer 1-on-1 training on agentic coding"
+                - "Week 5-6: Team workshops and process refinement"
+                - "Week 7-8: Knowledge transfer and sustainability planning"
+            outcomes:
+                - "2-5x productivity improvements"
+                - "70% faster feature delivery"
+                - "90% reduction in boilerplate code"
+                - "Self-sufficient AI-powered development team"
+    embedded:
+        title: "Embedded Team Acceleration"
+        price: "$200,000+"
+        duration: "6+ Months"
+        featured: false
+        description: "Observe, Identify, Improve"
+        detailed_info:
+            what_you_get:
+                - "Embedded team workflow analysis"
+                - "Identify inefficiencies, team dynamics, technology missteps that are holding you back"
+                - "Suggest improvements and implement them for you"
+                - "Team workshops and knowledge transfer"
+                - "Documented process and technology improvements"
+                - "Coach leaders on how to more effectively communicate and manage developers"
+            process:
+                - "Week 1-8: Workflow analysis and improvement plan iteration"
+                - "Week 8+: Work with managers and executive leadership to dramatically fix their organization"
+            outcomes:
+                - "Sustainable long term team productivity"
+                - "Reduced technology spend"
+                - "Identify source of organizational problems rather than bandaids that never work"
+                - "Long term improvement in team dynamics and workforce efficiency"
+
+# CTA Section
+cta:
+    headline: "Let's discuss your project"
+    subheadline: "Every engagement starts with understanding your specific challenges"
+    primary_button: "Schedule a Call"
+    secondary_button: "Send a Message"
+

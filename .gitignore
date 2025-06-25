@@ -2,6 +2,10 @@
 # Blockhead Consulting Website - Git Ignore Rules
 # =============================================================================
 
+# Database
+data/*.db
+data/*.db-*
+
 # -----------------------------------------------------------------------------
 # Development Tools & IDE Files
 # -----------------------------------------------------------------------------
@@ -11,7 +15,6 @@
 *.swp                       # Vim swap files
 *.swo                       # Vim swap files
 *~                          # Temporary files
-CLAUDE.md
 
 # -----------------------------------------------------------------------------
 # Operating System Files
@@ -59,8 +62,7 @@ data/*.json
 data/*.db                   # Database files
 data/*.sqlite               # SQLite databases
 data/*.log                  # Log files with potential sensitive data
-data/*.log
-data/messages/
+data/messages/              # Encrypted contact form messages
 server.log
 
 # -----------------------------------------------------------------------------
@@ -111,3 +113,5 @@ ai_docs/content/            # AI-generated content (not for version control)
 *.crt                       # Certificate files
 *.csr                       # Certificate signing requests
 secrets/                    # Directory containing secrets
+
+

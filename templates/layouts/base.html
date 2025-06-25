@@ -4,12 +4,51 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    {{/* Basic Meta Tags - Critical for Social Crawlers */}}
     <title>{{.Title}}</title>
+    <meta name="description" content="{{if .AppConfig}}{{.AppConfig.Site.Description}}{{else}}Blockchain & AI Infrastructure{{end}}">
+    
+    {{/* Open Graph Meta Tags */}}
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{if .AppConfig}}{{.AppConfig.Site.BaseURL}}{{else}}https://blockhead.consulting{{end}}">
+    <meta property="og:title" content="{{.Title}}">
+    <meta property="og:description" content="{{if .AppConfig}}{{.AppConfig.Site.Description}}{{else}}Blockchain & AI Infrastructure{{end}}">
+    <meta property="og:image" content="{{if .AppConfig}}{{.AppConfig.Site.BaseURL}}{{else}}https://blockhead.consulting{{end}}{{if .AppConfig.Site.Social.DefaultImage}}{{.AppConfig.Site.Social.DefaultImage}}{{else}}/static/images/blockhead-og-default.png{{end}}">
+    <meta property="og:site_name" content="{{if .AppConfig}}{{.AppConfig.Site.Name}}{{else}}Blockhead Consulting{{end}}">
+    
+    {{/* Twitter Card Meta Tags */}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{if .AppConfig}}{{.AppConfig.Site.BaseURL}}{{else}}https://blockhead.consulting{{end}}">
+    <meta name="twitter:title" content="{{.Title}}">
+    <meta name="twitter:description" content="{{if .AppConfig}}{{.AppConfig.Site.Description}}{{else}}Blockchain & AI Infrastructure{{end}}">
+    <meta name="twitter:image" content="{{if .AppConfig}}{{.AppConfig.Site.BaseURL}}{{else}}https://blockhead.consulting{{end}}{{if .AppConfig.Site.Social.DefaultImage}}{{.AppConfig.Site.Social.DefaultImage}}{{else}}/static/images/blockhead-og-default.png{{end}}">
+    {{if .AppConfig.Site.Social.TwitterHandle}}
+    <meta name="twitter:site" content="{{if hasPrefix .AppConfig.Site.Social.TwitterHandle "@"}}{{.AppConfig.Site.Social.TwitterHandle}}{{else}}@{{.AppConfig.Site.Social.TwitterHandle}}{{end}}">
+    {{end}}
+    {{if .AppConfig.Site.Social.AuthorTwitter}}
+    <meta name="twitter:creator" content="{{if hasPrefix .AppConfig.Site.Social.AuthorTwitter "@"}}{{.AppConfig.Site.Social.AuthorTwitter}}{{else}}@{{.AppConfig.Site.Social.AuthorTwitter}}{{end}}">
+    {{end}}
+    
+    {{/* Favicons and Feed - Non-blocking */}}
     <link rel="icon" type="image/svg+xml" href="/static/logos/svg/blockhead-single-medium-black.svg">
-    <link rel="stylesheet" href="/static/styles.css" />
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    <link rel="alternate" type="application/rss+xml" title="{{if .AppConfig}}{{.AppConfig.Site.Name}}{{else}}Blockhead Consulting{{end}} RSS Feed" href="/feed.xml">
+    
+    {{/* Load CSS directly */}}
+    <link rel="stylesheet" href="/static/css/styles.css">
+    
+    {{/* HTMX Configuration */}}
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script nonce="{{.Config.CSPNonce}}">
+      // Configure HTMX to prevent duplicate requests
+      htmx.config.defaultSwapStyle = "innerHTML";
+      htmx.config.historyCacheSize = 0; // Disable cache to prevent stale requests
+      htmx.config.refreshOnHistoryMiss = false; // Prevent automatic refresh on back/forward
+    </script>
   </head>
-  <body>
+  <body{{if .Page}} class="page-{{.Page}}"{{end}}>
     {{template "nav" .}}
 
     <main id="main-content">
@@ -21,6 +60,8 @@
         {{template "about-page-content" .}}
       {{else if eq .Page "calendar"}}
         {{template "calendar-page-content" .}}
+      {{else if eq .Page "services"}}
+        {{template "services-page-content" .}}
       {{else if eq .Page "home"}}
         {{template "home-page-content" .}}
       {{else}}
@@ -29,6 +70,8 @@
     </main>
 
     {{template "footer" .}}
+    {{template "modal-contact" .}}
+    {{if .ServicesConfig}}{{template "services-modal" .}}{{end}}
     {{if .AppConfig}}
     <script nonce="{{.Config.CSPNonce}}">
       // Inject boot sequences from configuration
@@ -62,9 +105,14 @@
       }
     </script>
     {{end}}
+    {{if eq .Config.Environment "production"}}
+    <script src="/static/js/production-logging.js"></script>
+    {{end}}
     <script src="/static/boot-sequence.js"></script>
-    <script src="/static/main.js"></script>
+    <script type="module" src="/static/js/main-init.js"></script>
     <script src="/static/blog.js"></script>
+    <script src="/static/js/blog-enhanced.js"></script>
+    <script src="/static/js/blog-post.js"></script>
     {{if eq .Config.Environment "development"}}
     <script src="/static/mode-tests.js"></script>
     {{end}}

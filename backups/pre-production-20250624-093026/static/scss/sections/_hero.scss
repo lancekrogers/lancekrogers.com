@@ -1,0 +1,915 @@
+// Hero Section
+// Extracted from styles.scss lines 424-1334
+
+/* Hero Section with CRT Effect */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 6rem 0 4rem;
+  position: relative;
+  background: var(--bg-primary);
+  overflow: visible; /* Allow boot sequence to be visible */
+}
+
+/* CRT effects only for cyberpunk mode */
+.hero.hero-cyberpunk::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* Cyberpunk scan lines - bigger and more visible */
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 3px,
+      rgba(0, 255, 136, 0.03) 3px,
+      rgba(0, 255, 136, 0.03) 4px,
+      transparent 4px,
+      transparent 8px
+    );
+  pointer-events: none;
+  z-index: 1;
+  animation: crt-scanlines 3s linear infinite;
+  opacity: 1;
+  transition: opacity 8s ease-out;
+}
+
+/* CRT screen curvature effect - cyberpunk mode only */
+.hero.hero-cyberpunk::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* CRT screen curvature and vignette effect */
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.05) 90%,
+    rgba(0, 0, 0, 0.1) 100%
+  );
+  pointer-events: none;
+  z-index: 1;
+  opacity: 1;
+  transition: opacity 8s ease-out;
+}
+
+/* Fade out CRT effects after typing completes */
+.hero.hero-cyberpunk.crt-fade-out::before,
+.hero.hero-cyberpunk.crt-fade-out::after {
+  opacity: 0;
+}
+
+.hero-content {
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-logo {
+  margin-bottom: 2rem;
+  /* No animation by default (professional mode) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  opacity: 1; /* Always visible */
+}
+
+/* Logo animation only in cyberpunk mode */
+.hero.hero-cyberpunk .hero-logo {
+  animation: hero-logo-glow 3s ease-out;
+}
+
+.hero-logo-img {
+  height: 120px;
+  width: auto;
+  filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.4));
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+@keyframes hero-logo-glow {
+  0% {
+    filter: drop-shadow(0 0 30px rgba(0, 255, 136, 0.8)) hue-rotate(0deg);
+  }
+  25% {
+    filter: drop-shadow(0 0 40px rgba(255, 107, 107, 0.6)) hue-rotate(90deg);
+  }
+  50% {
+    filter: drop-shadow(0 0 35px rgba(0, 212, 255, 0.7)) hue-rotate(180deg);
+  }
+  75% {
+    filter: drop-shadow(0 0 25px rgba(0, 255, 136, 0.5)) hue-rotate(270deg);
+  }
+  100% {
+    filter: drop-shadow(0 0 20px rgba(0, 255, 136, 0.4)) hue-rotate(360deg);
+  }
+}
+
+.glitch {
+  font-family: var(--font-mono);
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: relative;
+  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  display: inline-block;
+  min-height: 8.4rem;
+  width: 100%;
+  max-width: 1200px;
+  white-space: nowrap;
+  line-height: 1.2;
+  /* All glitch animations disabled by default */
+  animation: none !important;
+}
+
+.glitch::before,
+.glitch::after {
+  /* Disable pseudo-element animations by default */
+  animation: none !important;
+  display: none;
+}
+
+/* Terminal styling */
+.terminal-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+}
+
+.terminal-line {
+  display: inline;
+  position: relative;
+}
+
+.terminal-content {
+  color: var(--text-primary);
+  display: inline;
+}
+
+.terminal-cursor {
+  color: var(--accent-crypto);
+  font-weight: 900;
+  animation: cursor-blink 1s infinite;
+  text-shadow: 0 0 5px rgba(0, 255, 136, 0.7);
+  display: inline;
+}
+
+@keyframes cursor-blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes cursor-fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Disable ALL animations for terminal text by default */
+.glitch.terminal-text {
+  animation: none !important;
+}
+
+/* Hide glitch pseudo-elements by default for terminal mode */
+.glitch.terminal-text::before,
+.glitch.terminal-text::after {
+  display: none;
+  animation: none !important;
+}
+
+/* Show glitch pseudo-elements only during periodic glitch effects */
+.glitch.terminal-text.subtle-glitch::before,
+.glitch.terminal-text.subtle-glitch::after {
+  display: flex;
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Legacy glitch for non-terminal elements */
+.glitch:not(.terminal-text)::before,
+.glitch:not(.terminal-text)::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+}
+
+/* Terminal periodic glitch styles */
+.glitch.terminal-text.subtle-glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--accent-warning);
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 1s ease-out;
+  z-index: 1;
+}
+
+.glitch.terminal-text.subtle-glitch::after {
+  left: -2px;
+  text-shadow:
+    -2px 0 var(--accent-crypto),
+    2px 2px var(--accent-ai);
+  animation: glitch-anim2 1s ease-out;
+  z-index: 1;
+}
+
+/* Legacy glitch styles for non-terminal elements */
+.glitch:not(.terminal-text)::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--accent-warning);
+  clip: rect(44px, 450px, 56px, 0);
+  animation: glitch-anim 3s ease-out, hide-pseudo 3s ease-out;
+  z-index: 1;
+  animation-fill-mode: forwards;
+}
+
+.glitch:not(.terminal-text)::after {
+  left: -2px;
+  text-shadow:
+    -2px 0 var(--accent-crypto),
+    2px 2px var(--accent-ai);
+  animation: glitch-anim2 3s ease-out, hide-pseudo 3s ease-out;
+  z-index: 1;
+  animation-fill-mode: forwards;
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip: rect(26px, 9999px, 33px, 0);
+    transform: skew(0.15deg);
+  }
+  3% {
+    clip: rect(26px, 9999px, 33px, 0);
+    transform: skew(0.15deg);
+  }
+  5% {
+    clip: rect(64px, 9999px, 71px, 0);
+    transform: skew(0.44deg);
+  }
+  8% {
+    clip: rect(64px, 9999px, 71px, 0);
+    transform: skew(0.44deg);
+  }
+  10% {
+    clip: rect(85px, 9999px, 92px, 0);
+    transform: skew(0.38deg);
+  }
+  15% {
+    clip: rect(91px, 9999px, 98px, 0);
+    transform: skew(0.05deg);
+  }
+  18% {
+    clip: rect(91px, 9999px, 98px, 0);
+    transform: skew(0.05deg);
+  }
+  20% {
+    clip: rect(41px, 9999px, 48px, 0);
+    transform: skew(0.25deg);
+  }
+  25% {
+    clip: rect(22px, 9999px, 29px, 0);
+    transform: skew(0.18deg);
+  }
+  30% {
+    clip: rect(76px, 9999px, 83px, 0);
+    transform: skew(0.32deg);
+  }
+  33% {
+    clip: rect(76px, 9999px, 83px, 0);
+    transform: skew(0.32deg);
+  }
+  35% {
+    clip: rect(59px, 9999px, 66px, 0);
+    transform: skew(0.12deg);
+  }
+  40% {
+    clip: rect(17px, 9999px, 24px, 0);
+    transform: skew(0.41deg);
+  }
+  45% {
+    clip: rect(68px, 9999px, 75px, 0);
+    transform: skew(0.29deg);
+  }
+  48% {
+    clip: rect(68px, 9999px, 75px, 0);
+    transform: skew(0.29deg);
+  }
+  50% {
+    clip: rect(34px, 9999px, 41px, 0);
+    transform: skew(0.07deg);
+  }
+  55% {
+    clip: rect(12px, 9999px, 19px, 0);
+    transform: skew(0.33deg);
+  }
+  60% {
+    clip: rect(88px, 9999px, 95px, 0);
+    transform: skew(0.21deg);
+  }
+  65% {
+    clip: rect(53px, 9999px, 60px, 0);
+    transform: skew(0.16deg);
+  }
+  70% {
+    clip: rect(29px, 9999px, 36px, 0);
+    transform: skew(0.39deg);
+  }
+  75% {
+    clip: rect(46px, 9999px, 53px, 0);
+    transform: skew(0.08deg);
+  }
+  78% {
+    clip: rect(46px, 9999px, 53px, 0);
+    transform: skew(0.08deg);
+  }
+  80% {
+    clip: rect(71px, 9999px, 78px, 0);
+    transform: skew(0.27deg);
+  }
+  85% {
+    clip: rect(37px, 9999px, 44px, 0);
+    transform: skew(0.14deg);
+  }
+  90% {
+    clip: rect(82px, 9999px, 89px, 0);
+    transform: skew(0.36deg);
+  }
+  57% {
+    clip: rect(19px, 9999px, 26px, 0);
+    transform: skew(0.23deg);
+    opacity: 1;
+  }
+  70% {
+    clip: rect(55px, 9999px, 62px, 0);
+    transform: skew(0.08deg);
+    opacity: 0.7;
+  }
+  85% {
+    clip: rect(30px, 9999px, 40px, 0);
+    transform: skew(0.03deg);
+    opacity: 0.3;
+  }
+  95% {
+    clip: rect(0, 0, 0, 0);
+    transform: skew(0deg);
+    opacity: 0.1;
+  }
+  100% {
+    clip: rect(0, 0, 0, 0);
+    transform: skew(0deg);
+    opacity: 0;
+  }
+}
+
+
+@keyframes glitch-anim2 {
+  0% {
+    clip: rect(65px, 9999px, 99px, 0);
+    transform: skew(0.2deg);
+  }
+  5% {
+    clip: rect(65px, 9999px, 99px, 0);
+    transform: skew(0.2deg);
+  }
+  15% {
+    clip: rect(25px, 9999px, 59px, 0);
+    transform: skew(0.85deg);
+  }
+  18% {
+    clip: rect(25px, 9999px, 59px, 0);
+    transform: skew(0.85deg);
+  }
+  20% {
+    clip: rect(80px, 9999px, 99px, 0);
+    transform: skew(0.4deg);
+  }
+  25% {
+    clip: rect(40px, 9999px, 79px, 0);
+    transform: skew(0.6deg);
+  }
+  30% {
+    clip: rect(10px, 9999px, 39px, 0);
+    transform: skew(0.3deg);
+  }
+  35% {
+    clip: rect(70px, 9999px, 99px, 0);
+    transform: skew(0.5deg);
+  }
+  40% {
+    clip: rect(30px, 9999px, 69px, 0);
+    transform: skew(0.7deg);
+  }
+  43% {
+    clip: rect(30px, 9999px, 69px, 0);
+    transform: skew(0.7deg);
+  }
+  45% {
+    clip: rect(90px, 9999px, 99px, 0);
+    transform: skew(0.1deg);
+  }
+  50% {
+    clip: rect(50px, 9999px, 89px, 0);
+    transform: skew(0.9deg);
+  }
+  55% {
+    clip: rect(20px, 9999px, 49px, 0);
+    transform: skew(0.35deg);
+  }
+  58% {
+    clip: rect(20px, 9999px, 49px, 0);
+    transform: skew(0.35deg);
+  }
+  60% {
+    clip: rect(60px, 9999px, 99px, 0);
+    transform: skew(0.55deg);
+  }
+  65% {
+    clip: rect(15px, 9999px, 59px, 0);
+    transform: skew(0.75deg);
+  }
+  70% {
+    clip: rect(75px, 9999px, 99px, 0);
+    transform: skew(0.15deg);
+  }
+  75% {
+    clip: rect(35px, 9999px, 74px, 0);
+    transform: skew(0.65deg);
+  }
+  80% {
+    clip: rect(5px, 9999px, 34px, 0);
+    transform: skew(0.25deg);
+  }
+  83% {
+    clip: rect(5px, 9999px, 34px, 0);
+    transform: skew(0.25deg);
+  }
+  85% {
+    clip: rect(85px, 9999px, 99px, 0);
+    transform: skew(0.45deg);
+  }
+  90% {
+    clip: rect(45px, 9999px, 84px, 0);
+    transform: skew(0.8deg);
+  }
+  57% {
+    clip: rect(25px, 9999px, 44px, 0);
+    transform: skew(0.05deg);
+    opacity: 1;
+  }
+  70% {
+    clip: rect(65px, 9999px, 99px, 0);
+    transform: skew(0.3deg);
+    opacity: 0.7;
+  }
+  85% {
+    clip: rect(40px, 9999px, 70px, 0);
+    transform: skew(0.1deg);
+    opacity: 0.3;
+  }
+  95% {
+    clip: rect(0, 0, 0, 0);
+    transform: skew(0deg);
+    opacity: 0.1;
+  }
+  100% {
+    clip: rect(0, 0, 0, 0);
+    transform: skew(0deg);
+    opacity: 0;
+  }
+}
+
+/* glitch-rotate keyframes removed - no longer used */
+
+/* Hide pseudo-elements after animation */
+@keyframes hide-pseudo {
+  0% { visibility: visible; }
+  99.9% { visibility: visible; }
+  100% { visibility: hidden; }
+}
+
+
+@keyframes movie-section-hack {
+  0% {
+    transform: translate(0px, 0px);
+    filter: hue-rotate(0deg) contrast(1) brightness(1);
+  }
+  5% {
+    transform: translate(0.5px, 0px);
+    filter: hue-rotate(5deg) contrast(1.02) brightness(1.01);
+  }
+  10% {
+    transform: translate(-0.3px, 0.2px);
+    filter: hue-rotate(0deg) contrast(1) brightness(1);
+  }
+  15% {
+    transform: translate(0px, -0.4px);
+    filter: hue-rotate(10deg) contrast(1.01) brightness(1.005);
+  }
+  25% {
+    transform: translate(0.2px, 0px);
+    filter: hue-rotate(0deg) contrast(1) brightness(1);
+  }
+  50% {
+    transform: translate(0px, 0px);
+    filter: hue-rotate(0deg) contrast(1) brightness(1);
+  }
+  100% {
+    transform: translate(0px, 0px);
+    filter: hue-rotate(0deg) contrast(1) brightness(1);
+  }
+}
+
+@keyframes movie-element-interference {
+  0% {
+    opacity: 1;
+    text-shadow: none;
+  }
+  8% {
+    opacity: 0.95;
+    text-shadow: 
+      0.5px 0 rgba(0, 255, 136, 0.3);
+  }
+  15% {
+    opacity: 1;
+    text-shadow: none;
+  }
+  25% {
+    opacity: 0.98;
+    text-shadow: 
+      -0.3px 0 rgba(0, 212, 255, 0.2);
+  }
+  35% {
+    opacity: 1;
+    text-shadow: none;
+  }
+  60% {
+    opacity: 1;
+    text-shadow: none;
+  }
+  100% {
+    opacity: 1;
+    text-shadow: none;
+  }
+}
+
+/* Subtle periodic glitch class for terminal */
+.glitch.terminal-text.subtle-glitch::before {
+  animation: glitch-periodic 1s ease-out;
+}
+
+.glitch.terminal-text.subtle-glitch::after {
+  animation: glitch-periodic2 1s ease-out;
+}
+
+/* Legacy subtle periodic glitch class for non-terminal */
+.glitch:not(.terminal-text).subtle-glitch::before {
+  animation: glitch-anim 7s ease-out, glitch-periodic 1s ease-out;
+}
+
+.glitch:not(.terminal-text).subtle-glitch::after {
+  animation: glitch-anim2 7s ease-out, glitch-periodic2 1s ease-out;
+}
+
+/* Subtle periodic glitch animations */
+@keyframes glitch-periodic {
+  0% {
+    clip: rect(20px, 9999px, 25px, 0);
+    transform: skew(0deg);
+    opacity: 0;
+  }
+  25% {
+    clip: rect(30px, 9999px, 35px, 0);
+    transform: skew(0.02deg);
+    opacity: 0.15;
+  }
+  50% {
+    clip: rect(15px, 9999px, 20px, 0);
+    transform: skew(-0.01deg);
+    opacity: 0.2;
+  }
+  75% {
+    clip: rect(25px, 9999px, 30px, 0);
+    transform: skew(0.015deg);
+    opacity: 0.1;
+  }
+  100% {
+    clip: rect(0, 0, 0, 0);
+    transform: skew(0deg);
+    opacity: 0;
+  }
+}
+
+@keyframes glitch-periodic2 {
+  0% {
+    clip: rect(45px, 9999px, 55px, 0);
+    transform: skew(0deg);
+    opacity: 0;
+  }
+  30% {
+    clip: rect(50px, 9999px, 60px, 0);
+    transform: skew(-0.015deg);
+    opacity: 0.12;
+  }
+  60% {
+    clip: rect(40px, 9999px, 50px, 0);
+    transform: skew(0.01deg);
+    opacity: 0.18;
+  }
+  90% {
+    clip: rect(55px, 9999px, 65px, 0);
+    transform: skew(-0.008deg);
+    opacity: 0.08;
+  }
+  100% {
+    clip: rect(0, 0, 0, 0);
+    transform: skew(0deg);
+    opacity: 0;
+  }
+}
+
+/* CRT Monitor Effects */
+@keyframes crt-flicker {
+  0% {
+    opacity: 1;
+  }
+  98% {
+    opacity: 1;
+  }
+  99% {
+    opacity: 0.98;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes crt-scanlines {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 8px;
+  }
+}
+
+/* Hero Enhancement Modes */
+
+/* Professional Mode - Off-white text for better contrast */
+.hero-professional {
+  color: rgba(248, 248, 248, 0.98);
+}
+
+.hero-professional .terminal-content {
+  color: rgba(248, 248, 248, 0.98);
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
+  transition: color 0.3s ease;
+}
+
+.hero-professional .terminal-content:hover {
+  color: rgba(0, 255, 136, 0.9);
+  text-shadow: 0 0 3px rgba(0, 255, 136, 0.4);
+}
+
+/* Hide cursor in professional mode */
+.hero-professional .terminal-cursor {
+  display: none !important;
+}
+
+/* Cyberpunk Mode - Enhanced contrast with green accent */
+.hero-cyberpunk {
+  color: rgba(248, 248, 248, 0.98);
+  position: relative;
+}
+
+.hero-cyberpunk .terminal-content {
+  color: rgba(248, 248, 248, 0.98);
+  text-shadow: 0 0 4px rgba(0, 255, 136, 0.3), 0 0 2px rgba(0, 0, 0, 0.8);
+  position: relative;
+  z-index: 2;
+}
+
+/* Holographic chromatic aberration effect - navbar, buttons, and logo */
+.hero.hero-cyberpunk .navbar,
+.hero.hero-cyberpunk .btn-primary,
+.hero.hero-cyberpunk .btn-secondary,
+.hero.hero-cyberpunk .hero-logo-img {
+  position: relative;
+}
+
+.hero.hero-cyberpunk .navbar::before,
+.hero.hero-cyberpunk .btn-primary::before,
+.hero.hero-cyberpunk .btn-secondary::before,
+.hero.hero-cyberpunk .hero-logo-img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 1px;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  color: rgba(255, 0, 0, 0.1);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Special handling for logo holographic effect */
+.hero.hero-cyberpunk .hero-logo-img::before {
+  background: url('/static/logos/svg/blockhead-single-large-green.svg') no-repeat center center;
+  background-size: contain;
+  filter: hue-rotate(120deg) saturate(2) opacity(0.3);
+}
+
+.hero.hero-cyberpunk .navbar::after,
+.hero.hero-cyberpunk .btn-primary::after,
+.hero.hero-cyberpunk .btn-secondary::after,
+.hero.hero-cyberpunk .hero-logo-img::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -1px;
+  right: 0;
+  bottom: 0;
+  background: inherit;
+  color: rgba(0, 255, 255, 0.1);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Special handling for logo holographic effect - after pseudo-element */
+.hero.hero-cyberpunk .hero-logo-img::after {
+  background: url('/static/logos/svg/blockhead-single-large-green.svg') no-repeat center center;
+  background-size: contain;
+  filter: hue-rotate(240deg) saturate(1.5) opacity(0.2);
+}
+
+/* Matrix Rain Effect */
+/* AI/Crypto themed background container */
+.ai-crypto-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* Background element styles moved to blockchain-animations.css (disabled) */
+
+/* AI particles */
+.ai-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: radial-gradient(circle, rgba(0, 212, 255, 0.8) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: particle-drift linear infinite;
+  transition: transform 0.1s ease-out;
+}
+
+@keyframes particle-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-20px, -30px) scale(0.5);
+    opacity: 0;
+  }
+}
+
+/* Blockchain animations moved to blockchain-animations.css (disabled for now) */
+
+/* Enhanced cursor for cyberpunk mode */
+.hero-cyberpunk .terminal-cursor {
+  text-shadow: 
+    0 0 5px rgba(0, 255, 136, 0.7),
+    0 0 10px rgba(0, 255, 136, 0.3);
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  margin: 2rem 0 3rem;
+  line-height: 1.8;
+  opacity: 0;
+  transition: opacity 2000ms ease-out;
+}
+
+/* Show subtitle after animations complete */
+.hero-subtitle.fade-in {
+  opacity: 1;
+}
+
+/* Buttons and stats are always visible - no fade needed */
+
+.hero-cta {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  margin-bottom: 4rem;
+  opacity: 1; /* Always visible */
+}
+
+.btn-primary,
+.btn-secondary {
+  display: inline-block;
+  padding: 1rem 2rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: var(--accent-crypto);
+  color: var(--bg-primary);
+}
+
+.btn-primary:hover {
+  background: var(--accent-ai);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: var(--text-primary);
+  border: 2px solid var(--border-color);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent-crypto);
+  color: var(--accent-crypto);
+}
+
+.hero-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  margin-top: 4rem;
+  opacity: 1; /* Always visible */
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--accent-crypto);
+  font-family: var(--font-mono);
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+

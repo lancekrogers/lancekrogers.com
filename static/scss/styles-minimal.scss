@@ -1,0 +1,14 @@
+// Minimal SCSS build - Essential styles only
+@use 'partials/variables';
+@use 'partials/base';
+@use 'partials/typography';
+@use 'partials/navigation';
+@use 'partials/hero_section';
+@use 'partials/container';
+@use 'partials/footer';
+@use 'partials/mobile_responsive';
+@use 'partials/section_background_classes_for_combined_about_page';
+@use 'partials/github_stats_styles';
+@use 'partials/technical_insights_styles';
+@use 'partials/individual_work_container';
+@use 'partials/mobile_touch_indicator';

@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  # Test application with isolated environment
+  app-test:
+    build: 
+      context: .
+      dockerfile: Dockerfile.test
+    environment:
+      # Test-specific configuration
+      - PORT=8085
+      - ENVIRONMENT=test
+      - CALENDAR_ENABLED=false
+      - BLOG_ENABLED=true
+      - HERO_STYLE=professional
+      
+      # Git storage configuration for testing
+      - GIT_REPO_PATH=/app/data/test-messages
+      - GIT_ENCRYPTION_KEY=test_key_0123456789abcdef0123456789abcdef
+      - GIT_BRANCH=main
+      - GIT_COMMIT_AUTHOR=Test Bot
+      - GIT_COMMIT_EMAIL=test@blockhead.consulting
+      - GIT_PUSH_ON_WRITE=false
+      
+      # Email configuration using MailHog
+      - SMTP_HOST=mailhog-test
+      - SMTP_PORT=1025
+      - SMTP_USERNAME=test@blockhead.consulting
+      - SMTP_PASSWORD=testpass
+      - SMTP_FROM_ADDRESS=test@blockhead.consulting
+      - SMTP_FROM_NAME=Blockhead Test
+      - SMTP_TLS_ENABLED=false
+    volumes:
+      - test_git_storage:/app/data/test-messages
+    depends_on:
+      - mailhog-test
+    networks:
+      - test_network
+    command: ["./main"]
+
+  # MailHog for email testing
+  mailhog-test:
+    image: mailhog/mailhog:v1.0.1
+    ports:
+      - "8026:8025"  # Web UI on different port for testing
+    networks:
+      - test_network
+
+  # Integration test runner
+  integration-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    environment:
+      # Test environment variables
+      - TEST_APP_URL=http://app-test:8085
+      - TEST_MAILHOG_URL=http://mailhog-test:8025
+      - GIT_ENCRYPTION_KEY=test_key_0123456789abcdef0123456789abcdef
+    volumes:
+      - ./test_results:/app/test_results
+    depends_on:
+      - app-test
+      - mailhog-test
+    networks:
+      - test_network
+    command: ["go", "test", "./...", "-v", "-race", "-coverprofile=/app/test_results/coverage.out"]
+
+volumes:
+  test_git_storage:
+
+networks:
+  test_network:
+    driver: bridge

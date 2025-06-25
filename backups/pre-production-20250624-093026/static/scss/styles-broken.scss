@@ -1,0 +1,245 @@
+// Main SCSS entry point - Blockhead Consulting
+// This file imports all partials in the correct order
+
+// 1. Core Foundation
+@use 'partials/variables';
+@use 'partials/syntax-highlighting';
+@use 'partials/base';
+@use 'partials/typography';
+
+// 2. Layout & Structure
+@use 'partials/container';
+@use 'partials/navigation';
+
+// 3. Hero & Effects
+@use 'partials/hero_section';
+@use 'partials/hero_section_with_crt_effect';
+@use 'partials/terminal_styling';
+@use 'partials/all_glitch_animations_disabled_by_default';
+@use 'partials/glitch_rotate_keyframes_removed_no_longer_used';
+@use 'partials/crt_monitor_effects';
+@use 'partials/hero_enhancement_modes';
+@use 'partials/ai_crypto_themed_background_container';
+
+// 4. Main Content Sections
+@use 'partials/services_section';
+@use 'partials/packages';
+@use 'partials/footer';
+@use 'partials/contact';
+
+// 5. Blog System
+@use 'partials/blog_styles';
+@use 'partials/blog_post';
+@use 'partials/blog_typography_colors_muted_cyberpunk';
+@use 'partials/blog_typography_hierarchy_muted_cyberpunk';
+@use 'partials/post_navigation';
+
+// 6. Page-Specific Styles
+@use 'partials/about_page_styles';
+@use 'partials/about_page_container';
+@use 'partials/about_page_specific_section_styling';
+@use 'partials/work_experience_page';
+@use 'partials/new_work_page_styles';
+@use 'partials/services_page_styles';
+@use 'partials/github_stats_styles';
+
+// 7. Interactive Elements & Modals
+@use 'partials/modal_contact_form';
+@use 'partials/package_interactive_popup_system';
+@use 'partials/expertise_popup_styles';
+@use 'partials/work_popup_styles';
+
+// 8. Responsive & Mobile
+@use 'partials/responsive_design';
+@use 'partials/mobile_responsive';
+@use 'partials/mobile_layout';
+@use 'partials/mobile_navigation_hidden_by_default';
+
+// 9. Utilities & Overrides
+@use 'partials/utility_classes';
+@use 'partials/section_background_classes';
+
+// Import any remaining partials that aren't empty
+@use 'partials/ai_particles';
+@use 'partials/all_posts_link';
+@use 'partials/alternating_row_colors';
+@use 'partials/approach_section';
+@use 'partials/background';
+@use 'partials/bio_brief_section';
+@use 'partials/bio_column';
+@use 'partials/blog_mobile_typography';
+@use 'partials/blog_search_and_filters';
+@use 'partials/blog_search_mobile';
+@use 'partials/buttons_and_stats_are_always_visible_no_fade_needed';
+@use 'partials/calendar_page';
+@use 'partials/clickable_project_table_rows';
+@use 'partials/client_side_rendered_diagrams';
+@use 'partials/code_examples_in_expertise_popups';
+@use 'partials/combined_bio_and_expertise_section';
+@use 'partials/company_vs_project_card_variations';
+@use 'partials/crt_effects_only_for_cyberpunk_mode';
+@use 'partials/crt_screen_curvature_and_vignette_effect';
+@use 'partials/crt_screen_curvature_effect_cyberpunk_mode_only';
+@use 'partials/cta_section';
+@use 'partials/cyberpunk_mode_enhanced_contrast_with_green_accent';
+@use 'partials/cyberpunk_scan_lines_bigger_and_more_visible';
+@use 'partials/desktop_container_layout';
+@use 'partials/desktop_navigation_default';
+@use 'partials/details_summary_styling_for_scc_reports';
+@use 'partials/differentiators_section';
+@use 'partials/disable_all_animations_for_terminal_text_by_default';
+@use 'partials/disable_pseudo_element_animations_by_default';
+@use 'partials/enhanced_cursor_for_cyberpunk_mode';
+@use 'partials/enhanced_work_experience_section';
+@use 'partials/ensure_button_style_modal_triggers_have_consistent_styling';
+@use 'partials/ensure_mermaid_diagrams_are_responsive';
+@use 'partials/ensure_mobile_menu_works_on_all_mobile_devices';
+@use 'partials/expertise';
+@use 'partials/expertise_column';
+@use 'partials/fade_out_crt_effects_after_typing_completes';
+@use 'partials/footer_rss_link';
+@use 'partials/form_encryption_animation_styles';
+@use 'partials/hide_cursor_in_professional_mode';
+@use 'partials/hide_glitch_pseudo_elements_by_default_for_terminal_mode';
+@use 'partials/hide_pseudo_elements_after_animation';
+@use 'partials/individual_work_container';
+@use 'partials/inline_code_styling';
+@use 'partials/items_group';
+@use 'partials/large_desktop_styles_for_about_page';
+@use 'partials/larger_text_on_mobile_for_better_readability';
+@use 'partials/latest_technical_insights_section';
+@use 'partials/legacy_expertise_styles_for_backwards_compatibility';
+@use 'partials/legacy_glitch_for_non_terminal_elements';
+@use 'partials/legacy_glitch_styles_for_non_terminal_elements';
+@use 'partials/legacy_nav_links_hidden_on_mobile';
+@use 'partials/legacy_subtle_periodic_glitch_class_for_non_terminal';
+@use 'partials/logo_animation_only_in_cyberpunk_mode';
+@use 'partials/main_packages_modal';
+@use 'partials/matrix_rain_effect';
+@use 'partials/mermaid_diagram_styling';
+@use 'partials/mobile_adjustments_for_code_examples';
+@use 'partials/mobile_adjustments_for_insights';
+@use 'partials/mobile_and_tablet_responsive';
+@use 'partials/mobile_optimizations';
+@use 'partials/mobile_optimizations_for_main_modal';
+@use 'partials/mobile_responsiveness';
+@use 'partials/mobile_specific_improvements_for_problems_section';
+@use 'partials/mobile_tab_content';
+@use 'partials/mobile_tab_navigation';
+@use 'partials/mobile_touch_indicator';
+@use 'partials/modern_about_page_styles';
+@use 'partials/movie_hacking_effect_for_major_elements';
+@use 'partials/nav_title_removed_for_consistent_button_sizing';
+@use 'partials/navigation_link_styles_for_both_desktop_and_mobile';
+@use 'partials/new_work_page_mobile_styles';
+@use 'partials/override_any_remaining_light_colors_nuclear_option';
+@use 'partials/pre_code_blocks_inside_details_for_scc_output';
+@use 'partials/preserve_chroma_syntax_highlighting_styles';
+@use 'partials/problems_section';
+@use 'partials/professional_mode_off_white_text_for_better_contrast';
+@use 'partials/profile_image_styles_used_in_multiple_places';
+@use 'partials/project_detail_cards';
+@use 'partials/recent_wins_section';
+@use 'partials/related_posts';
+@use 'partials/responsive';
+@use 'partials/responsive_adjustments_for_post_navigation';
+@use 'partials/responsive_content_width';
+@use 'partials/responsive_table';
+@use 'partials/rss_feed_link';
+@use 'partials/scrollable_content_area';
+@use 'partials/section_background_classes_for_combined_about_page';
+@use 'partials/section_headers';
+@use 'partials/server_side_rendered_diagrams';
+@use 'partials/service_packages_cta';
+@use 'partials/show_glitch_pseudo_elements_only_during_periodic_glitch_effects';
+@use 'partials/show_subtitle_after_animations_complete';
+@use 'partials/special_handling_for_logo_holographic_effect';
+@use 'partials/special_handling_for_logo_holographic_effect_after_pseudo_element';
+@use 'partials/specific_styling_for_cta_secondary_button_trigger';
+@use 'partials/specific_styling_for_view_packages_button_trigger';
+@use 'partials/style_card_content';
+@use 'partials/subtle_periodic_glitch_animations';
+@use 'partials/subtle_periodic_glitch_class_for_terminal';
+@use 'partials/tabbed_work_experience_section';
+@use 'partials/table_styles';
+@use 'partials/table_wrapper_for_overflow';
+@use 'partials/technical_insights_styles';
+@use 'partials/terminal_periodic_glitch_styles';
+@use 'partials/work_cards';
+@use 'partials/work_grid_layout';
+@use 'partials/work_rows';
+
+// Syntax highlighting partials
+@use 'partials/comment';
+@use 'partials/commenthashbang';
+@use 'partials/commentmultiline';
+@use 'partials/commentpreproc';
+@use 'partials/commentpreprocfile';
+@use 'partials/commentsingle';
+@use 'partials/commentspecial';
+@use 'partials/error';
+@use 'partials/genericdeleted';
+@use 'partials/genericemph';
+@use 'partials/genericinserted';
+@use 'partials/genericstrong';
+@use 'partials/genericsubheading';
+@use 'partials/keyword';
+@use 'partials/keywordconstant';
+@use 'partials/keyworddeclaration';
+@use 'partials/keywordnamespace';
+@use 'partials/keywordpseudo';
+@use 'partials/keywordreserved';
+@use 'partials/keywordtype';
+@use 'partials/line';
+@use 'partials/linehighlight';
+@use 'partials/linelink';
+@use 'partials/linenumbers';
+@use 'partials/linenumberstable';
+@use 'partials/linetable';
+@use 'partials/linetabletd';
+@use 'partials/literal';
+@use 'partials/literaldate';
+@use 'partials/literalnumber';
+@use 'partials/literalnumberbin';
+@use 'partials/literalnumberfloat';
+@use 'partials/literalnumberhex';
+@use 'partials/literalnumberinteger';
+@use 'partials/literalnumberintegerlong';
+@use 'partials/literalnumberoct';
+@use 'partials/literalstring';
+@use 'partials/literalstringaffix';
+@use 'partials/literalstringbacktick';
+@use 'partials/literalstringchar';
+@use 'partials/literalstringdelimiter';
+@use 'partials/literalstringdoc';
+@use 'partials/literalstringdouble';
+@use 'partials/literalstringescape';
+@use 'partials/literalstringheredoc';
+@use 'partials/literalstringinterpol';
+@use 'partials/literalstringother';
+@use 'partials/literalstringregex';
+@use 'partials/literalstringsingle';
+@use 'partials/literalstringsymbol';
+@use 'partials/nameattribute';
+@use 'partials/nameclass';
+@use 'partials/nameconstant';
+@use 'partials/namedecorator';
+@use 'partials/nameexception';
+@use 'partials/namefunction';
+@use 'partials/namefunctionmagic';
+@use 'partials/nameother';
+@use 'partials/nametag';
+@use 'partials/operator';
+@use 'partials/operatorword';
+@use 'partials/prewrapper';
+
+// Additional partials
+@use 'partials/add_subtle_indicator_for_rendering_method';
+@use 'partials/allow_wrapping_for_content_heavy_cells';
+@use 'partials/compact_packages_view';
+@use 'partials/force_actor_boxes_in_sequence_diagrams';
+@use 'partials/force_all_line_types_to_be_visible';
+@use 'partials/force_all_node_shapes_to_be_visible_with_dark_backgrounds';
+@use 'partials/force_arrow_markers_and_heads';
+@use 'partials/force_note_boxes_and_other_special_elements';
+@use 'partials/force_svg_elements_to_use_code_syntax_highlighting_colors_comprehensive_override';

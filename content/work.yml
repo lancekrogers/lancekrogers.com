@@ -1,97 +1,221 @@
 # Work Experience Configuration
 # This file contains all work experience data for easy editing
 
-intro: "Senior Backend Engineer with 9+ years building and scaling Go- and Python-based microservices for fintech, blockchain, and AI products. I've consulted with startups and enterprises to streamline workflows, improve system stability, and deliver high-impact features on tight timelines."
+# AI & Machine Learning Experience
+ai:
+    title: "AI & Machine Learning"
+    icon: "🤖"
+    description: "Building AI systems and productivity tools"
 
-# FinTech & Enterprise Experience
-fintech:
-    title: "FinTech & Enterprise"
-    icon: "🏦"
-    description: "Building and scaling financial systems for major institutions"
-
-    companies:
-        - name: "Bank of America"
-          role: "Senior Software Engineer (Contract)"
-          duration: "Feb 2024 - Dec 2024"
-          summary: "Transformed enterprise CI/CD infrastructure for Global Security division"
+    projects:
+        - name: "Guild Framework"
+          role: "Creator & Lead Architect"
+          duration: "2024 - Present"
+          summary: "Next-generation multi-agent AI orchestration platform (90% complete)"
           featured: true
           detailed_info:
-              description: "Led modernization efforts for one of America's largest financial institutions, focusing on enterprise CI/CD infrastructure and legacy security scanning systems."
-              key_projects:
-                  - name: "CI/CD Pipeline Modernization"
-                    description: "Designed and implemented CI/CD pipeline for 15-year-old codebase"
-                    impact: "Reduced deploy times from months to hours"
+              description: "Enterprise-grade AI agent orchestration platform representing a significant advancement over single-agent tools like Aider and Claude Code. Built with 190,000+ lines of Go code across 767 files, featuring specialized AI agents working together through medieval guild metaphor. Currently in final development stages before open-source release."
+              key_features:
+                  - name: "Multi-Agent Coordination"
+                    description: "Orchestrates specialized 'artisans' (AI agents) for research, coding, design, and documentation with event-driven real-time coordination"
+                    impact: "Specialized expertise vs single general-purpose AI"
                     technologies:
-                        ["Python", "CI/CD", "Git", "Enterprise Architecture"]
-                  - name: "Security Scanning Refactor"
-                    description: "Modernized legacy Python security scanning software"
-                    impact: "Ensured compliance with modern secure coding standards"
-                    technologies: ["Python", "Security", "Code Analysis"]
-                  - name: "Developer Productivity Initiative"
-                    description: "Automation and process improvements"
-                    impact: "Reclaimed 6+ months/year of lost developer time"
-                    technologies: ["Automation", "Process Optimization"]
-              achievements:
-                  - "Resolved long-standing security blockers by sanitizing over a decade of sensitive Git history"
-                  - "Led modernization efforts including documentation, release process automation, and cross-team tooling"
-                  - "Improved sprint velocity through strategic automation initiatives"
-
-        - name: "PNC Bank"
-          role: "Software Engineer Consultant"
-          duration: "2018"
-          summary: "Audited Python pipelines for data accuracy and security"
-          detailed_info:
-              description: "Conducted comprehensive audit of data processing pipelines for major regional bank."
-              key_projects:
-                  - name: "Pipeline Security Audit"
-                    description: "Comprehensive security and accuracy audit of Python data pipelines"
-                    impact: "Found coding errors missed in an OCC remediation effort affecting thousands of customers"
-                    technologies: ["Python", "Data Pipelines", "Security Audit"]
-              achievements:
-                  - "Identified and resolved critical security vulnerabilities in data processing"
-                  - "Improved data accuracy through pipeline optimization"
-                  - "Delivered comprehensive security recommendations"
-
-        - name: "Global Payments"
-          role: "Software Engineer Consultant"
-          duration: "2019"
-          summary: "Optimized ETL processes, cutting AWS spend significantly"
-          detailed_info:
-              description: "Performance optimization of data processing systems for payment processing company."
-              key_projects:
-                  - name: "ETL Optimization"
-                    description: "Performance tuning and cost optimization of ETL processes"
-                    impact: "Cut AWS spend by $40K/month"
+                        [
+                            "Go",
+                            "Event-Driven Architecture",
+                            "gRPC Streaming",
+                            "Agent Orchestration",
+                        ]
+                  - name: "6-Layer Prompt System"
+                    description: "Dynamic prompt composition with context-aware templates, vector search integration via ChromemGo for semantic retrieval (RAG)"
+                    impact: "Advanced context management and knowledge retrieval"
                     technologies:
-                        ["Python", "ETL", "AWS", "Performance Optimization"]
+                        [
+                            "RAG",
+                            "ChromemGo",
+                            "Vector Search",
+                            "Prompt Engineering",
+                            "SQLite",
+                            "SQLC",
+                        ]
+                  - name: "Multi-Provider Support"
+                    description: "Integrated with OpenAI, Anthropic, Ollama, DeepSeek, and Ora with failover capabilities"
+                    impact: "Vendor-agnostic AI development with reliability"
+                    technologies:
+                        [
+                            "OpenAI",
+                            "Anthropic",
+                            "Ollama",
+                            "DeepSeek",
+                            "Ora",
+                            "Provider Failover",
+                        ]
+                  - name: "Professional Developer Experience"
+                    description: "Rich TUI with markdown rendering, syntax highlighting, session persistence, LSP integration, and 5-column Kanban board"
+                    impact: "Visual superiority over plain-text competitors"
+                    technologies:
+                        [
+                            "TUI",
+                            "Markdown Rendering",
+                            "LSP",
+                            "Kanban System",
+                            "Session Management",
+                        ]
               achievements:
-                  - "Achieved 80% reduction in cloud infrastructure costs"
-                  - "Improved data processing throughput by 3x"
-                  - "Implemented cost monitoring and alerting systems"
+                  - "Architected 190,000+ lines of production-ready Go code with estimated commercial value of $7.4M"
+                  - "Pioneered multi-agent coordination patterns in AI development tools"
+                  - "Built enterprise-grade architecture with proper patterns and practices from inception"
+                  - "90% complete with production-ready components: chat interface, provider system, storage layer, knowledge management"
+                  - "Positioning for open-source release and potential commercial applications"
 
-        - name: "Shutterfly"
-          role: "Software Engineer (Contract)"
-          duration: "Feb 2020 - Feb 2021"
-          summary: "Enhanced order workflow systems for major e-commerce platform"
+        - name: "Claude Code Go SDK"
+          role: "Author"
+          duration: "May 2025"
+          summary: "Go SDK for Anthropic's Claude Code CLI"
+          link: "https://github.com/lancekrogers/claude-code-go"
           detailed_info:
-              description: "Worked on order processing systems for one of the largest photo commerce platforms."
-              key_projects:
-                  - name: "Forge Workflow Enhancement"
-                    description: "Enhanced Python-based order workflow engine routing online orders to factory processes"
-                    impact: "Improved order processing reliability and throughput"
+              description: "Go SDK providing a native interface to Claude Code CLI features, enabling developers to build AI-powered applications with Claude's coding capabilities."
+              key_features:
+                  - name: "Full CLI Wrapper"
+                    description: "Complete Claude Code CLI wrapper with streaming support and context cancellation"
+                    impact: "Native Go interface for Claude Code features"
+                    technologies: ["Go", "CLI Wrapper", "Streaming"]
+                  - name: "MCP Integration"
+                    description: "Model Context Protocol (MCP) integration with multiple output formats (text, JSON, streaming JSON)"
+                    impact: "Advanced AI tool integration capabilities"
+                    technologies: ["MCP", "JSON Streaming", "Tool Integration"]
+                  - name: "Session Management"
+                    description: "Multi-turn conversation support with file processing capabilities"
+                    impact: "Production-ready conversational AI features"
+                    technologies:
+                        [
+                            "Session Management",
+                            "File Processing",
+                            "Multi-turn Chat",
+                        ]
+                  - name: "Cost Optimization"
+                    description: "Leverages Claude Max subscription to avoid API costs"
+                    impact: "Reduced AI development costs for Go developers"
+                    technologies: ["Claude Max", "Cost Optimization"]
+              achievements:
+                  - "Built comprehensive Go SDK for Claude Code CLI integration"
+                  - "Implemented streaming support with context cancellation"
+                  - "Created extensive test suite with unit, integration, and mock server tests"
+                  - "Provided convenience methods for common AI development use cases"
+
+        - name: "YouTube Summarizer"
+          role: "Creator"
+          duration: "May 2025"
+          summary: "CLI tool for summarizing YouTube videos using local AI"
+          link: "https://github.com/lancekrogers/yt_summarizer"
+          detailed_info:
+              description: "CLI tool for summarizing YouTube video transcripts using Ollama for 100% local processing. Supports intelligent transcript extraction, interactive TUI, and research planning features."
+              key_features:
+                  - name: "Local AI Processing"
+                    description: "Uses Ollama for 100% local processing without external API keys"
+                    impact: "Complete privacy with no external data sharing"
+                    technologies: ["Ollama", "Local LLM", "Python 3.11-3.13"]
+                  - name: "Smart Transcript Fetching"
+                    description: "Prefers manual captions, supports multiple input formats (.txt, .list, .urls, .csv)"
+                    impact: "Flexible input handling with intelligent caption selection"
+                    technologies:
+                        ["YouTube Transcript API", "Poetry", "Markdown"]
+                  - name: "Research Plan Feature"
+                    description: "Create focused research plans to extract targeted content across multiple videos"
+                    impact: "Comprehensive research document generation from video corpus"
+                    technologies:
+                        [
+                            "Content Aggregation",
+                            "Research Tools",
+                            "YAML Frontmatter",
+                        ]
+                  - name: "Intelligent Processing"
+                    description: "Video chunk processing, transcript caching, comprehensive logging"
+                    impact: "Efficient processing of long videos with persistent cache"
+                    technologies: ["Caching System", "Chunk Processing", "TUI"]
+              achievements:
+                  - "Built privacy-focused YouTube summarization tool with 100% local processing"
+                  - "Implemented intelligent transcript extraction with manual caption preference"
+                  - "Created unique research planning feature for multi-video analysis"
+                  - "Designed for researchers, content creators, and students"
+
+        - name: "AlgoScales"
+          role: "Creator"
+          duration: "2025"
+          summary: "Open-source algorithm practice tool for coding interviews"
+          link: "https://github.com/lancekrogers/algo-scales"
+          detailed_info:
+              description: "Early-stage open-source algorithm learning tool for coding interview preparation. Built in Go with a terminal-first design to help developers practice 11 fundamental algorithm patterns."
+              key_features:
+                  - name: "Pattern-Based Learning"
+                    description: "Organizes coding problems by algorithm patterns (Sliding Window, Two Pointers, etc.) similar to musicians practicing scales"
+                    impact: "Structured approach to algorithm pattern recognition"
+                    technologies: ["Go", "CLI", "Algorithm Patterns"]
+                  - name: "Multiple Practice Modes"
+                    description: "Learn, Practice, and Cram modes with progress tracking and daily practice workflow"
+                    impact: "Flexible learning experience with built-in accountability"
+                    technologies: ["Go", "Terminal UI", "Progress Tracking"]
+                  - name: "AI Integration"
+                    description: "AI-powered hints and explanations using Ollama or Claude Code via custom Go SDK"
+                    impact: "Enhanced learning with AI assistance"
+                    technologies: ["Ollama", "Claude Code", "Go SDK", "AI Chat"]
+                  - name: "Editor Integration"
+                    description: "Vim plugin for in-editor problem solving, with Neovim and VS Code support planned"
+                    impact: "Practice within familiar development environment"
+                    technologies:
+                        ["Vim", "Plugin Development", "Editor Integration"]
+              achievements:
+                  - "Built MVP algorithm practice tool for personal interview preparation"
+                  - "Implemented Go-based CLI with multi-language support (Go, Python, JavaScript)"
+                  - "Created Vim plugin for in-editor coding practice"
+                  - "Integrated AI chat functionality using custom Claude Code Go SDK"
+
+        # ML Projects from previous roles
+        - name: "Bank of America Internal ML Automation"
+          role: "Contributing Engineer"
+          duration: "2017-2018"
+          summary: "Productivity tools for code generation and complex automation"
+          detailed_info:
+              description: "Automated my job by building a neural network using python and numpy to write regular expressions and SQL code based on business requirements."
+              key_contributions:
+                  - name: "Neural Net Data Quality Rule Generator"
+                    description: "Generate regular expressions and SQL code based on business requirements"
+                    impact: "Reduced workforce requirements"
+                    technologies:
+                        ["Python", "Numpy", "Neural Networks", "Automation"]
+                  - name: "Automated Code Analysis Report Generation"
+                    description: "Automated an incredibly tedious business process by building a tool that performed a 3 month excel based analysis in 30 seconds with a button click"
+                    impact: "Reduced workforce requirements"
+                    technologies: ["Python", "Neural Networks", "Automation"]
+
+              achievements:
+                  - "Finished 18 month contract work in 6 months"
+                  - "Delivered tools that automated human processes that cost the bank $4 Million per year"
+
+        - name: "SSI Schaefer Warehouse Optimization"
+          role: "Software Engineer"
+          duration: "2016-2017"
+          summary: "ML-driven warehouse logistics optimization"
+          detailed_info:
+              description: "Applied machine learning to robotic warehouse debugging and maintenance scheduling."
+              key_contributions:
+                  - name: "Predictive Analytics"
+                    description: "ML models for warehouse efficiency optimization"
+                    impact: "Improved maintenance planning, reduced firedrills and system shutdowns"
                     technologies:
                         [
                             "Python",
-                            "Order Workflow Systems",
-                            "Factory Integration",
+                            "Machine Learning",
+                            "Predictive Analytics",
+                            "Logistics",
                         ]
-                  - name: "AWS Migration Support"
-                    description: "Assisted in migration planning of Forge from on-prem servers to AWS"
-                    impact: "Modernized infrastructure for better scalability"
-                    technologies: ["AWS", "Cloud Migration", "Infrastructure"]
+                  - name: "Automation Integration"
+                    description: "Integrated ML predictions into warehouse automation systems"
+                    impact: "Smarter warehouse operations"
+                    technologies: ["PL/SQL", "K Means Clustering"]
               achievements:
-                  - "Improved system reliability and reduced downtime"
-                  - "Enhanced order routing efficiency"
+                  - "Built ML-driven warehouse optimization processes"
+                  - "Improved operational efficiency through predictive analytics"
 
 # Blockchain & Web3 Experience
 blockchain:
@@ -104,7 +228,7 @@ blockchain:
           role: "Software Engineer, Blockchain"
           duration: "Apr 2022 - Apr 2023"
           summary: "Built NFT marketplace infrastructure for next-gen gaming platform"
-          featured: true
+          featured: false
           detailed_info:
               description: "Blockchain infrastructure development for gaming-focused NFT marketplace handling millions in transactions per day."
               key_projects:
@@ -231,136 +355,92 @@ blockchain:
                   - "Provided entry point for many into crypto/blockchain space"
                   - "Established Charlotte as a blockchain hub in the Southeast"
 
-# AI & Machine Learning Experience
-ai:
-    title: "AI & Machine Learning"
-    icon: "🤖"
-    description: "Building AI systems and productivity tools"
+# FinTech & Enterprise Experience
+fintech:
+    title: "FinTech & Enterprise"
+    icon: "🏦"
+    description: "Building and scaling financial systems for major institutions"
 
-    projects:
-        - name: "Guild Agent Framework"
-          role: "Creator & Lead Developer"
-          duration: "Mar 2025 - Present"
-          summary: "Multi-agent orchestration framework for developers"
-          featured: true
+    companies:
+        - name: "Bank of America"
+          role: "Senior Software Engineer (Contract)"
+          duration: "Feb 2024 - Dec 2024"
+          summary: "Transformed enterprise CI/CD infrastructure for Global Security division"
+          featured: false
           detailed_info:
-              description: "Building comprehensive framework for managing multiple AI agents in development workflows."
-              key_features:
-                  - name: "Multi-Agent Orchestration"
-                    description: "Framework allowing developers to contextualize, monitor and interact with multiple agentic teams"
-                    impact: "Streamlined AI workflow management"
+              description: "Led modernization efforts for one of America's largest financial institutions, focusing on enterprise CI/CD infrastructure and legacy security scanning systems."
+              key_projects:
+                  - name: "CI/CD Pipeline Modernization"
+                    description: "Designed and implemented CI/CD pipeline for 15-year-old codebase"
+                    impact: "Reduced deploy times from months to hours"
                     technologies:
-                        [
-                            "Golang",
-                            "Agent Orchestration",
-                            "Concurrent Programming",
-                        ]
-                  - name: "LLM Integration"
-                    description: "Integrated with Ollama, OpenAI, Anthropic for flexible model support"
-                    impact: "Vendor-agnostic AI development"
-                    technologies: ["Ollama", "OpenAI", "Anthropic", "LLM APIs"]
-                  - name: "Advanced Capabilities"
-                    description: "RAG, MCP (Model Context Protocol), and Git storage capabilities"
-                    impact: "Production-ready AI development tools"
-                    technologies:
-                        ["RAG", "MCP", "Git Integration", "Context Management"]
+                        ["Python", "CI/CD", "Git", "Enterprise Architecture"]
+                  - name: "Security Scanning Refactor"
+                    description: "Modernized legacy Python security scanning software"
+                    impact: "Ensured compliance with modern secure coding standards"
+                    technologies: ["Python", "Security", "Code Analysis"]
+                  - name: "Developer Productivity Initiative"
+                    description: "Automation and process improvements"
+                    impact: "Reclaimed 6+ months/year of lost developer time"
+                    technologies: ["Automation", "Process Optimization"]
               achievements:
-                  - "Designed Go-based concurrent LLM workflow orchestration system"
-                  - "Created developer-friendly agent management interface"
-                  - "Built extensible framework for future AI capabilities"
-              link: "https://github.com/lancekrogers/guild"
+                  - "Resolved long-standing security blockers by sanitizing over a decade of sensitive Git history"
+                  - "Led modernization efforts including documentation, release process automation, and cross-team tooling"
+                  - "Improved sprint velocity through strategic automation initiatives"
 
-        - name: "Claude Code Go SDK"
-          role: "Author"
-          duration: "May 2025"
-          summary: "First Golang SDK for Anthropic's Claude Code CLI"
+        - name: "PNC Bank"
+          role: "Software Engineer Consultant"
+          duration: "2018"
+          summary: "Audited Python pipelines for data accuracy and security"
           detailed_info:
-              description: "Published the first Golang SDK wrapping Anthropic's Claude Code CLI tool."
-              key_features:
-                  - name: "Real-time Streaming"
-                    description: "Real-time streaming support for Claude Code interactions"
-                    impact: "Enabled Go developers to integrate Claude Code"
-                    technologies: ["Golang", "Streaming", "CLI Integration"]
-                  - name: "Session Management"
-                    description: "Comprehensive session management and tool integration"
-                    impact: "Production-ready SDK for enterprise use"
-                    technologies:
-                        ["Session Management", "Tool Integration", "API Design"]
-                  - name: "Cost Optimization"
-                    description: "Enabled Go developers to save money on API calls via Claude Max subscription"
-                    impact: "Reduced AI development costs"
-                    technologies:
-                        ["Cost Optimization", "Subscription Management"]
+              description: "Conducted comprehensive audit of data processing pipelines for major regional bank."
+              key_projects:
+                  - name: "Pipeline Security Audit"
+                    description: "Comprehensive security and accuracy audit of Python data pipelines"
+                    impact: "Found coding errors missed in an OCC remediation effort affecting thousands of customers"
+                    technologies: ["Python", "Data Pipelines", "Security Audit"]
               achievements:
-                  - "First to market with Go SDK for Claude Code"
-                  - "Enabled cost-effective AI development for Go community"
-                  - "Built production-ready developer tooling"
-              link: "https://github.com/lancekrogers/claude-code-go"
+                  - "Identified and resolved critical security vulnerabilities in data processing"
+                  - "Improved data accuracy through pipeline optimization"
+                  - "Delivered comprehensive security recommendations"
 
-        - name: "YouTube Summarizer"
-          role: "Creator"
-          duration: "May 2025"
-          summary: "AI-powered YouTube transcript summarization tool"
+        - name: "Global Payments"
+          role: "Software Engineer Consultant"
+          duration: "2019"
+          summary: "Optimized ETL processes, cutting AWS spend significantly"
           detailed_info:
-              description: "CLI/TUI tool for generating concise summaries of YouTube videos using local LLMs."
-              key_features:
-                  - name: "Smart Transcript Processing"
-                    description: "Fetches YouTube transcripts and generates concise Markdown summaries"
-                    impact: "Rapid video content consumption"
+              description: "Performance optimization of data processing systems for payment processing company."
+              key_projects:
+                  - name: "ETL Optimization"
+                    description: "Performance tuning and cost optimization of ETL processes"
+                    impact: "Cut AWS spend by $40K/month"
                     technologies:
-                        ["Python", "YouTube API", "Transcript Processing"]
-                  - name: "Local LLM Integration"
-                    description: "Uses Ollama for local LLM processing, ensuring privacy"
-                    impact: "Privacy-focused AI processing"
-                    technologies: ["Ollama", "Local LLM", "Privacy"]
-                  - name: "Advanced Features"
-                    description: "Smart chunking for long videos, caching, and batch processing"
-                    impact: "Scalable video processing pipeline"
-                    technologies:
-                        ["Caching", "Batch Processing", "Optimization"]
+                        ["Python", "ETL", "AWS", "Performance Optimization"]
               achievements:
-                  - "Built efficient video content processing pipeline"
-                  - "Implemented privacy-focused local AI processing"
-                  - "Created developer-friendly CLI/TUI interface"
+                  - "Achieved 80% reduction in cloud infrastructure costs"
+                  - "Improved data processing throughput by 3x"
+                  - "Implemented cost monitoring and alerting systems"
 
-        # ML Projects from previous roles
-        - name: "Bank of America ML Infrastructure"
-          role: "Contributing Engineer"
-          duration: "2024"
-          summary: "ML pipeline infrastructure for security scanning systems"
+        - name: "Shutterfly"
+          role: "Software Engineer (Contract)"
+          duration: "Feb 2020 - Feb 2021"
+          summary: "Enhanced order workflow systems for major e-commerce platform"
           detailed_info:
-              description: "While primarily focused on CI/CD, contributed to ML-enhanced security scanning systems."
-              key_contributions:
-                  - name: "ML Pipeline Integration"
-                    description: "Integrated ML models into security scanning workflows"
-                    impact: "Enhanced threat detection capabilities"
-                    technologies:
-                        ["Python", "ML Pipelines", "Security", "Automation"]
-              achievements:
-                  - "Improved security scanning accuracy through ML integration"
-                  - "Built scalable ML infrastructure components"
-
-        - name: "SSI Schaefer Warehouse Optimization"
-          role: "Software Engineer"
-          duration: "2016-2017"
-          summary: "ML-driven warehouse logistics optimization"
-          detailed_info:
-              description: "Applied machine learning to warehouse automation and logistics optimization."
-              key_contributions:
-                  - name: "Predictive Analytics"
-                    description: "ML models for warehouse efficiency optimization"
-                    impact: "Improved logistics and reduced operational costs"
+              description: "Worked on order processing systems for one of the largest photo commerce platforms."
+              key_projects:
+                  - name: "Forge Workflow Enhancement"
+                    description: "Enhanced Python-based order workflow engine routing online orders to factory processes"
+                    impact: "Improved order processing reliability and throughput"
                     technologies:
                         [
                             "Python",
-                            "Machine Learning",
-                            "Predictive Analytics",
-                            "Logistics",
+                            "Order Workflow Systems",
+                            "Factory Integration",
                         ]
-                  - name: "Automation Integration"
-                    description: "Integrated ML predictions into warehouse automation systems"
-                    impact: "Smarter warehouse operations"
-                    technologies: ["Automation", "Integration", "Optimization"]
+                  - name: "AWS Migration Support"
+                    description: "Assisted in migration planning of Forge from on-prem servers to AWS"
+                    impact: "Modernized infrastructure for better scalability"
+                    technologies: ["AWS", "Cloud Migration", "Infrastructure"]
               achievements:
-                  - "Built ML-driven warehouse optimization systems"
-                  - "Improved operational efficiency through predictive analytics"
+                  - "Improved system reliability and reduced downtime"
+                  - "Enhanced order routing efficiency"

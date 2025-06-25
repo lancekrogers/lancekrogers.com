@@ -12,6 +12,7 @@ import (
 type Service interface {
 	LoadConfig(configPath string) (*SiteConfig, error)
 	LoadWorkConfig(configPath string) (*WorkConfig, error)
+	LoadServicesConfig(configPath string) (*ServicesConfig, error)
 }
 
 // service implements the configuration service
@@ -120,12 +121,60 @@ func (s *service) LoadWorkConfig(configPath string) (*WorkConfig, error) {
 		return nil, fmt.Errorf("failed to read work config file: %w", err)
 	}
 
-	// Parse YAML
+	// Parse YAML to detect section order using yaml.Node to preserve order
+	var node yaml.Node
+	if err := yaml.Unmarshal(data, &node); err != nil {
+		return nil, fmt.Errorf("failed to parse work config YAML for ordering: %w", err)
+	}
+
+	// Extract section order from YAML keys (yaml.Node preserves order)
+	var sectionOrder []string
+	if len(node.Content) > 0 && node.Content[0].Kind == yaml.MappingNode {
+		// Iterate through mapping node keys/values in pairs
+		for i := 0; i < len(node.Content[0].Content); i += 2 {
+			key := node.Content[0].Content[i].Value
+			if key == "ai" || key == "blockchain" || key == "fintech" {
+				sectionOrder = append(sectionOrder, key)
+			}
+		}
+	}
+
+	// Parse YAML into struct
 	var config WorkConfig
 	if err := yaml.Unmarshal(data, &config); err != nil {
 		return nil, fmt.Errorf("failed to parse work config YAML: %w", err)
 	}
 
-	s.logger.Printf("Loaded work configuration from %s", configPath)
+	// Set the section order
+	config.SectionOrder = sectionOrder
+
+	s.logger.Printf("Loaded work configuration from %s with section order: %v", configPath, sectionOrder)
+	return &config, nil
+}
+
+// LoadServicesConfig loads the services page configuration from YAML file
+func (s *service) LoadServicesConfig(configPath string) (*ServicesConfig, error) {
+	if configPath == "" {
+		configPath = "content/services.yml"
+	}
+
+	// Check if file exists
+	if _, err := os.Stat(configPath); os.IsNotExist(err) {
+		return nil, fmt.Errorf("services config file not found: %s", configPath)
+	}
+
+	// Read the YAML file
+	data, err := os.ReadFile(configPath)
+	if err != nil {
+		return nil, fmt.Errorf("failed to read services config file: %w", err)
+	}
+
+	// Parse YAML
+	var config ServicesConfig
+	if err := yaml.Unmarshal(data, &config); err != nil {
+		return nil, fmt.Errorf("failed to parse services config YAML: %w", err)
+	}
+
+	s.logger.Printf("Loaded services configuration from %s", configPath)
 	return &config, nil
 }

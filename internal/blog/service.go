@@ -16,7 +16,7 @@ import (
 	"blockhead.consulting/internal/errors"
 	"blockhead.consulting/internal/events"
 	"blockhead.consulting/internal/registry"
-	
+
 	"github.com/alecthomas/chroma/v2/formatters/html"
 	"github.com/alecthomas/chroma/v2/lexers"
 	"github.com/alecthomas/chroma/v2/styles"
@@ -31,24 +31,47 @@ import (
 type Service interface {
 	// GetAll returns all published blog posts
 	GetAll(ctx context.Context) []Post
-	
+
 	// GetBySlug returns a blog post by its slug
 	GetBySlug(ctx context.Context, slug string) (*Post, error)
-	
+
 	// Search searches blog posts by query
 	Search(ctx context.Context, query string) []Post
-	
+
 	// GetByTag returns posts with a specific tag
 	GetByTag(ctx context.Context, tag string) []Post
-	
+
 	// GetTags returns all unique tags
 	GetTags(ctx context.Context) []string
-	
+
 	// LoadPosts loads posts from the filesystem
 	LoadPosts(ctx context.Context) error
-	
+
 	// GetBlogConfig returns the blog configuration
 	GetBlogConfig() *BlogConfig
+}
+
+// ExtendedService provides additional blog functionality for SQLite implementation
+type ExtendedService interface {
+	Service
+
+	// GetPaginatedPosts returns paginated blog posts with filtering
+	GetPaginatedPosts(ctx context.Context, params PaginationParams) (*PaginatedPosts, error)
+
+	// SearchPosts performs full-text search with pagination
+	SearchPosts(ctx context.Context, query string, page, perPage int) (*PaginatedPosts, error)
+
+	// GetPostNavigation returns navigation links for a post
+	GetPostNavigation(ctx context.Context, slug string) (*PostNavigation, error)
+
+	// GetRelatedPosts finds related posts by tags and category
+	GetRelatedPosts(ctx context.Context, slug string, limit int) ([]*RelatedPost, error)
+
+	// GetTagCounts returns all tags with their usage counts
+	GetTagCounts(ctx context.Context) ([]TagCount, error)
+
+	// ImportMarkdownFiles imports markdown files to database
+	ImportMarkdownFiles(ctx context.Context) error
 }
 
 // service implements the blog service
@@ -73,7 +96,7 @@ func NewServiceWithOptions(blogFS fs.FS, blogDir string, logger *log.Logger, eve
 	if logger == nil {
 		logger = log.Default()
 	}
-	
+
 	s := &service{
 		postMap:  make(map[string]*Post),
 		tagIndex: make(map[string][]int),
@@ -82,10 +105,10 @@ func NewServiceWithOptions(blogFS fs.FS, blogDir string, logger *log.Logger, eve
 		logger:   logger,
 		eventBus: eventBus,
 	}
-	
+
 	// Load blog configuration
 	s.loadBlogConfig()
-	
+
 	return s
 }
 
@@ -96,14 +119,14 @@ func (s *service) Name() string {
 
 func (s *service) Start(ctx context.Context) error {
 	s.logger.Printf("BLOG: Starting blog service...")
-	
+
 	// Load posts on startup
 	if err := s.LoadPosts(ctx); err != nil {
 		return fmt.Errorf("failed to load blog posts: %w", err)
 	}
-	
+
 	s.logger.Printf("BLOG: Blog service started with %d posts", len(s.posts))
-	
+
 	return nil
 }
 
@@ -133,7 +156,7 @@ func (s *service) GetBySlug(ctx context.Context, slug string) (*Post, error) {
 	if !exists {
 		return nil, errors.NotFound("blog post")
 	}
-	
+
 	// Return a copy
 	result := *post
 	return &result, nil
@@ -144,10 +167,10 @@ func (s *service) Search(ctx context.Context, query string) []Post {
 	if query == "" {
 		return s.GetAll(ctx)
 	}
-	
+
 	query = strings.ToLower(query)
 	var results []Post
-	
+
 	for _, post := range s.posts {
 		// Search in title, summary, and tags
 		if strings.Contains(strings.ToLower(post.Title), query) ||
@@ -156,7 +179,7 @@ func (s *service) Search(ctx context.Context, query string) []Post {
 			results = append(results, post)
 		}
 	}
-	
+
 	return results
 }
 
@@ -166,12 +189,12 @@ func (s *service) GetByTag(ctx context.Context, tag string) []Post {
 	if !exists {
 		return []Post{}
 	}
-	
+
 	results := make([]Post, len(indices))
 	for i, idx := range indices {
 		results[i] = s.posts[idx]
 	}
-	
+
 	return results
 }
 
@@ -190,18 +213,18 @@ func (s *service) LoadPosts(ctx context.Context) error {
 	s.posts = []Post{}
 	s.postMap = make(map[string]*Post)
 	s.tagIndex = make(map[string][]int)
-	
+
 	// Read blog directory
 	files, err := fs.ReadDir(s.blogFS, s.blogDir)
 	if err != nil {
 		return errors.Wrap(err, errors.ErrCodeIO, "failed to read blog directory")
 	}
-	
+
 	for _, file := range files {
 		if !strings.HasSuffix(file.Name(), ".md") {
 			continue
 		}
-		
+
 		filePath := file.Name()
 		if s.blogDir != "." {
 			filePath = s.blogDir + "/" + file.Name()
@@ -211,18 +234,18 @@ func (s *service) LoadPosts(ctx context.Context) error {
 			s.logger.Printf("BLOG: Warning - failed to load %s: %v", file.Name(), err)
 			continue
 		}
-		
+
 		// Add to collections
 		s.posts = append(s.posts, *post)
 		s.postMap[post.Slug] = post
 		s.logger.Printf("BLOG: Loaded post with slug: '%s'", post.Slug)
 	}
-	
+
 	// Sort posts by date (newest first)
 	sort.Slice(s.posts, func(i, j int) bool {
 		return s.posts[i].Date.After(s.posts[j].Date)
 	})
-	
+
 	// Build tag index AFTER sorting
 	for idx, post := range s.posts {
 		for _, tag := range post.Tags {
@@ -230,9 +253,9 @@ func (s *service) LoadPosts(ctx context.Context) error {
 			s.tagIndex[tagLower] = append(s.tagIndex[tagLower], idx)
 		}
 	}
-	
+
 	s.logger.Printf("BLOG: Loaded %d blog posts", len(s.posts))
-	
+
 	// Publish event
 	if s.eventBus != nil {
 		s.eventBus.Publish(ctx, events.NewEventWithContext(ctx,
@@ -242,7 +265,7 @@ func (s *service) LoadPosts(ctx context.Context) error {
 			},
 		))
 	}
-	
+
 	return nil
 }
 
@@ -253,35 +276,45 @@ func (s *service) loadMarkdownPost(filename string) (*Post, error) {
 	if err != nil {
 		return nil, errors.Wrap(err, errors.ErrCodeIO, "failed to read file")
 	}
-	
+
 	// Parse frontmatter and content
 	frontmatter, markdownContent, err := s.parseFrontmatter(content)
 	if err != nil {
 		return nil, err
 	}
-	
+
 	// Convert markdown to HTML
 	htmlContent := s.markdownToHTML(markdownContent)
-	
+
 	// Generate slug from filename (strip directory path and extension)
 	baseName := filepath.Base(filename)
 	slug := strings.TrimSuffix(baseName, ".md")
-	
+
 	// Calculate reading time if not provided
 	readingTime := frontmatter.ReadingTime
 	if readingTime == 0 {
 		readingTime = s.calculateReadingTime(string(markdownContent))
 	}
-	
+
+	// Convert summary markdown to HTML
+	summaryHTML := ""
+	if frontmatter.Summary != "" {
+		summaryHTML = s.markdownToHTML([]byte(frontmatter.Summary))
+	}
+
 	return &Post{
-		Slug:        slug,
-		Title:       frontmatter.Title,
-		Date:        frontmatter.Date,
-		Summary:     frontmatter.Summary,
-		Content:     template.HTML(htmlContent),
-		ReadingTime: readingTime,
-		Tags:        frontmatter.Tags,
-		FileName:    filename,
+		Slug:          slug,
+		Title:         frontmatter.Title,
+		Date:          frontmatter.Date,
+		Summary:       frontmatter.Summary,
+		SummaryHTML:   template.HTML(summaryHTML),
+		Content:       template.HTML(htmlContent),
+		ReadingTime:   readingTime,
+		Tags:          frontmatter.Tags,
+		FileName:      filename,
+		FeaturedImage: frontmatter.FeaturedImage,
+		OGDescription: frontmatter.OGDescription,
+		TwitterHandle: frontmatter.TwitterHandle,
 	}, nil
 }
 
@@ -291,24 +324,24 @@ func (s *service) parseFrontmatter(content []byte) (*Frontmatter, []byte, error)
 	if !bytes.HasPrefix(content, []byte("---\n")) {
 		return nil, nil, errors.New(errors.ErrCodeInvalidFormat, "missing frontmatter delimiter")
 	}
-	
+
 	// Find the end of frontmatter
 	endDelimiter := []byte("\n---\n")
 	endIndex := bytes.Index(content[4:], endDelimiter)
 	if endIndex == -1 {
 		return nil, nil, errors.New(errors.ErrCodeInvalidFormat, "missing frontmatter end delimiter")
 	}
-	
+
 	// Extract frontmatter and content
 	frontmatterBytes := content[4 : endIndex+4]
 	markdownContent := content[endIndex+8:] // Skip past "\n---\n"
-	
+
 	// Parse YAML frontmatter
 	var frontmatter Frontmatter
 	if err := yaml.Unmarshal(frontmatterBytes, &frontmatter); err != nil {
 		return nil, nil, errors.Wrap(err, errors.ErrCodeInvalidFormat, "failed to parse YAML frontmatter")
 	}
-	
+
 	return &frontmatter, markdownContent, nil
 }
 
@@ -317,15 +350,15 @@ func (s *service) markdownToHTML(mdContent []byte) string {
 	// Configure markdown parser
 	extensions := parser.CommonExtensions | parser.AutoHeadingIDs | parser.NoEmptyLineBeforeBlock
 	p := parser.NewWithExtensions(extensions)
-	
+
 	// Configure HTML renderer with syntax highlighting
 	htmlFlags := mdhtml.CommonFlags | mdhtml.HrefTargetBlank
 	opts := mdhtml.RendererOptions{
-		Flags: htmlFlags,
+		Flags:          htmlFlags,
 		RenderNodeHook: s.chromaRenderHook,
 	}
 	renderer := mdhtml.NewRenderer(opts)
-	
+
 	// Convert markdown to HTML
 	return string(markdown.ToHTML(mdContent, p, renderer))
 }
@@ -338,7 +371,7 @@ func (s *service) chromaRenderHook(w io.Writer, node ast.Node, entering bool) (a
 		if code.Info != nil {
 			language = string(code.Info)
 		}
-		
+
 		// Handle Mermaid diagrams (client-side rendering for now)
 		if language == "mermaid" {
 			w.Write([]byte(`<div class="mermaid-container mermaid-csr"><div class="mermaid">`))
@@ -346,20 +379,20 @@ func (s *service) chromaRenderHook(w io.Writer, node ast.Node, entering bool) (a
 			w.Write([]byte("</div></div>"))
 			return ast.GoToNext, true
 		}
-		
+
 		// Get lexer for the language
 		lexer := lexers.Get(language)
 		if lexer == nil {
 			lexer = lexers.Fallback
 		}
-		
+
 		// Configure formatter with cyberpunk theme
 		formatter := html.New(html.WithClasses(true), html.TabWidth(2))
 		style := styles.Get("monokai")
 		if style == nil {
 			style = styles.Fallback
 		}
-		
+
 		// Create iterator from code content
 		iterator, err := lexer.Tokenise(nil, string(code.Literal))
 		if err != nil {
@@ -369,7 +402,7 @@ func (s *service) chromaRenderHook(w io.Writer, node ast.Node, entering bool) (a
 			w.Write([]byte("</code></pre>"))
 			return ast.GoToNext, true
 		}
-		
+
 		// Format the code
 		err = formatter.Format(w, style, iterator)
 		if err != nil {
@@ -378,10 +411,10 @@ func (s *service) chromaRenderHook(w io.Writer, node ast.Node, entering bool) (a
 			w.Write(code.Literal)
 			w.Write([]byte("</code></pre>"))
 		}
-		
+
 		return ast.GoToNext, true
 	}
-	
+
 	return ast.GoToNext, false
 }
 
@@ -457,8 +490,198 @@ func (s *service) GetBlogConfig() *BlogConfig {
 	return s.blogConfig
 }
 
+// GetPostNavigation returns navigation links for a post
+func (s *service) GetPostNavigation(ctx context.Context, slug string) (*PostNavigation, error) {
+	// Find current post index
+	var currentIndex = -1
+	var currentPost *Post
+
+	for i, post := range s.posts {
+		if post.Slug == slug {
+			currentIndex = i
+			currentPost = &post
+			break
+		}
+	}
+
+	if currentIndex == -1 {
+		return nil, errors.NotFound("blog post")
+	}
+
+	navigation := &PostNavigation{
+		Current: currentPost,
+	}
+
+	// Previous post (newer, lower index)
+	if currentIndex > 0 {
+		prevPost := s.posts[currentIndex-1]
+		navigation.Previous = &prevPost
+	}
+
+	// Next post (older, higher index)
+	if currentIndex < len(s.posts)-1 {
+		nextPost := s.posts[currentIndex+1]
+		navigation.Next = &nextPost
+	}
+
+	return navigation, nil
+}
+
+// GetRelatedPosts finds related posts by tags and category
+func (s *service) GetRelatedPosts(ctx context.Context, slug string, limit int) ([]*RelatedPost, error) {
+	// Find current post
+	currentPost, exists := s.postMap[slug]
+	if !exists {
+		return nil, errors.NotFound("blog post")
+	}
+
+	var related []*RelatedPost
+
+	// Calculate relevance for each other post
+	for _, post := range s.posts {
+		if post.Slug == slug {
+			continue // Skip current post
+		}
+
+		relevance := s.calculateRelevance(currentPost, &post)
+		if relevance > 0 {
+			related = append(related, &RelatedPost{
+				Post:      &post,
+				Relevance: relevance,
+			})
+		}
+	}
+
+	// Sort by relevance (highest first)
+	sort.Slice(related, func(i, j int) bool {
+		return related[i].Relevance > related[j].Relevance
+	})
+
+	// Limit results
+	if limit > 0 && len(related) > limit {
+		related = related[:limit]
+	}
+
+	return related, nil
+}
+
+// calculateRelevance calculates relevance score between two posts
+func (s *service) calculateRelevance(current, candidate *Post) float64 {
+	relevance := 0.0
+
+	// Shared tags bonus
+	for _, currentTag := range current.Tags {
+		for _, candidateTag := range candidate.Tags {
+			if strings.EqualFold(currentTag, candidateTag) {
+				relevance += 1.0
+			}
+		}
+	}
+
+	// Recency factor (newer posts get slight bonus)
+	daysDiff := current.Date.Sub(candidate.Date).Hours() / 24
+	if math.Abs(daysDiff) < 30 {
+		relevance += 0.5 * (30 - math.Abs(daysDiff)) / 30
+	}
+
+	return relevance
+}
+
+// GetTagCounts returns all tags with their usage counts
+func (s *service) GetTagCounts(ctx context.Context) ([]TagCount, error) {
+	tagCounts := make(map[string]int)
+
+	// Count tags across all posts
+	for _, post := range s.posts {
+		for _, tag := range post.Tags {
+			tagCounts[tag]++
+		}
+	}
+
+	// Convert to slice
+	var counts []TagCount
+	for tag, count := range tagCounts {
+		counts = append(counts, TagCount{
+			Tag:   tag,
+			Count: count,
+		})
+	}
+
+	// Sort by count (descending), then by tag name (ascending)
+	sort.Slice(counts, func(i, j int) bool {
+		if counts[i].Count == counts[j].Count {
+			return counts[i].Tag < counts[j].Tag
+		}
+		return counts[i].Count > counts[j].Count
+	})
+
+	return counts, nil
+}
+
+// GetPaginatedPosts returns paginated blog posts with filtering
+func (s *service) GetPaginatedPosts(ctx context.Context, params PaginationParams) (*PaginatedPosts, error) {
+	filtered := s.posts
+
+	// Apply tag filter
+	if params.Tag != "" && params.Tag != "all" {
+		filtered = s.GetByTag(ctx, params.Tag)
+	}
+
+	// Apply search filter
+	if params.Search != "" {
+		filtered = s.Search(ctx, params.Search)
+	}
+
+	totalPosts := len(filtered)
+	totalPages := int(math.Ceil(float64(totalPosts) / float64(params.PerPage)))
+
+	// Calculate pagination
+	offset := (params.Page - 1) * params.PerPage
+	end := offset + params.PerPage
+
+	if offset >= totalPosts {
+		return &PaginatedPosts{
+			Posts:       []Post{},
+			TotalPosts:  totalPosts,
+			TotalPages:  totalPages,
+			CurrentPage: params.Page,
+			HasPrev:     params.Page > 1,
+			HasNext:     false,
+		}, nil
+	}
+
+	if end > totalPosts {
+		end = totalPosts
+	}
+
+	return &PaginatedPosts{
+		Posts:       filtered[offset:end],
+		TotalPosts:  totalPosts,
+		TotalPages:  totalPages,
+		CurrentPage: params.Page,
+		HasPrev:     params.Page > 1,
+		HasNext:     params.Page < totalPages,
+	}, nil
+}
+
+// SearchPosts performs full-text search with pagination
+func (s *service) SearchPosts(ctx context.Context, query string, page, perPage int) (*PaginatedPosts, error) {
+	params := PaginationParams{
+		Page:    page,
+		PerPage: perPage,
+		Search:  query,
+	}
+	return s.GetPaginatedPosts(ctx, params)
+}
+
+// ImportMarkdownFiles is a no-op for file-based service (files are read directly)
+func (s *service) ImportMarkdownFiles(ctx context.Context) error {
+	return s.LoadPosts(ctx) // Just reload the posts
+}
+
 // Ensure service implements required interfaces
 var (
 	_ Service          = (*service)(nil)
+	_ ExtendedService  = (*service)(nil)
 	_ registry.Service = (*service)(nil)
 )

@@ -6,6 +6,7 @@ import (
 	"encoding/hex"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"strings"
 	"time"
@@ -208,28 +209,63 @@ func generateID() (string, error) {
 	return fmt.Sprintf("msg_%s", hex.EncodeToString(bytes)), nil
 }
 
-// extractIP extracts the client IP from the request
+// extractIP extracts the client IP from the request with validation
 func extractIP(r *http.Request) string {
-	// Check X-Forwarded-For header first (for proxies)
-	if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
-		// Take the first IP in the chain
-		if idx := strings.Index(xff, ","); idx != -1 {
-			return strings.TrimSpace(xff[:idx])
+	// Define trusted proxy networks (adjust based on your infrastructure)
+	// These are common private networks and Oracle Cloud ranges
+	trustedProxies := []string{
+		"127.0.0.1/8",     // Localhost
+		"10.0.0.0/8",      // Private network
+		"172.16.0.0/12",   // Private network
+		"192.168.0.0/16",  // Private network
+		"::1/128",         // IPv6 localhost
+	}
+
+	// Parse RemoteAddr
+	host, _, err := net.SplitHostPort(r.RemoteAddr)
+	if err != nil {
+		// RemoteAddr might not have port
+		host = r.RemoteAddr
+	}
+	
+	isTrusted := false
+	clientIP := net.ParseIP(host)
+	if clientIP != nil {
+		for _, cidr := range trustedProxies {
+			_, network, err := net.ParseCIDR(cidr)
+			if err == nil && network.Contains(clientIP) {
+				isTrusted = true
+				break
+			}
 		}
-		return xff
 	}
-	
-	// Check X-Real-IP header
-	if xri := r.Header.Get("X-Real-IP"); xri != "" {
-		return xri
+
+	// Only trust proxy headers if from trusted source
+	if isTrusted {
+		// Check X-Forwarded-For header first (for proxies/load balancers)
+		if xff := r.Header.Get("X-Forwarded-For"); xff != "" {
+			// Take the first IP if there are multiple
+			ips := strings.Split(xff, ",")
+			if len(ips) > 0 {
+				ip := strings.TrimSpace(ips[0])
+				// Validate IP format
+				if parsed := net.ParseIP(ip); parsed != nil {
+					return parsed.String()
+				}
+			}
+		}
+
+		// Check X-Real-IP header
+		if xri := r.Header.Get("X-Real-IP"); xri != "" {
+			// Validate IP format
+			if parsed := net.ParseIP(xri); parsed != nil {
+				return parsed.String()
+			}
+		}
 	}
-	
-	// Fall back to RemoteAddr
-	if idx := strings.LastIndex(r.RemoteAddr, ":"); idx != -1 {
-		return r.RemoteAddr[:idx]
-	}
-	
-	return r.RemoteAddr
+
+	// Fall back to RemoteAddr (already validated)
+	return host
 }
 
 // sendNotificationEmail sends an email notification about a new contact message

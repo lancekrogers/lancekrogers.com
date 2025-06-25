@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Technical Insights</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; }
+        .test-section { border: 2px solid #ccc; padding: 20px; margin: 20px 0; }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Technical Insights Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Home Page Technical Insights</h2>
+        <p>Visit <a href="http://localhost:8087/" target="_blank">Home Page</a></p>
+        <p>Expected: Should show real blog posts with clickable cards</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: About Page Technical Insights</h2>
+        <p>Visit <a href="http://localhost:8087/about" target="_blank">About Page</a></p>
+        <p>Expected: Should show same real blog posts with clickable cards (not dummy content)</p>
+    </div>
+    
+    <div class="test-section">
+        <h2>What to Check:</h2>
+        <ul>
+            <li>✅ Both pages should show the same blog posts</li>
+            <li>✅ Clicking on a card should navigate to the blog post</li>
+            <li>✅ Cards should have hover effects (cursor: pointer)</li>
+            <li>✅ No more dummy "Optimizing Ethereum Smart Contract" posts on About page</li>
+        </ul>
+    </div>
+</body>
+</html>

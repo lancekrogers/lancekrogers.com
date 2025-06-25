@@ -1,0 +1,9 @@
+// Visibility Utilities
+
+.hidden {
+  display: none !important;
+}
+
+.error {
+  color: var(--accent-warning);
+}

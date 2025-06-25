@@ -8,7 +8,9 @@ import (
 )
 
 func TestNavigationPages(t *testing.T) {
-	// Test cases for all pages
+	_, router := createTestApp(t)
+	
+	// Test cases for existing pages only (work and services content is now in about)
 	tests := []struct {
 		name            string
 		path            string
@@ -26,21 +28,7 @@ func TestNavigationPages(t *testing.T) {
 				"AI Engineering",
 			},
 			notExpected: []string{
-				"Work Experience",
-			},
-		},
-		{
-			name: "Work page shows correct content",
-			path: "/work",
-			expectedContent: []string{
-				"Work Experience",
-				"Bank of America",
-				"Mythical Games",
-				"Senior Backend Engineer with 9",
-			},
-			notExpected: []string{
-				"BLOCKHEAD CONSULTING",
-				"Technical Expertise",
+				"Work Experience", // Work content is in about page now
 			},
 		},
 		{
@@ -48,11 +36,10 @@ func TestNavigationPages(t *testing.T) {
 			path: "/about",
 			expectedContent: []string{
 				"About Lance Rogers",
-				"Strategic Systems Architect",
+				"Fractional CTO",
 			},
 			notExpected: []string{
-				"Work Experience",
-				"BLOCKHEAD CONSULTING",
+				"BLOCKHEAD CONSULTING", // Hero content only on home
 			},
 		},
 		{
@@ -61,17 +48,6 @@ func TestNavigationPages(t *testing.T) {
 			expectedContent: []string{
 				"Technical Expertise",
 				"Core Languages",
-			},
-			notExpected: []string{
-				"<!doctype html>", // Should not include full HTML
-			},
-		},
-		{
-			name: "Work content HTMX endpoint",
-			path: "/content/work",
-			expectedContent: []string{
-				"Work Experience",
-				"Bank of America",
 			},
 			notExpected: []string{
 				"<!doctype html>", // Should not include full HTML
@@ -87,22 +63,7 @@ func TestNavigationPages(t *testing.T) {
 			}
 
 			rr := httptest.NewRecorder()
-			
-			// Route to the appropriate handler
-			switch tt.path {
-			case "/":
-				homeHandler(rr, req)
-			case "/work":
-				workHandler(rr, req)
-			case "/about":
-				aboutHandler(rr, req)
-			case "/content/home":
-				homeContentHandler(rr, req)
-			case "/content/work":
-				workContentHandler(rr, req)
-			default:
-				t.Fatalf("Unknown path: %s", tt.path)
-			}
+			router.ServeHTTP(rr, req)
 
 			// Check status code
 			if status := rr.Code; status != http.StatusOK {
@@ -129,15 +90,17 @@ func TestNavigationPages(t *testing.T) {
 }
 
 func TestPageRefreshes(t *testing.T) {
-	// Test that refreshing pages doesn't change content
+	_, router := createTestApp(t)
+	
+	// Test that refreshing pages doesn't change content (only existing pages)
 	pages := []struct {
-		path    string
-		handler func(http.ResponseWriter, *http.Request)
-		content string
+		path           string
+		content        string
+		expectedStatus int
 	}{
-		{"/", homeHandler, "BLOCKHEAD CONSULTING"},
-		{"/work", workHandler, "Work Experience"},
-		{"/about", aboutHandler, "About Lance Rogers"},
+		{"/", "BLOCKHEAD CONSULTING", http.StatusOK},
+		{"/about", "About Lance Rogers", http.StatusOK},
+		{"/blog", "Blog", http.StatusOK},
 	}
 
 	for _, page := range pages {
@@ -150,10 +113,10 @@ func TestPageRefreshes(t *testing.T) {
 				}
 
 				rr := httptest.NewRecorder()
-				page.handler(rr, req)
+				router.ServeHTTP(rr, req)
 
-				if status := rr.Code; status != http.StatusOK {
-					t.Errorf("Refresh %d: got status %v want %v", i+1, status, http.StatusOK)
+				if status := rr.Code; status != page.expectedStatus {
+					t.Errorf("Refresh %d: got status %v want %v", i+1, status, page.expectedStatus)
 				}
 
 				body := rr.Body.String()
@@ -166,13 +129,15 @@ func TestPageRefreshes(t *testing.T) {
 }
 
 func TestTechnicalExpertiseUpdated(t *testing.T) {
+	_, router := createTestApp(t)
+	
 	req, err := http.NewRequest("GET", "/", nil)
 	if err != nil {
 		t.Fatal(err)
 	}
 
 	rr := httptest.NewRecorder()
-	homeHandler(rr, req)
+	router.ServeHTTP(rr, req)
 
 	body := rr.Body.String()
 

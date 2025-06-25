@@ -1,0 +1,75 @@
+// Contact Section
+
+.contact {
+  padding: 6rem 0;
+  background: var(--bg-secondary);
+}
+
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 1rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  color: var(--text-primary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  transition: all 0.3s;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--accent-crypto);
+  box-shadow: 0 0 0 2px rgba(0, 255, 136, 0.2);
+}
+
+textarea {
+  resize: vertical;
+}
+
+.alert {
+  padding: 1rem;
+  border-radius: 4px;
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+}
+
+.alert.success {
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid var(--accent-crypto);
+  color: var(--accent-crypto);
+}
+
+.alert.error {
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid var(--accent-warning);
+  color: var(--accent-warning);
+}

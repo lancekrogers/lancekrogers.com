@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Debug styles to test smooth scrolling */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+        
+        body {
+            font-family: -apple-system, sans-serif;
+            background: #0a0a0a;
+            color: white;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom: 1px solid #333;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 2rem;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 2rem 2rem;
+            background: #1a1a1a;
+        }
+        
+        .hero-cta {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn-primary, .btn-secondary {
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: #00ff88;
+            color: #0a0a0a;
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid #333;
+        }
+        
+        section {
+            min-height: 100vh;
+            padding: 6rem 2rem;
+            border-top: 1px solid #333;
+        }
+        
+        #problems {
+            background: #1a1a1a;
+        }
+        
+        #services {
+            background: #0a0a0a;
+        }
+        
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* Debug visualization */
+        section::before {
+            content: attr(id);
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: rgba(255, 0, 0, 0.2);
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div>Fixed Navbar (60px height)</div>
+    </nav>
+    
+    <header class="hero">
+        <h1>BLOCKHEAD CONSULTING</h1>
+        <p>Test page for smooth scrolling</p>
+        <div class="hero-cta">
+            <a href="#problems" class="btn-primary">See your challenges →</a>
+            <a href="#services" class="btn-secondary">Explore services →</a>
+        </div>
+    </header>
+    
+    <section id="problems">
+        <h2>Problems Section</h2>
+        <p>This section should appear 80px below the navbar when scrolled to.</p>
+    </section>
+    
+    <section id="services">
+        <h2>Services Section</h2>
+        <p>This section should also appear 80px below the navbar when scrolled to.</p>
+    </section>
+    
+    <script>
+        // Log any JavaScript errors
+        window.addEventListener('error', function(e) {
+            console.error('JavaScript error:', e);
+        });
+        
+        // Log scroll events
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                console.log('Scroll position:', window.scrollY);
+            }, 100);
+        });
+        
+        // Log click events on anchors
+        document.addEventListener('click', function(e) {
+            const link = e.target.closest('a[href^="#"]');
+            if (link) {
+                console.log('Anchor clicked:', link.getAttribute('href'));
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+// Boot sequence styling - absolutely positioned within hero
+.terminal-boot-sequence,
+.boot-sequence {
+  // Position between title and subtitle without affecting layout
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 100%; // Position below the title
+  margin-top: 2rem;
+  padding: 0 1rem;
+  
+  // Visual styling
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  color: #888888;
+  text-align: center;
+  line-height: 1.4;
+  text-shadow: 0 0 10px rgba(136, 136, 136, 0.3);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  opacity: 1;
+  pointer-events: none;
+  z-index: 5;
+}
+
+// Ensure the hero title has relative positioning for absolute children
+.hero .glitch {
+  position: relative;
+}
+
+// Mobile adjustments
+@media (max-width: 768px) {
+  .terminal-boot-sequence,
+  .boot-sequence {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+  }
+}

@@ -301,25 +301,36 @@ func TestExtractIP(t *testing.T) {
 		expected string
 	}{
 		{
-			name: "X-Forwarded-For single IP",
+			name: "X-Forwarded-For from trusted proxy",
 			setup: func(r *http.Request) {
+				r.RemoteAddr = "127.0.0.1:8080"  // Trusted proxy
 				r.Header.Set("X-Forwarded-For", "10.0.0.1")
 			},
 			expected: "10.0.0.1",
 		},
 		{
-			name: "X-Forwarded-For multiple IPs",
+			name: "X-Forwarded-For multiple IPs from trusted proxy",
 			setup: func(r *http.Request) {
+				r.RemoteAddr = "172.16.0.1:3000"  // Trusted proxy
 				r.Header.Set("X-Forwarded-For", "10.0.0.1, 192.168.1.1, 172.16.0.1")
 			},
 			expected: "10.0.0.1",
 		},
 		{
-			name: "X-Real-IP",
+			name: "X-Real-IP from trusted proxy",
 			setup: func(r *http.Request) {
+				r.RemoteAddr = "192.168.1.1:5000"  // Trusted proxy
 				r.Header.Set("X-Real-IP", "10.0.0.2")
 			},
 			expected: "10.0.0.2",
+		},
+		{
+			name: "X-Forwarded-For from untrusted source (ignored)",
+			setup: func(r *http.Request) {
+				r.RemoteAddr = "8.8.8.8:12345"  // Untrusted IP
+				r.Header.Set("X-Forwarded-For", "10.0.0.1")
+			},
+			expected: "8.8.8.8",
 		},
 		{
 			name: "RemoteAddr with port",
@@ -334,6 +345,14 @@ func TestExtractIP(t *testing.T) {
 				r.RemoteAddr = "192.168.1.100"
 			},
 			expected: "192.168.1.100",
+		},
+		{
+			name: "Invalid IP in X-Forwarded-For (ignored)",
+			setup: func(r *http.Request) {
+				r.RemoteAddr = "127.0.0.1:8080"  // Trusted proxy
+				r.Header.Set("X-Forwarded-For", "not-an-ip")
+			},
+			expected: "127.0.0.1",
 		},
 	}
 	

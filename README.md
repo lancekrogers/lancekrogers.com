@@ -13,58 +13,23 @@ A professional consulting website for blockchain and AI infrastructure services,
 
 ### **Content Management System**
 
-The file-based CMS allows you to manage all site content without a database:
+A powerful file-based CMS that requires no database:
 
-#### **Configuration Files**
-
-1. **Site Configuration** (`content/site.yml`):
-
-   ```yaml
-   title: "Blockhead Consulting"
-   tagline: "Bridging traditional finance with blockchain technology"
-   hero_style: "professional" # or "playful" for different hero animations
-   features:
-     calendar_enabled: true
-     blog_enabled: true
-   ```
-
-2. **Work Portfolio** (`content/work.yml`):
-
-   ```yaml
-   projects:
-     - title: "DeFi Trading Platform"
-       description: "Built automated trading system processing $10M+ daily"
-       tags: ["blockchain", "golang", "aws"]
-       link: "https://example.com"
-       featured: true
-   ```
-
-3. **Blog Configuration** (`content/blog.yml`):
-
-   ```yaml
-   posts_per_page: 10
-   enable_comments: false
-   default_author: "Lance Rogers"
-   featured_tags: ["blockchain", "ai", "golang"]
-   ```
-
-4. **Bio/About Content**:
-   - `content/bio-brief.md` - Short bio for homepage
-   - `content/about.md` - Full about page with detailed background
-
-#### **Managing Content**
-
-- **Simple Updates**: Edit YAML/Markdown files and restart the server
-- **Version Control Friendly**: All content in plain text files, perfect for Git
-- **Flexible Structure**: Organize content in subdirectories as needed
-- **Preview Support**: Test content changes locally before deploying
+- **YAML Configuration**: Site-wide settings, work portfolio, and blog configuration via YAML files
+- **Markdown Content**: Write blog posts and pages in markdown with YAML frontmatter
+- **Automatic Processing**: Converts markdown to HTML with syntax highlighting
+- **Portfolio Management**: Showcase projects with descriptions, links, and tags
+- **Bio/About Pages**: Maintain brief and full bio versions for different contexts
+- **Blog Features**: Search, tag filtering, and automatic reading time calculation
 
 ### **Professional Features**
 
 - **Layout Inheritance**: Organized template system for easy maintenance and consistency
 - **Calendar Booking**: Self-hosted consultation booking (security-hardened)
+- **GitHub Integration**: Real-time stats and activity display with intelligent caching
 - **Configuration System**: Environment-based feature toggles and settings
 - **Cyberpunk Aesthetic**: Unique design with glitch effects and terminal styling
+- **Encrypted Message Storage**: Contact form submissions stored encrypted with Git versioning
 
 ### **Production Ready**
 
@@ -77,7 +42,7 @@ The file-based CMS allows you to manage all site content without a database:
 
 ```bash
 # Clone and setup
-git clone https://github.com/lancekrogers/blockhead-consulting.git
+git clone https://github.com/[yourusername]/blockhead-consulting.git
 cd blockhead-consulting
 
 # Install dependencies
@@ -189,6 +154,51 @@ func main() {
 - **Responsive Design**: Optimized for all device sizes
 - **Tag System**: Organize posts by blockchain, AI, golang, etc.
 
+### **Content Management System**
+
+The file-based CMS allows you to manage all site content without a database:
+
+#### **Configuration Files**
+
+1. **Site Configuration** (`content/site.yml`):
+   ```yaml
+   title: "Blockhead Consulting"
+   tagline: "Bridging traditional finance with blockchain technology"
+   hero_style: "professional"  # or "playful" for different hero animations
+   features:
+     calendar_enabled: true
+     blog_enabled: true
+   ```
+
+2. **Work Portfolio** (`content/work.yml`):
+   ```yaml
+   projects:
+     - title: "DeFi Trading Platform"
+       description: "Built automated trading system processing $10M+ daily"
+       tags: ["blockchain", "golang", "aws"]
+       link: "https://example.com"
+       featured: true
+   ```
+
+3. **Blog Configuration** (`content/blog.yml`):
+   ```yaml
+   posts_per_page: 10
+   enable_comments: false
+   default_author: "Lance Rogers"
+   featured_tags: ["blockchain", "ai", "golang"]
+   ```
+
+4. **Bio/About Content**:
+   - `content/bio-brief.md` - Short bio for homepage
+   - `content/about.md` - Full about page with detailed background
+
+#### **Managing Content**
+
+- **Simple Updates**: Edit YAML/Markdown files and restart the server
+- **Version Control Friendly**: All content in plain text files, perfect for Git
+- **Flexible Structure**: Organize content in subdirectories as needed
+- **Preview Support**: Test content changes locally before deploying
+
 ### **Template System**
 
 The organized template structure supports:
@@ -286,13 +296,54 @@ SMTP_HOST=smtp.gmail.com
 SMTP_PORT=587
 SMTP_USERNAME=your-email@gmail.com
 SMTP_PASSWORD=your-app-password
+
+# Message System Configuration
+GIT_REPO_PATH=./data/messages           # Where encrypted messages are stored
+GIT_ENCRYPTION_KEY=your-32-byte-key     # Generate with: go run cmd/generate-key/main.go
+GIT_REMOTE_URL=                         # Optional: Push messages to remote repo
+GIT_PUSH_ON_WRITE=false                 # Auto-push on new messages
+GIT_BRANCH=main                         # Branch for message storage
+GIT_COMMIT_AUTHOR=Blockhead Bot         # Git commit author
+GIT_COMMIT_EMAIL=bot@blockhead.consulting
+
+# GitHub Integration (optional)
+GITHUB_USERNAME=your-github-username   # Your GitHub username for stats display
+GITHUB_TOKEN=your-github-token         # GitHub Personal Access Token
+GITHUB_ENABLED=true                    # Enable/disable GitHub stats (auto-detected if username/token provided)
 ```
 
 ### **Configuration Features**
 
 - **Calendar Toggle**: Completely disable booking system when `CALENDAR_ENABLED=false`
+- **GitHub Integration**: Display real-time GitHub stats on the about page with automatic fallback to defaults
 - **Environment Detection**: Different behavior for development/production
 - **Security Settings**: Environment-based secrets management
+
+### **GitHub Integration Setup**
+
+To enable live GitHub stats on your about page:
+
+1. **Create a GitHub Personal Access Token**:
+   - Go to GitHub Settings → Developer settings → Personal access tokens → Fine-grained tokens
+   - Click "Generate new token"
+   - Set expiration and select your repositories
+   - Required permissions: `metadata:read`, `contents:read` for public repositories
+   - For more comprehensive stats, you may also want `pull_requests:read`
+
+2. **Configure Environment Variables**:
+   ```bash
+   GITHUB_USERNAME=your-github-username
+   GITHUB_TOKEN=github_pat_your_token_here
+   ```
+
+3. **Features**:
+   - **Real-time Stats**: Public repos, stars, contributions, pull requests
+   - **Recent Activity**: Latest pushes, PR merges, stars, etc.
+   - **Intelligent Caching**: 1-hour cache to respect GitHub API limits
+   - **Graceful Fallback**: Shows default values if GitHub is unavailable
+   - **Security**: Only public data is accessed, token stored securely
+
+If no GitHub credentials are provided, the about page will display default placeholder values instead.
 
 ## Deployment
 
@@ -305,6 +356,22 @@ make build
 # Deploy single file
 scp bin/blockhead-server user@server:/opt/blockhead/
 ssh user@server 'sudo systemctl restart blockhead'
+```
+
+### **Docker Deployment**
+
+```dockerfile
+FROM golang:1.23-alpine AS builder
+WORKDIR /app
+COPY . .
+RUN go build -o bin/blockhead-server
+
+FROM alpine:latest
+RUN apk --no-cache add ca-certificates
+WORKDIR /root/
+COPY --from=builder /app/bin/blockhead-server .
+EXPOSE 8085
+CMD ["./blockhead-server"]
 ```
 
 ### **Systemd Service**
@@ -368,42 +435,6 @@ go fmt ./...
 # Build and test
 make build
 make test
-```
-
-### **Email Testing with MailHog**
-
-For local development, you can use MailHog to capture emails without actually sending them:
-
-```bash
-# Install MailHog
-# macOS
-brew install mailhog
-
-# Linux
-go install github.com/mailhog/MailHog@latest
-
-# Windows
-# Download from https://github.com/mailhog/MailHog/releases
-
-# Run MailHog
-mailhog
-
-# MailHog will run on:
-# - SMTP: localhost:1025
-# - Web UI: http://localhost:8025
-```
-
-To use MailHog, update your `.env` file:
-
-```bash
-# Comment out production email settings and use:
-SMTP_HOST=localhost
-SMTP_PORT=1025
-SMTP_USERNAME=
-SMTP_PASSWORD=
-SMTP_FROM_ADDRESS=lance@blockhead.consulting
-SMTP_FROM_NAME=Blockhead Consulting
-SMTP_TLS_ENABLED=false
 ```
 
 ### **Adding Features**
@@ -476,9 +507,7 @@ go test -tags=integration ./...
 
 ## License
 
-This project uses a custom Source-Available Attribution License. See [LICENSE](LICENSE) file for details.
-
-**TL;DR**: You can view and learn from this code, but you cannot use it to impersonate me or my business. Blog content, branding, and personal information are not licensed for any use.
+Copyright 2025 Blockhead Consulting. All rights reserved.
 
 ---
 

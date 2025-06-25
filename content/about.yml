@@ -1,0 +1,38 @@
+# About Page Configuration
+title: "About Lance"
+subtitle: "Backend Engineer • Fractional CTO"
+
+# Hero Section
+hero:
+    introduction: "I'm <strong>Lance Rogers</strong>, a backend engineer turned fractional CTO who prefers hard infrastructure problems over PowerPoint decks. For the past nine years I've moved between large financial institutions and Web3 startups, writing Go and Python to make sure good ideas survive contact with production traffic."
+
+# What I Do Section
+what_i_do:
+    title: "What I do"
+    items:
+        - title: "Architecture & scale"
+          description: "At Mythical Games I helped design Golang microservices that drive more than 15 million on-chain transactions a month while guaranteeing finality and player safety."
+        - title: "Modernization in high-control environments"
+          description: "Inside Bank of America's Global Security group I rebuilt a 15-year-old codebase, creating a secure CI/CD pipeline that cut deploy cycles from months to hours and returned roughly <strong>six developer-months</strong> of productivity every year."
+        - title: "Cost and workflow efficiency"
+          description: "For Global Payments I tuned ETL processes and right-sized cloud workloads, saving <strong>$40,000/month</strong> in AWS costs."
+        - title: "Open-source tooling"
+          description: "I build the tools I want to use—most recently Guild Framework, a 190,000+ line enterprise-grade multi-agent AI orchestration platform (90% complete), and Claude Code Go, the first Golang SDK for Anthropic's developer tools."
+
+# How I Work Section
+how_i_work:
+    title: "How I work"
+    items:
+        - number: "1"
+          principle: "Plan first, code once"
+          description: "I focus on planning and make sure I'm solving the right problem before jumping into coding. This saves significant time and ensures my v1 deliverables are high quality in a short amount of time."
+        - number: "2"
+          principle: "Systems thinking"
+          description: "I trace features to revenue, latency to user experience, and compliance to risk. That map guides decisions."
+        - number: "3"
+          principle: "Knowledge transfer"
+          description: "Clean commits, docs, and walkthroughs are part of the engagement, because velocity matters after I leave."
+
+# Closing Statement
+closing:
+    text: "Whether you're a regulated enterprise wrestling with legacy Python or a blockchain startup chasing the next throughput ceiling, I can help design, harden, and hand off the systems that move you forward, using tools your own engineers will enjoy maintaining. I build reliable systems that scale, save money, and get your engineers back to doing real work."

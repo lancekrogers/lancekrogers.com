@@ -1,5 +1,136 @@
-{{template "base" .}}
+{{template "base" .}} {{define "about-page-content"}}
+<!-- About Me Section (Light Background) -->
+<div class="section-background-light">
+  {{if .AboutConfig}} {{template "about-content-yaml" .}} {{else}} {{template
+  "about-content" .}} {{end}}
+</div>
 
-{{define "about-page-content"}}
-{{template "about-content" .}}
+<!-- My Experience Section (Dark Background) -->
+<div class="section-background-dark">{{template "work-content-tabbed" .}}</div>
+
+<!-- GitHub Stats Section -->
+<div class="section-background-dark github-stats-section">
+  <section class="github-stats">
+    <div class="container">
+      <h2 class="section-title">See What I'm Working On Now</h2>
+      <div class="github-stats-grid">
+        <a href="https://github.com/lancekrogers?tab=stars" target="_blank" rel="noopener noreferrer" class="stat-card stat-card-link stat-card-dual">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+          <div class="stat-primary">
+            <div class="stat-value">{{if .GitHubStats}}{{.GitHubStats.StarsReceived}}{{else}}9{{end}}</div>
+            <div class="stat-label">Stars Received</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-secondary">
+            <div class="stat-value-secondary">{{if .GitHubStats}}{{.GitHubStats.TotalStars}}{{else}}1,337{{end}}</div>
+            <div class="stat-label-secondary">Projects Starred</div>
+          </div>
+        </a>
+        <a href="https://github.com/lancekrogers?tab=repositories" target="_blank" rel="noopener noreferrer" class="stat-card stat-card-link stat-card-center">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </div>
+          <div class="stat-value">{{if .GitHubStats}}{{.GitHubStats.PublicRepos}}{{else}}42{{end}}</div>
+          <div class="stat-label">Public Repos</div>
+        </a>
+        <a href="https://github.com/lancekrogers" target="_blank" rel="noopener noreferrer" class="stat-card stat-card-link stat-card-dual">
+          <div class="stat-icon">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 22v-11m0 0l-8-8m8 8l8-8M8 2v11m0 0l-6 6m6-6l6 6"></path>
+            </svg>
+          </div>
+          <div class="stat-primary">
+            <div class="stat-value">{{if .GitHubStats}}{{.GitHubStats.Contributions}}{{else}}523{{end}}</div>
+            <div class="stat-label">Contributions</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-secondary">
+            <div class="stat-value-secondary">{{if .GitHubStats}}{{.GitHubStats.PullRequests}}{{else}}89{{end}}</div>
+            <div class="stat-label-secondary">Pull Requests</div>
+          </div>
+        </a>
+      </div>
+      <div class="github-activity">
+        <h3>Recent Activity</h3>
+        <div class="activity-feed">
+          {{if .GitHubStats}}
+            {{range .GitHubStats.RecentActivity}}
+            <a href="https://github.com/{{.Repository}}" target="_blank" rel="noopener noreferrer" class="activity-item activity-item-link">
+              <span class="activity-type {{.Type}}">{{.Type | formatActivityType}}</span>
+              <span class="activity-repo">{{.Repository}}</span>
+              <span class="activity-time">{{.Timestamp | timeAgo}}</span>
+            </a>
+            {{end}}
+          {{else}}
+            <a href="https://github.com/BlockheadConsulting/ai-infrastructure" target="_blank" rel="noopener noreferrer" class="activity-item activity-item-link">
+              <span class="activity-type push">Push</span>
+              <span class="activity-repo">BlockheadConsulting/ai-infrastructure</span>
+              <span class="activity-time">2 hours ago</span>
+            </a>
+            <a href="https://github.com/ethereum/go-ethereum" target="_blank" rel="noopener noreferrer" class="activity-item activity-item-link">
+              <span class="activity-type pr">PR Merged</span>
+              <span class="activity-repo">ethereum/go-ethereum</span>
+              <span class="activity-time">1 day ago</span>
+            </a>
+            <a href="https://github.com/langchain-ai/langchain" target="_blank" rel="noopener noreferrer" class="activity-item activity-item-link">
+              <span class="activity-type star">Starred</span>
+              <span class="activity-repo">langchain-ai/langchain</span>
+              <span class="activity-time">3 days ago</span>
+            </a>
+          {{end}}
+        </div>
+      </div>
+      <div class="github-profile-cta">
+        <a href="https://github.com/lancekrogers" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+          View Full GitHub Profile
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- Technical Insights Section -->
+<div class="section-background-dark technical-insights-section">
+  {{template "technical-insights" .}}
+</div>
+
+<!-- Call to Action Section (Dark Background) -->
+<div class="section-background-dark">
+  <section class="about-cta">
+    <div class="container">
+      <div class="cta-content">
+        <h2>Ready to Build Something Great?</h2>
+        <p>Let's discuss how my experience can help accelerate your project.</p>
+        <div class="cta-buttons">
+          {{if .Config.CalendarEnabled}}
+          <a
+            href="/calendar"
+            hx-get="/content/calendar"
+            hx-target="#main-content"
+            hx-push-url="/calendar"
+            class="btn-primary"
+            >Schedule Consultation</a
+          >
+          {{else}}
+          <button data-contact-modal class="btn-primary">
+            Start a Conversation
+          </button>
+          {{end}}
+          <button
+            class="btn-secondary packages-modal-trigger"
+            data-packages-modal
+          >
+            View Services I Offer
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
 {{end}}

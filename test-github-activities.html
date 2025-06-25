@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Activities Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+        .success { color: green; }
+        .error { color: red; }
+        .activity { padding: 5px; margin: 5px 0; background: #f0f0f0; }
+    </style>
+</head>
+<body>
+    <h1>GitHub Activities Test</h1>
+    
+    <div class="test-section">
+        <h2>About Page HTML Check</h2>
+        <button onclick="checkAboutPage()">Check About Page</button>
+        <div id="about-results"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Direct API Check</h2>
+        <button onclick="checkGitHubData()">Check GitHub Data</button>
+        <div id="api-results"></div>
+    </div>
+    
+    <script>
+        async function checkAboutPage() {
+            const results = document.getElementById('about-results');
+            results.innerHTML = '<p>Checking about page...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:8087/about');
+                const html = await response.text();
+                
+                // Check for GitHub stats section
+                const hasGitHubSection = html.includes('github-stats-wrapper');
+                const hasActivityFeed = html.includes('activity-feed');
+                const activityMatches = html.match(/activity-item[^>]*>/g) || [];
+                const repoMatches = html.match(/activity-repo">([^<]+)</g) || [];
+                
+                let output = '<h3>About Page GitHub Section:</h3><ul>';
+                output += `<li class="${hasGitHubSection ? 'success' : 'error'}">
+                    GitHub stats section: ${hasGitHubSection ? '✓ Found' : '✗ Not found'}
+                </li>`;
+                output += `<li class="${hasActivityFeed ? 'success' : 'error'}">
+                    Activity feed: ${hasActivityFeed ? '✓ Found' : '✗ Not found'}
+                </li>`;
+                output += `<li class="${activityMatches.length > 0 ? 'success' : 'error'}">
+                    Activity items: ${activityMatches.length} found
+                </li>`;
+                output += '</ul>';
+                
+                if (repoMatches.length > 0) {
+                    output += '<h4>Recent Activities Found:</h4><ul>';
+                    repoMatches.forEach(match => {
+                        const repo = match.replace('activity-repo">', '');
+                        output += `<li class="activity">${repo}</li>`;
+                    });
+                    output += '</ul>';
+                } else {
+                    output += '<p class="error">No recent activities found in HTML</p>';
+                }
+                
+                // Also check for the default/fallback activities
+                const hasDefaultActivities = html.includes('BlockheadConsulting/ai-infrastructure');
+                output += `<p>Default activities present: ${hasDefaultActivities ? 'Yes' : 'No'}</p>`;
+                
+                results.innerHTML = output;
+            } catch (error) {
+                results.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+            }
+        }
+        
+        async function checkGitHubData() {
+            const results = document.getElementById('api-results');
+            results.innerHTML = '<p>Checking GitHub data structure...</p>';
+            
+            try {
+                // First check if we can see the page source
+                const response = await fetch('http://localhost:8087/about');
+                const html = await response.text();
+                
+                // Extract any debug info or check specific patterns
+                const statsPattern = /repos:\s*(\d+)/i;
+                const starsPattern = /stars:\s*(\d+)/i;
+                
+                const reposMatch = html.match(statsPattern);
+                const starsMatch = html.match(starsPattern);
+                
+                let output = '<h3>GitHub Stats Detection:</h3><ul>';
+                if (reposMatch) {
+                    output += `<li class="success">Repositories: ${reposMatch[1]}</li>`;
+                }
+                if (starsMatch) {
+                    output += `<li class="success">Stars: ${starsMatch[1]}</li>`;
+                }
+                
+                // Look for any activity indicators
+                const activityTypes = ['push', 'pr', 'star', 'fork', 'issue'];
+                output += '</ul><h4>Activity Types Found:</h4><ul>';
+                
+                activityTypes.forEach(type => {
+                    const found = html.toLowerCase().includes(`activity-type ${type}`);
+                    output += `<li class="${found ? 'success' : 'error'}">
+                        ${type}: ${found ? '✓' : '✗'}
+                    </li>`;
+                });
+                output += '</ul>';
+                
+                results.innerHTML = output;
+            } catch (error) {
+                results.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+            }
+        }
+        
+        // Auto-run tests
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                checkAboutPage();
+                checkGitHubData();
+            }, 500);
+        });
+    </script>
+</body>
+</html>

@@ -24,7 +24,6 @@ content/
 This appears in the bio section between Technical Expertise and Contact Form.
 
 **Format:**
-
 ```markdown
 ---
 title: "About Lance Rogers"
@@ -34,7 +33,6 @@ title: "About Lance Rogers"
 ```
 
 **Guidelines:**
-
 - Keep to 2-3 sentences maximum
 - Use **bold text** for key phrases
 - Focus on authority and value proposition
@@ -45,7 +43,6 @@ title: "About Lance Rogers"
 This is the full biography page with structured content.
 
 **Format:**
-
 ```markdown
 ---
 title: "About Lance Rogers"
@@ -61,13 +58,11 @@ subtitle: "Strategic Systems Architect & Technical Consultant"
 Your track record content here...
 
 ### Core Expertise
-
 - **Crypto Infrastructure**: Blockchain integration, custodial wallets
-- **Enterprise AI Systems**: Claude SDK development, AI agent orchestration
+- **Enterprise AI Systems**: Claude SDK development, AI agent orchestration  
 - **Strategic Systems Thinking**: Workflow optimization, technical audits
 
 ### Innovation Leadership
-
 - **Proprietary Frameworks**: Creator of Guild—an enterprise AI agent orchestration system
 - **Open Source Contributions**: Active contributor to blockchain and AI development communities
 - **Strategic Architecture**: Designer of modular blockchain systems
@@ -77,7 +72,6 @@ Your track record content here...
 Your business approach content...
 
 ### Client Value Delivered
-
 - Reduced development cycles through modular blockchain architectures
 - Enabled new revenue streams via innovative NFT and crypto payment systems
 - Accelerated AI adoption through production-ready integration frameworks
@@ -92,7 +86,6 @@ Your business approach content...
 ```
 
 **Supported Markdown Features:**
-
 - `# ## ###` Headers (create page structure)
 - `**bold text**` Strong emphasis
 - `- item` Bullet lists
@@ -109,7 +102,6 @@ Create a new file in `/content/blog/` with this format:
 **Filename**: `your-post-slug.md`
 
 **Content Format:**
-
 ```markdown
 ---
 title: "Your Blog Post Title"
@@ -125,20 +117,19 @@ Your blog content here with full markdown support...
 
 ## Section Headers
 
-Regular paragraphs with **bold text** and _italic text_.
+Regular paragraphs with **bold text** and *italic text*.
 
 ### Subsections
 
 - Bullet points
 - More bullet points
 
-`code blocks`
+```code blocks```
 
 [Links to other content](https://example.com)
 ```
 
 **Guidelines:**
-
 - Use descriptive filenames (becomes the URL slug)
 - Include all frontmatter fields
 - Keep summaries under 160 characters
@@ -148,7 +139,6 @@ Regular paragraphs with **bold text** and _italic text_.
 ### Managing Existing Posts
 
 To update existing blog posts:
-
 1. Edit the `.md` file in `/content/blog/`
 2. Save the file
 3. Changes appear immediately (no restart needed)
@@ -161,8 +151,8 @@ Edit the frontmatter in `/content/about.md`:
 
 ```markdown
 ---
-title: "About Lance Rogers" # Page title and H1
-subtitle: "Strategic Systems Architect & Technical Consultant" # Appears under title
+title: "About Lance Rogers"           # Page title and H1
+subtitle: "Strategic Systems Architect & Technical Consultant"  # Appears under title
 ---
 ```
 
@@ -172,21 +162,19 @@ Edit the frontmatter in `/content/bio-brief.md`:
 
 ```markdown
 ---
-title: "About Lance Rogers" # Used in navigation and meta
+title: "About Lance Rogers"          # Used in navigation and meta
 ---
 ```
 
 ## Content Guidelines
 
 ### Writing Style
-
 - **Professional tone** for enterprise credibility
 - **Strategic language** (architect, transform, optimize, scale)
 - **Quantified results** when possible (9+ years, Fortune 500)
 - **Value-focused** language over technical jargon
 
 ### SEO Best Practices
-
 - Use descriptive page titles
 - Include key terms naturally in content
 - Add meta descriptions via frontmatter
@@ -195,24 +183,19 @@ title: "About Lance Rogers" # Used in navigation and meta
 ### Markdown Tips
 
 **Headers:**
-
 ```markdown
 # Page Title (H1)
-
-## Main Section (H2)
-
+## Main Section (H2)  
 ### Subsection (H3)
 ```
 
 **Emphasis:**
-
 ```markdown
 **Bold for key points**
-_Italic for emphasis_
+*Italic for emphasis*
 ```
 
 **Lists:**
-
 ```markdown
 - Bullet point
 - Another point
@@ -223,7 +206,6 @@ _Italic for emphasis_
 ```
 
 **Links:**
-
 ```markdown
 [Link text](https://example.com)
 [Internal link](/about)
@@ -232,19 +214,16 @@ _Italic for emphasis_
 ## File Management
 
 ### Safe Editing
-
 - Always backup files before major changes
 - Test changes on development environment first
 - Use version control (git) to track changes
 
 ### File Naming
-
 - Use lowercase with hyphens: `my-blog-post.md`
 - Avoid spaces and special characters
 - Be descriptive but concise
 
 ### Content Updates Process
-
 1. **Edit** the markdown file
 2. **Save** the changes
 3. **Test** on local development server
@@ -255,26 +234,22 @@ _Italic for emphasis_
 ### Common Issues
 
 **HTML not rendering properly:**
-
 - Check markdown syntax
 - Ensure proper frontmatter format
 - Verify file encoding (UTF-8)
 
 **Content not updating:**
-
 - Check file permissions
 - Verify file location
 - Restart application if needed
 
 **Broken links:**
-
 - Use relative paths: `/about` not `https://site.com/about`
 - Check file exists at target location
 
 ### Getting Help
 
 If you encounter issues:
-
 1. Check this documentation first
 2. Verify markdown syntax online
 3. Test with minimal content first
@@ -283,9 +258,8 @@ If you encounter issues:
 ## Future Enhancements
 
 Planned content management improvements:
-
 - Web-based content editor
-- Live preview functionality
+- Live preview functionality  
 - Automated deployment on content changes
 - Media file management system
 - Content scheduling capabilities

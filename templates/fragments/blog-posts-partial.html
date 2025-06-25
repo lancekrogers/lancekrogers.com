@@ -1,0 +1,56 @@
+{{define "blog-posts-partial"}}
+<div class="blog-grid" id="blog-posts">
+  {{range .Posts}}
+  <a href="/blog/{{.Slug}}" hx-get="/blog/{{.Slug}}" hx-target="#main-content" hx-push-url="/blog/{{.Slug}}" hx-swap="innerHTML show:window:top" class="blog-post-card" data-tags="{{range .Tags}}{{.}} {{end}}">
+    <div class="blog-date">{{.Date.Format "January 2, 2006"}}</div>
+    <h3 class="blog-title">{{.Title}}</h3>
+    <div class="blog-summary">{{.SummaryHTML}}</div>
+    <div class="blog-meta">
+      <span>{{.ReadingTime}} min read</span>
+      <span class="read-more">Read more →</span>
+    </div>
+    {{if .Tags}}
+    <div class="blog-tags">
+      {{range .Tags}}
+      <span class="blog-tag">{{.}}</span>
+      {{end}}
+    </div>
+    {{end}}
+  </a>
+  {{end}}
+</div>
+
+{{if .Pagination}}
+<div class="pagination-controls">
+  {{if .Pagination.HasPrev}}
+  <a href="/blog?page={{.Pagination.PrevPage}}" 
+     hx-get="/api/blog/posts?page={{.Pagination.PrevPage}}" 
+     hx-target="#blog-posts-container" 
+     hx-swap="innerHTML show:top"
+     hx-push-url="/blog?page={{.Pagination.PrevPage}}"
+     class="pagination-btn pagination-prev">
+    ← Previous
+  </a>
+  {{else}}
+  <span class="pagination-btn pagination-prev disabled">← Previous</span>
+  {{end}}
+  
+  <div class="pagination-info">
+    Page {{.Pagination.CurrentPage}} of {{.Pagination.TotalPages}}
+  </div>
+  
+  {{if .Pagination.HasNext}}
+  <a href="/blog?page={{.Pagination.NextPage}}" 
+     hx-get="/api/blog/posts?page={{.Pagination.NextPage}}" 
+     hx-target="#blog-posts-container" 
+     hx-swap="innerHTML show:top"
+     hx-push-url="/blog?page={{.Pagination.NextPage}}"
+     class="pagination-btn pagination-next">
+    Next →
+  </a>
+  {{else}}
+  <span class="pagination-btn pagination-next disabled">Next →</span>
+  {{end}}
+</div>
+{{end}}
+{{end}}

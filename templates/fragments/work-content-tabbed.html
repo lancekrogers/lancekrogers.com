@@ -1,0 +1,354 @@
+{{define "work-content-tabbed"}}
+<section class="work-tabbed-section">
+  <div class="container">
+    <div class="work-header">
+      <h2 class="section-title">Experience & Projects</h2>
+    </div>
+
+    <!-- Mobile Tab Navigation -->
+    <div class="work-tabs-mobile">
+      <button class="tab-btn active" data-tab="ai">
+        <svg class="tab-icon"><use href="/static/svg/ai.svg#svg"></use></svg>
+        <span>AI/ML</span>
+      </button>
+      <button class="tab-btn" data-tab="blockchain">
+        <svg class="tab-icon"><use href="/static/svg/blockchain.svg#svg"></use></svg>
+        <span>Blockchain</span>
+      </button>
+      <button class="tab-btn" data-tab="fintech">
+        <svg class="tab-icon"><use href="/static/svg/fintech.svg#svg"></use></svg>
+        <span>Enterprise</span>
+      </button>
+    </div>
+
+    <!-- Desktop Container Layout -->
+    <div class="work-containers-desktop">
+      <!-- AI/ML Container -->
+      <div class="work-container" data-sector="ai">
+        <div class="container-header">
+          <img src="/static/svg/ai.svg" alt="AI" class="sector-icon" />
+          <h3>AI & Machine Learning</h3>
+        </div>
+        <div class="container-scroll">
+          {{range $section := .WorkConfig.GetOrderedSections}}
+          {{if eq $section.Key "ai"}}
+            <!-- Companies -->
+            {{if $section.Section.Companies}}
+              <div class="items-group">
+                {{range $section.Section.Companies}}
+                <div class="work-row{{if .DetailedInfo}} clickable{{end}}" 
+                     {{if .DetailedInfo}}data-work-item="{{$section.Key}}-{{.Name | slug}}"{{end}}>
+                  <span class="row-name">{{.Name}}</span>
+                </div>
+                {{end}}
+              </div>
+            {{end}}
+            
+            <!-- Projects -->
+            {{if $section.Section.Projects}}
+              <div class="items-group">
+                {{range $section.Section.Projects}}
+                <div class="work-row{{if .DetailedInfo}} clickable{{end}}" 
+                     {{if .DetailedInfo}}data-work-item="{{$section.Key}}-project-{{.Name | slug}}"{{end}}>
+                  <span class="row-name">{{.Name}}</span>
+                </div>
+                {{end}}
+              </div>
+            {{end}}
+          {{end}}
+          {{end}}
+        </div>
+      </div>
+
+      <!-- Blockchain/Crypto Container -->
+      <div class="work-container" data-sector="blockchain">
+        <div class="container-header">
+          <img src="/static/svg/blockchain.svg" alt="Blockchain" class="sector-icon" />
+          <h3>Blockchain & Web3</h3>
+        </div>
+        <div class="container-scroll">
+          {{range $section := .WorkConfig.GetOrderedSections}}
+          {{if eq $section.Key "blockchain"}}
+            <!-- Companies -->
+            {{if $section.Section.Companies}}
+              <div class="items-group">
+                {{range $section.Section.Companies}}
+                <div class="work-row{{if .DetailedInfo}} clickable{{end}}" 
+                     {{if .DetailedInfo}}data-work-item="{{$section.Key}}-{{.Name | slug}}"{{end}}>
+                  <span class="row-name">{{.Name}}</span>
+                </div>
+                {{end}}
+              </div>
+            {{end}}
+            
+            <!-- Projects -->
+            {{if $section.Section.Projects}}
+              <div class="items-group">
+                {{range $section.Section.Projects}}
+                <div class="work-row{{if .DetailedInfo}} clickable{{end}}" 
+                     {{if .DetailedInfo}}data-work-item="{{$section.Key}}-project-{{.Name | slug}}"{{end}}>
+                  <span class="row-name">{{.Name}}</span>
+                </div>
+                {{end}}
+              </div>
+            {{end}}
+          {{end}}
+          {{end}}
+        </div>
+      </div>
+
+      <!-- FinTech Container -->
+      <div class="work-container" data-sector="fintech">
+        <div class="container-header">
+          <img src="/static/svg/fintech.svg" alt="FinTech" class="sector-icon" />
+          <h3>FinTech & Enterprise</h3>
+        </div>
+        <div class="container-scroll">
+          {{range $section := .WorkConfig.GetOrderedSections}}
+          {{if eq $section.Key "fintech"}}
+            {{if $section.Section.Companies}}
+              <div class="items-group">
+                {{range $section.Section.Companies}}
+                <div class="work-row{{if .DetailedInfo}} clickable{{end}}" 
+                     {{if .DetailedInfo}}data-work-item="{{$section.Key}}-{{.Name | slug}}"{{end}}>
+                  <span class="row-name">{{.Name}}</span>
+                </div>
+                {{end}}
+              </div>
+            {{end}}
+            {{if $section.Section.Projects}}
+              <div class="items-group">
+                {{range $section.Section.Projects}}
+                <div class="work-row{{if .DetailedInfo}} clickable{{end}}" 
+                     {{if .DetailedInfo}}data-work-item="{{$section.Key}}-project-{{.Name | slug}}"{{end}}>
+                  <span class="row-name">{{.Name}}</span>
+                </div>
+                {{end}}
+              </div>
+            {{end}}
+          {{end}}
+          {{end}}
+        </div>
+      </div>
+    </div>
+
+    <!-- Mobile Tab Content -->
+    <div class="work-tabs-content-mobile">
+      <!-- AI/ML Tab -->
+      <div class="tab-content active" data-tab-content="ai">
+        <div class="container-scroll-mobile">
+          {{range $section := .WorkConfig.GetOrderedSections}}
+          {{if eq $section.Key "ai"}}
+            {{if $section.Section.Companies}}
+              <div class="items-group">
+                {{range $section.Section.Companies}}
+                <div class="work-row{{if .DetailedInfo}} clickable{{end}}" 
+                     {{if .DetailedInfo}}data-work-item="{{$section.Key}}-{{.Name | slug}}"{{end}}>
+                  <span class="row-name">{{.Name}}</span>
+                </div>
+                {{end}}
+              </div>
+            {{end}}
+            
+            {{if $section.Section.Projects}}
+              <div class="items-group">
+                {{range $section.Section.Projects}}
+                <div class="work-row{{if .DetailedInfo}} clickable{{end}}" 
+                     {{if .DetailedInfo}}data-work-item="{{$section.Key}}-project-{{.Name | slug}}"{{end}}>
+                  <span class="row-name">{{.Name}}</span>
+                </div>
+                {{end}}
+              </div>
+            {{end}}
+          {{end}}
+          {{end}}
+        </div>
+      </div>
+
+      <!-- Crypto Tab -->
+      <div class="tab-content" data-tab-content="blockchain">
+        <div class="container-scroll-mobile">
+          {{range $section := .WorkConfig.GetOrderedSections}}
+          {{if eq $section.Key "blockchain"}}
+            {{if $section.Section.Companies}}
+              <div class="items-group">
+                {{range $section.Section.Companies}}
+                <div class="work-row{{if .DetailedInfo}} clickable{{end}}" 
+                     {{if .DetailedInfo}}data-work-item="{{$section.Key}}-{{.Name | slug}}"{{end}}>
+                  <span class="row-name">{{.Name}}</span>
+                </div>
+                {{end}}
+              </div>
+            {{end}}
+            
+            {{if $section.Section.Projects}}
+              <div class="items-group">
+                {{range $section.Section.Projects}}
+                <div class="work-row{{if .DetailedInfo}} clickable{{end}}" 
+                     {{if .DetailedInfo}}data-work-item="{{$section.Key}}-project-{{.Name | slug}}"{{end}}>
+                  <span class="row-name">{{.Name}}</span>
+                </div>
+                {{end}}
+              </div>
+            {{end}}
+          {{end}}
+          {{end}}
+        </div>
+      </div>
+
+      <!-- FinTech Tab -->
+      <div class="tab-content" data-tab-content="fintech">
+        <div class="container-scroll-mobile">
+          {{range $section := .WorkConfig.GetOrderedSections}}
+          {{if eq $section.Key "fintech"}}
+            {{if $section.Section.Companies}}
+              <div class="items-group">
+                {{range $section.Section.Companies}}
+                <div class="work-row{{if .DetailedInfo}} clickable{{end}}" 
+                     {{if .DetailedInfo}}data-work-item="{{$section.Key}}-{{.Name | slug}}"{{end}}>
+                  <span class="row-name">{{.Name}}</span>
+                </div>
+                {{end}}
+              </div>
+            {{end}}
+            
+            {{if $section.Section.Projects}}
+              <div class="items-group">
+                {{range $section.Section.Projects}}
+                <div class="work-row{{if .DetailedInfo}} clickable{{end}}" 
+                     {{if .DetailedInfo}}data-work-item="{{$section.Key}}-project-{{.Name | slug}}"{{end}}>
+                  <span class="row-name">{{.Name}}</span>
+                </div>
+                {{end}}
+              </div>
+            {{end}}
+          {{end}}
+          {{end}}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Reuse existing work popups -->
+<div class="work-popups">
+  {{range $section := .WorkConfig.GetOrderedSections}}
+  
+  <!-- Company Popups -->
+  {{range $section.Section.Companies}}
+  {{if .DetailedInfo}}
+  <div class="work-popup" data-work-popup="{{$section.Key}}-{{.Name | slug}}">
+    <div class="work-popup-content">
+      <button class="work-popup-close">&times;</button>
+      <div class="popup-header">
+        <h3>{{.Name}}</h3>
+        <span class="role">{{.Role}}</span>
+        <span class="duration">{{.Duration}}</span>
+      </div>
+      <p class="popup-description">{{.DetailedInfo.Description}}</p>
+      
+      {{if .DetailedInfo.KeyProjects}}
+      <div class="popup-section">
+        <h4>Key Projects</h4>
+        {{range .DetailedInfo.KeyProjects}}
+        <div class="project-detail">
+          <h5>{{.Name}}</h5>
+          <p>{{.Description}}</p>
+          <p class="impact"><strong>Impact:</strong> {{.Impact}}</p>
+          <div class="tech-tags">
+            {{range .Technologies}}
+            <span class="tech-tag">{{.}}</span>
+            {{end}}
+          </div>
+        </div>
+        {{end}}
+      </div>
+      {{end}}
+      
+      {{if .DetailedInfo.Achievements}}
+      <div class="popup-section">
+        <h4>Key Achievements</h4>
+        <ul>
+          {{range .DetailedInfo.Achievements}}
+          <li>{{.}}</li>
+          {{end}}
+        </ul>
+      </div>
+      {{end}}
+    </div>
+  </div>
+  {{end}}
+  {{end}}
+  
+  <!-- Project Popups -->
+  {{range $section.Section.Projects}}
+  {{if .DetailedInfo}}
+  <div class="work-popup" data-work-popup="{{$section.Key}}-project-{{.Name | slug}}">
+    <div class="work-popup-content">
+      <button class="work-popup-close">&times;</button>
+      <div class="popup-header">
+        <h3>{{.Name}}</h3>
+        <span class="role">{{.Role}}</span>
+        <span class="duration">{{.Duration}}</span>
+      </div>
+      <p class="popup-description">{{.DetailedInfo.Description}}</p>
+      
+      {{if .DetailedInfo.KeyFeatures}}
+      <div class="popup-section">
+        <h4>Key Features</h4>
+        {{range .DetailedInfo.KeyFeatures}}
+        <div class="project-detail">
+          <h5>{{.Name}}</h5>
+          <p>{{.Description}}</p>
+          <p class="impact"><strong>Impact:</strong> {{.Impact}}</p>
+          <div class="tech-tags">
+            {{range .Technologies}}
+            <span class="tech-tag">{{.}}</span>
+            {{end}}
+          </div>
+        </div>
+        {{end}}
+      </div>
+      {{end}}
+      
+      {{if .DetailedInfo.KeyContributions}}
+      <div class="popup-section">
+        <h4>Key Contributions</h4>
+        {{range .DetailedInfo.KeyContributions}}
+        <div class="project-detail">
+          <h5>{{.Name}}</h5>
+          <p>{{.Description}}</p>
+          <p class="impact"><strong>Impact:</strong> {{.Impact}}</p>
+          <div class="tech-tags">
+            {{range .Technologies}}
+            <span class="tech-tag">{{.}}</span>
+            {{end}}
+          </div>
+        </div>
+        {{end}}
+      </div>
+      {{end}}
+      
+      {{if .DetailedInfo.Achievements}}
+      <div class="popup-section">
+        <h4>Achievements</h4>
+        <ul>
+          {{range .DetailedInfo.Achievements}}
+          <li>{{.}}</li>
+          {{end}}
+        </ul>
+      </div>
+      {{end}}
+      
+      {{if .Link}}
+      <div class="popup-section">
+        <a href="{{.Link}}" target="_blank" rel="noopener" class="btn-primary">View Project →</a>
+      </div>
+      {{end}}
+    </div>
+  </div>
+  {{end}}
+  {{end}}
+  {{end}}
+</div>
+{{end}}

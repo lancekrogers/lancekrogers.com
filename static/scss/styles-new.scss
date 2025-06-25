@@ -1,0 +1,65 @@
+// Main SCSS entry point
+// Organized into logical sections for maintainability
+
+// 1. Base & Core
+@use 'base/variables';
+@use 'base/mixins';
+@use 'base/reset';
+@use 'base/base';
+@use 'base/typography';
+@use 'base/syntax-highlighting';
+
+// 2. Layout & Structure
+@use 'layout/container';
+@use 'layout/grid';
+@use 'layout/spacing';
+
+// 3. Components
+@use 'components/navigation';
+@use 'components/mobile-menu';
+@use 'components/buttons';
+@use 'components/forms';
+@use 'components/cards';
+@use 'components/modals';
+@use 'components/tables';
+@use 'components/code-blocks';
+@use 'components/badges';
+@use 'components/images';
+
+// 4. Effects & Animations
+@use 'effects/animations';
+@use 'effects/glitch';
+@use 'effects/crt';
+@use 'effects/typewriter';
+@use 'effects/transitions';
+@use 'effects/holographic';
+@use 'effects/particles';
+
+// 5. Sections
+@use 'sections/hero';
+@use 'sections/services';
+@use 'sections/packages';
+@use 'sections/testimonials';
+@use 'sections/stats';
+@use 'sections/footer';
+@use 'sections/contact';
+
+// 6. Pages
+@use 'pages/home';
+@use 'pages/about';
+@use 'pages/blog';
+@use 'pages/blog-post';
+@use 'pages/work';
+@use 'pages/404' as error404;
+
+// 7. Themes
+@use 'themes/cyberpunk';
+@use 'themes/professional';
+@use 'themes/dark';
+
+// 8. Utilities
+@use 'utilities/visibility';
+@use 'utilities/text';
+@use 'utilities/colors';
+@use 'utilities/responsive';
+@use 'utilities/debug';

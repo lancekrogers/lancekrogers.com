@@ -1,0 +1,122 @@
+// Mobile menu component
+
+.mobile-nav {
+  display: none;
+}
+
+.hamburger-menu {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px;
+  z-index: 1001;
+  position: relative;
+}
+
+.hamburger-line {
+  width: 25px;
+  height: 3px;
+  background: var(--text-primary);
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+// Hamburger animation
+.hamburger-menu.active {
+  .hamburger-line {
+    &:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+    
+    &:nth-child(2) {
+      opacity: 0;
+    }
+    
+    &:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+  }
+}
+
+// Mobile menu overlay
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  width: 280px;
+  height: 100vh;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(20px);
+  border-left: 1px solid var(--border-color);
+  padding: 6rem 2rem 2rem;
+  transition: right 0.3s ease;
+  z-index: 1002;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  &.active {
+    right: 0;
+  }
+
+  a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 1.1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+    
+    // Disable during HTMX requests
+    &.htmx-request {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    &:hover,
+    &.active {
+      color: var(--accent-crypto);
+      padding-left: 1rem;
+    }
+  }
+}
+
+.mobile-cta {
+  background: var(--accent-crypto);
+  color: var(--bg-primary) !important;
+  padding: 1rem 1.5rem !important;
+  border-radius: 6px;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 1rem;
+  border: none !important;
+
+  &:hover {
+    background: var(--accent-ai);
+    box-shadow: var(--shadow-glow);
+    padding-left: 1.5rem !important;
+  }
+}
+
+// Show mobile nav on smaller screens
+@media (max-width: 1024px) {
+  .mobile-nav {
+    display: block !important;
+  }
+
+  .navbar .container {
+    padding: 0 1.5rem;
+  }
+}
+
+// Ensure mobile menu works on all mobile devices
+@media (max-width: 768px) {
+  .mobile-menu {
+    width: 100%;
+    right: -100%;
+  }
+}

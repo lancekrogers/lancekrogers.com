@@ -12,11 +12,17 @@ func TestAdminSlotsHandler_MissingCredentials(t *testing.T) {
 	// Ensure environment variables are not set
 	os.Unsetenv("ADMIN_USERNAME")
 	os.Unsetenv("ADMIN_PASSWORD")
+	defer func() {
+		os.Unsetenv("ADMIN_USERNAME")
+		os.Unsetenv("ADMIN_PASSWORD")
+	}()
+
+	_, router := createTestApp(t)
 
 	req := httptest.NewRequest("GET", "/admin/slots", nil)
 	w := httptest.NewRecorder()
 
-	adminSlotsHandler(w, req)
+	router.ServeHTTP(w, req)
 
 	if w.Code != http.StatusServiceUnavailable {
 		t.Errorf("Expected status %d, got %d", http.StatusServiceUnavailable, w.Code)
@@ -36,11 +42,13 @@ func TestAdminSlotsHandler_WithCredentials(t *testing.T) {
 		os.Unsetenv("ADMIN_PASSWORD")
 	}()
 
+	_, router := createTestApp(t)
+
 	// Test without auth
 	req := httptest.NewRequest("GET", "/admin/slots", nil)
 	w := httptest.NewRecorder()
 
-	adminSlotsHandler(w, req)
+	router.ServeHTTP(w, req)
 
 	if w.Code != http.StatusUnauthorized {
 		t.Errorf("Expected status %d for no auth, got %d", http.StatusUnauthorized, w.Code)
@@ -51,7 +59,7 @@ func TestAdminSlotsHandler_WithCredentials(t *testing.T) {
 	req.SetBasicAuth("wronguser", "wrongpass")
 	w = httptest.NewRecorder()
 
-	adminSlotsHandler(w, req)
+	router.ServeHTTP(w, req)
 
 	if w.Code != http.StatusUnauthorized {
 		t.Errorf("Expected status %d for wrong auth, got %d", http.StatusUnauthorized, w.Code)
@@ -62,9 +70,15 @@ func TestAdminSlotsHandler_WithCredentials(t *testing.T) {
 	req.SetBasicAuth("testadmin", "testpass123")
 	w = httptest.NewRecorder()
 
-	adminSlotsHandler(w, req)
+	router.ServeHTTP(w, req)
 
 	if w.Code != http.StatusOK {
 		t.Errorf("Expected status %d for correct auth, got %d", http.StatusOK, w.Code)
+	}
+
+	// Check that admin interface content is returned
+	body := w.Body.String()
+	if !strings.Contains(body, "Admin Interface") {
+		t.Errorf("Expected admin interface content in response")
 	}
 }

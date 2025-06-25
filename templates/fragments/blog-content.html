@@ -9,6 +9,7 @@
     <!-- Search functionality for growing blog -->
     <div class="blog-search">
       <input type="text" id="blog-search" placeholder="{{.BlogConfig.Blog.Search.Placeholder}}" />
+      <div id="search-result-count" class="search-result-count" style="display: none;"></div>
       <div class="blog-filters">
         {{range .BlogConfig.Blog.TagFilters}}
         <button class="filter-btn{{if .Active}} active{{end}}" data-tag="{{.Tag}}">{{.Display}}</button>
@@ -16,30 +17,13 @@
       </div>
     </div>
 
-    <div class="blog-grid" id="blog-grid">
-      {{range .Posts}}
-      <a href="/blog/{{.Slug}}" class="blog-post-card" data-tags="{{range .Tags}}{{.}} {{end}}">
-        <div class="blog-date">{{.Date.Format "January 2, 2006"}}</div>
-        <h3 class="blog-title">{{.Title}}</h3>
-        <p class="blog-summary">{{.Summary}}</p>
-        <div class="blog-meta">
-          <span>{{.ReadingTime}} min read</span>
-          <span class="read-more">Read more →</span>
-        </div>
-        {{if .Tags}}
-        <div class="blog-tags">
-          {{range .Tags}}
-          <span class="blog-tag">{{.}}</span>
-          {{end}}
-        </div>
-        {{end}}
-      </a>
-      {{end}}
+    <div id="blog-posts-container">
+      {{template "blog-posts-partial" .}}
     </div>
   </div>
 </section>
 
-<script>
+<script nonce="{{.Config.CSPNonce}}">
   // Inject blog filter configuration from server
   window.blogFilterConfig = {
     {{range $i, $filter := .BlogConfig.Blog.TagFilters}}

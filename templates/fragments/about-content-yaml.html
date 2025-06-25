@@ -1,0 +1,43 @@
+{{define "about-content-yaml"}}
+<!-- Hero Section -->
+<section class="about-hero">
+  <div class="container">
+    <div class="about-header">
+      <div class="about-text">
+        <h1>{{.AboutConfig.Title}}</h1>
+        <p class="about-subtitle">{{.AboutConfig.Subtitle}}</p>
+      </div>
+      <div class="about-image">
+        <img src="/static/images/lance_profile.jpg" alt="Lance Rogers" class="profile-img-large" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Main Content Section -->
+<section class="about-content">
+  <div class="container">
+    <div class="about-body">
+      <!-- Introduction -->
+      <div class="intro-section">
+        {{.AboutConfig.Hero.Introduction | safeHTML}}
+      </div>
+
+      <!-- What I Do -->
+      <h2>{{.AboutConfig.WhatIDo.Title}}</h2>
+      {{range .AboutConfig.WhatIDo.Items}}
+      <p><strong>{{.Title}}.</strong> {{.Description | safeHTML}}</p>
+      {{end}}
+
+      <!-- How I Work -->
+      <h2>{{.AboutConfig.HowIWork.Title}}</h2>
+      {{range .AboutConfig.HowIWork.Items}}
+      <p><strong>{{.Number}}. {{.Principle}}.</strong> {{.Description | safeHTML}}</p>
+      {{end}}
+
+      <!-- Closing -->
+      <p>{{.AboutConfig.Closing.Text | safeHTML}}</p>
+    </div>
+  </div>
+</section>
+{{end}}

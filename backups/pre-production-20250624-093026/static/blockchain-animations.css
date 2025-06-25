@@ -1,0 +1,174 @@
+/* Blockchain Animation Styles (Disabled)
+   These styles can be re-enabled on other pages by including this CSS file */
+
+/* Mempool transaction animation */
+.mempool-container {
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  width: 200px;
+  height: 150px;
+  pointer-events: none;
+}
+
+.mempool-transaction {
+  position: absolute;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.4);
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: rgba(0, 255, 136, 0.8);
+  animation: tx-to-block 12s ease-in-out infinite;
+  opacity: 0;
+}
+
+.mempool-transaction .tx-hash {
+  display: block;
+  font-weight: bold;
+}
+
+.mempool-transaction .tx-value {
+  display: block;
+  font-size: 0.6rem;
+  color: rgba(0, 212, 255, 0.7);
+}
+
+.blockchain-block {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 212, 255, 0.1);
+  border: 2px solid rgba(0, 212, 255, 0.6);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: rgba(0, 212, 255, 0.9);
+  text-align: center;
+  opacity: 0;
+  animation: block-formation 12s ease-in-out infinite;
+}
+
+.blockchain-block .block-header {
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.blockchain-block .block-hash {
+  font-size: 0.6rem;
+  color: rgba(0, 255, 136, 0.7);
+}
+
+.blockchain-block .block-txs {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@keyframes tx-to-block {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px) translateX(0);
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(0) translateX(0);
+  }
+  85% {
+    opacity: 0.8;
+    transform: translateY(40px) translateX(-20px) scale(0.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(60px) translateX(-40px) scale(0.3);
+  }
+}
+
+@keyframes block-formation {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.5);
+  }
+  80% {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.5);
+  }
+  90% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1.1);
+    box-shadow: 0 0 15px rgba(0, 212, 255, 0.6);
+  }
+  95% {
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.4);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+    box-shadow: 0 0 5px rgba(0, 212, 255, 0.3);
+  }
+}
+
+/* Ethereum contract animation */
+.ethereum-contract {
+  position: absolute;
+  bottom: 20%;
+  left: 5%;
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid rgba(0, 212, 255, 0.4);
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: rgba(0, 212, 255, 0.8);
+  max-width: 180px;
+  animation: contract-deploy 15s ease-in-out infinite;
+  opacity: 0;
+}
+
+.ethereum-contract .contract-header {
+  font-weight: bold;
+  color: rgba(0, 255, 136, 0.9);
+  margin-bottom: 2px;
+}
+
+.ethereum-contract .contract-address {
+  font-size: 0.6rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 4px;
+}
+
+.ethereum-contract .contract-bytecode {
+  font-size: 0.5rem;
+  color: rgba(0, 212, 255, 0.6);
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+@keyframes contract-deploy {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  15% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  85% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+}

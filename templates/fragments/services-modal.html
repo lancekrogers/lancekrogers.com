@@ -1,0 +1,69 @@
+{{define "services-modal"}}
+<!-- Main Packages Modal -->
+<div class="packages-main-modal" data-packages-main-modal>
+  <div class="packages-main-modal-content">
+    <button class="packages-main-modal-close">&times;</button>
+    <h2 class="section-title">Service Packages I Offer</h2>
+    <p class="section-subtitle">Structured engagements designed for different stages of growth</p>
+    
+    <div class="package-grid large-packages">
+      {{range .ServicesConfig.Packages.GetOrderedPackages}}
+      {{if .Package.Title}}
+      <div class="package package-interactive{{if .Package.Featured}} featured{{end}}" data-package="{{.Key}}">
+        <div class="package-content">
+          <h4>{{.Package.Title}}</h4>
+          {{if $.ServicesConfig.Packages.DisplayPrices}}<p class="package-price">{{.Package.Price}}</p>{{end}}
+          <p class="package-duration">{{.Package.Duration}}</p>
+          <p class="package-description">{{.Package.Description}}</p>
+          <div class="package-expand-hint">Click for details</div>
+        </div>
+      </div>
+      {{end}}
+      {{end}}
+    </div>
+  </div>
+</div>
+
+<!-- Individual Package Popups -->
+{{range .ServicesConfig.Packages.GetOrderedPackages}}
+{{if .Package.DetailedInfo}}
+<div class="package-popup" data-package-popup="{{.Key}}">
+  <div class="package-popup-content">
+    <button class="package-popup-close">&times;</button>
+    <h4>{{.Package.Title}}</h4>
+    {{if $.ServicesConfig.Packages.DisplayPrices}}<p class="package-price">{{.Package.Price}}</p>{{end}}
+    <p class="package-duration">{{.Package.Duration}}</p>
+    
+    <div class="package-details">
+      <div class="package-detail-section">
+        <h5>What You Get</h5>
+        <ul>
+          {{range .Package.DetailedInfo.WhatYouGet}}
+          <li>{{.}}</li>
+          {{end}}
+        </ul>
+      </div>
+      
+      <div class="package-detail-section">
+        <h5>Process</h5>
+        <ul>
+          {{range .Package.DetailedInfo.Process}}
+          <li>{{.}}</li>
+          {{end}}
+        </ul>
+      </div>
+      
+      <div class="package-detail-section">
+        <h5>Outcomes</h5>
+        <ul>
+          {{range .Package.DetailedInfo.Outcomes}}
+          <li>{{.}}</li>
+          {{end}}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{{end}}
+{{end}}
+{{end}}

@@ -1,6 +1,6 @@
 # Blockhead Consulting Website - Makefile
 
-.PHONY: help all test test-go test-js test-verbose install dev build clean serve lint dashboard dev-bg stop status logs
+.PHONY: help all test test-go test-js test-verbose install dev build clean serve lint dashboard dev-bg stop status logs docker-setup docker-dev docker-test docker-clean docker-logs docker-status dev-services stop-dev start-mailhog stop-mailhog check-docker
 
 # Colors for output
 GREEN = \033[0;32m
@@ -168,7 +168,7 @@ _test-dashboard-js-unit:
 
 _test-dashboard-js-navigation:
 	@printf "🔹 Navigation Tests:    "
-	@if [ -d "node_modules" ] && [ -f "navigation.test.js" ]; then \
+	@if [ -d "node_modules" ] && [ -f "tests/js/navigation.test.js" ]; then \
 		if npm run test:navigation -- --silent >/dev/null 2>&1; then \
 			TESTS=$$(npm run test:navigation -- --silent 2>&1 | grep -E "✓" | wc -l | tr -d ' '); \
 			echo "$(GREEN)✅ PASS$(NC) ($$TESTS tests)"; \
@@ -181,7 +181,7 @@ _test-dashboard-js-navigation:
 
 _test-dashboard-js-mobile:
 	@printf "🔹 Mobile Tests:        "
-	@if [ -d "node_modules" ] && [ -f "mobile.test.js" ]; then \
+	@if [ -d "node_modules" ] && [ -f "tests/js/mobile.test.js" ]; then \
 		if npm run test:mobile -- --silent >/dev/null 2>&1; then \
 			TESTS=$$(npm run test:mobile -- --silent 2>&1 | grep -E "✓" | wc -l | tr -d ' '); \
 			echo "$(GREEN)✅ PASS$(NC) ($$TESTS tests)"; \
@@ -194,7 +194,7 @@ _test-dashboard-js-mobile:
 
 _test-dashboard-js-animations:
 	@printf "🔹 Animation Tests:     "
-	@if [ -d "node_modules" ] && [ -f "animations.test.js" ]; then \
+	@if [ -d "node_modules" ] && [ -f "tests/js/animations.test.js" ]; then \
 		if npm run test:animations -- --silent >/dev/null 2>&1; then \
 			TESTS=$$(npm run test:animations -- --silent 2>&1 | grep -E "✓" | wc -l | tr -d ' '); \
 			echo "$(GREEN)✅ PASS$(NC) ($$TESTS tests)"; \
@@ -207,7 +207,7 @@ _test-dashboard-js-animations:
 
 _test-dashboard-js-integration:
 	@printf "🔹 Integration Tests:   "
-	@if [ -d "node_modules" ] && [ -f "integration.test.js" ]; then \
+	@if [ -d "node_modules" ] && [ -f "tests/js/integration.test.js" ]; then \
 		if npm run test:integration -- --silent >/dev/null 2>&1; then \
 			TESTS=$$(npm run test:integration -- --silent 2>&1 | grep -E "✓" | wc -l | tr -d ' '); \
 			echo "$(GREEN)✅ PASS$(NC) ($$TESTS tests)"; \
@@ -304,6 +304,17 @@ build: ## Build the Go binary
 run: build ## Build and run the server binary
 	@echo "Starting server from binary..."
 	@./bin/blockhead-server
+
+build-css: ## Compile SCSS to CSS
+	@echo "Compiling SCSS to CSS..."
+	@mkdir -p static/css
+	@if command -v sass >/dev/null 2>&1; then \
+		sass static/scss/styles.scss static/css/styles.css --no-source-map --style=compressed; \
+		echo "$(GREEN)✅ SCSS compiled to static/css/styles.css$(NC)"; \
+	else \
+		echo "$(RED)❌ sass command not found. Install with: npm install -g sass$(NC)"; \
+		exit 1; \
+	fi
 
 # Utility targets
 clean: ## Clean build artifacts and dependencies
@@ -453,15 +464,109 @@ logs: ## Show server logs (if running in background)
 		echo "   └─ Start server with 'make dev-bg' to generate logs"; \
 	fi
 
+# Docker targets
+docker-setup: ## Set up Docker development environment
+	@echo "$(BOLD)🐳 Setting up Docker development environment...$(NC)"
+	@./scripts/dev-setup.sh
 
+docker-dev: ## Start application in Docker development mode
+	@echo "$(BLUE)🐳 Starting Docker development environment...$(NC)"
+	@docker-compose up --build
 
-# Development commands
-dev: ## Start development server
-	@echo "$(BOLD)🚀 Starting development server...$(NC)"
+docker-dev-bg: ## Start Docker development environment in background
+	@echo "$(BLUE)🐳 Starting Docker development environment in background...$(NC)"
+	@docker-compose up -d --build
+	@echo "$(GREEN)✅ Docker services started$(NC)"
+	@echo "   └─ App: http://localhost:8085"
+	@echo "   └─ MailHog: http://localhost:8025"
+	@echo "   └─ Gitea: http://localhost:3000"
+	@echo "   └─ Logs: make docker-logs"
+	@echo "   └─ Stop: make docker-stop"
+
+docker-test: ## Run integration tests in Docker
+	@echo "$(BLUE)🧪 Running Docker integration tests...$(NC)"
+	@./scripts/integration-test.sh
+
+docker-clean: ## Clean up Docker containers and volumes
+	@echo "$(YELLOW)🧹 Cleaning up Docker environment...$(NC)"
+	@docker-compose down -v --remove-orphans
+	@docker-compose -f docker-compose.test.yml down -v --remove-orphans
+	@docker system prune -f
+	@echo "$(GREEN)✅ Docker cleanup complete$(NC)"
+
+docker-logs: ## Show Docker container logs
+	@echo "$(BLUE)📋 Docker Container Logs:$(NC)"
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@docker-compose logs -f
+
+docker-status: ## Check Docker container status
+	@echo "$(BLUE)🐳 Docker Container Status:$(NC)"
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@docker-compose ps
+
+docker-stop: ## Stop Docker development environment
+	@echo "$(YELLOW)🛑 Stopping Docker development environment...$(NC)"
+	@docker-compose down
+	@echo "$(GREEN)✅ Docker services stopped$(NC)"
+
+docker-restart: docker-stop docker-dev-bg ## Restart Docker development environment
+
+# Enhanced Development Service Management
+check-docker: ## Check if Docker is running
+	@if ! docker info >/dev/null 2>&1; then \
+		echo "$(RED)❌ Docker daemon is not running$(NC)"; \
+		echo "   └─ Please start Docker Desktop or run: open -a Docker"; \
+		echo "   └─ On Linux: sudo systemctl start docker"; \
+		exit 1; \
+	else \
+		echo "$(GREEN)✅ Docker daemon is running$(NC)"; \
+	fi
+
+start-mailhog: check-docker ## Start MailHog email testing service
+	@echo "$(BLUE)📧 Starting MailHog email testing service...$(NC)"
+	@if docker compose ps mailhog 2>/dev/null | grep -q "Up"; then \
+		echo "$(YELLOW)⚠️  MailHog is already running$(NC)"; \
+	else \
+		docker compose up mailhog -d; \
+		echo "$(GREEN)✅ MailHog started$(NC)"; \
+		echo "   └─ SMTP: localhost:1025"; \
+		echo "   └─ Web UI: http://localhost:8025"; \
+	fi
+
+stop-mailhog: ## Stop MailHog email testing service
+	@echo "$(YELLOW)📧 Stopping MailHog email testing service...$(NC)"
+	@docker compose stop mailhog 2>/dev/null || true
+	@docker compose rm -f mailhog 2>/dev/null || true
+	@echo "$(GREEN)✅ MailHog stopped$(NC)"
+
+dev-services: start-mailhog ## Start all development services (MailHog, etc.)
+	@echo "$(GREEN)🚀 All development services started!$(NC)"
+	@echo ""
+	@echo "$(BOLD)📋 Development Services Status:$(NC)"
+	@echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+	@echo "📧 MailHog Email Testing:"
+	@echo "   └─ SMTP: localhost:1025"
+	@echo "   └─ Web UI: http://localhost:8025"
+	@echo ""
+	@echo "💡 Next steps:"
+	@echo "   └─ Start website: make dev-bg"
+	@echo "   └─ Stop all services: make stop-dev"
+
+stop-dev: stop stop-mailhog ## Stop all development services (website + MailHog)
+	@echo ""
+	@echo "$(GREEN)🛑 All development services stopped$(NC)"
+
+# Enhanced dev and dev-bg commands
+dev: dev-services build-css ## Start development server with all services
+	@echo ""
+	@echo "$(BOLD)🚀 Starting complete development environment...$(NC)"
+	@echo ""
 	@go run main.go
 
-dev-bg: ## Start development server in background
-	@echo "$(BOLD)🚀 Starting development server in background...$(NC)"
+dev-bg: dev-services build-css ## Start development server in background with all services
+	@echo ""
+	@echo "$(BOLD)🚀 Starting complete development environment in background...$(NC)"
+	@echo ""
 	@$(MAKE) --no-print-directory kill-port
 	@mkdir -p data
 	@nohup go run main.go > data/server.log 2>&1 &
@@ -471,15 +576,16 @@ dev-bg: ## Start development server in background
 		sleep 1; \
 		if lsof -ti :$$PORT >/dev/null 2>&1; then \
 			echo ""; \
-			echo "$(GREEN)✅ Development server started successfully!$(NC)"; \
+			echo "$(GREEN)✅ Complete development environment ready!$(NC)"; \
 			echo ""; \
-			echo "$(BOLD)📋 Server Status:$(NC)"; \
+			echo "$(BOLD)📋 Development Environment Status:$(NC)"; \
 			echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"; \
 			echo "🌐 Website: http://localhost:$$PORT"; \
+			echo "📧 MailHog UI: http://localhost:8025"; \
 			echo "📁 Server Logs: tail -f data/server.log"; \
 			echo ""; \
 			echo "💡 Commands:"; \
-			echo "   └─ Stop: make stop"; \
+			echo "   └─ Stop all: make stop-dev"; \
 			echo "   └─ Status: make status"; \
 			echo "   └─ Logs: make logs"; \
 			exit 0; \

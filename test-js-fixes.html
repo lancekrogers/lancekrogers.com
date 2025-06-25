@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Fixes Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1a1a1a; color: #f8f8f2; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #444; }
+        .pass { color: #00ff88; }
+        .fail { color: #ff6b6b; }
+        .info { color: #00d4ff; }
+        pre { background: #272822; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Fixes Verification</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Boot Sequence Script Loading</h2>
+        <div id="boot-test-result"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Mermaid Library Loading</h2>
+        <div id="mermaid-test-result"></div>
+        <div class="mermaid">
+            graph TD
+            A[Test] --> B[Mermaid]
+            B --> C[Loading]
+        </div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: Professional Mode Messages</h2>
+        <div id="mode-test-result"></div>
+    </div>
+
+    <script>
+        // Test results container
+        const results = {
+            bootSequence: document.getElementById('boot-test-result'),
+            mermaid: document.getElementById('mermaid-test-result'),
+            mode: document.getElementById('mode-test-result')
+        };
+
+        // Test 1: Check if boot-sequence.js can be loaded multiple times
+        async function testBootSequence() {
+            try {
+                // First load
+                const script1 = document.createElement('script');
+                script1.src = '/static/boot-sequence.js';
+                document.head.appendChild(script1);
+                
+                await new Promise(resolve => {
+                    script1.onload = resolve;
+                    script1.onerror = () => reject(new Error('Failed to load boot-sequence.js'));
+                });
+                
+                // Second load (should not cause errors)
+                const script2 = document.createElement('script');
+                script2.src = '/static/boot-sequence.js';
+                document.head.appendChild(script2);
+                
+                await new Promise(resolve => {
+                    script2.onload = resolve;
+                    script2.onerror = () => reject(new Error('Failed to load boot-sequence.js second time'));
+                });
+                
+                // Check if BOOT_CONFIG exists and is not duplicated
+                if (typeof window.BOOT_CONFIG !== 'undefined' && window.BOOT_CONFIG.professional) {
+                    results.bootSequence.innerHTML = '<p class="pass">✅ Boot sequence script loads without redeclaration errors</p>';
+                    results.bootSequence.innerHTML += `<pre>${JSON.stringify(window.BOOT_CONFIG.professional.messages, null, 2)}</pre>`;
+                } else {
+                    results.bootSequence.innerHTML = '<p class="fail">❌ BOOT_CONFIG not found</p>';
+                }
+            } catch (error) {
+                results.bootSequence.innerHTML = `<p class="fail">❌ Error loading boot sequence: ${error.message}</p>`;
+            }
+        }
+
+        // Test 2: Check Mermaid loading
+        async function testMermaid() {
+            try {
+                // Load blog-post.js
+                const script = document.createElement('script');
+                script.src = '/static/js/blog-post.js';
+                document.body.appendChild(script);
+                
+                await new Promise(resolve => {
+                    script.onload = resolve;
+                    script.onerror = () => reject(new Error('Failed to load blog-post.js'));
+                });
+                
+                // Wait a bit for initialization
+                await new Promise(resolve => setTimeout(resolve, 500));
+                
+                // Check if BlogPost exists
+                if (typeof window.BlogPost !== 'undefined') {
+                    results.mermaid.innerHTML = '<p class="info">ℹ️ BlogPost module loaded</p>';
+                    
+                    // Try to initialize Mermaid
+                    window.BlogPost.initializeMermaid();
+                    
+                    // Wait for Mermaid to load if needed
+                    await new Promise(resolve => setTimeout(resolve, 2000));
+                    
+                    if (typeof mermaid !== 'undefined') {
+                        results.mermaid.innerHTML += '<p class="pass">✅ Mermaid library loaded successfully</p>';
+                    } else {
+                        results.mermaid.innerHTML += '<p class="info">ℹ️ Mermaid loading initiated (check console)</p>';
+                    }
+                } else {
+                    results.mermaid.innerHTML = '<p class="fail">❌ BlogPost module not found</p>';
+                }
+            } catch (error) {
+                results.mermaid.innerHTML = `<p class="fail">❌ Error testing Mermaid: ${error.message}</p>`;
+            }
+        }
+
+        // Test 3: Check professional mode messages
+        function testProfessionalMode() {
+            try {
+                if (typeof window.BOOT_CONFIG !== 'undefined') {
+                    const messages = window.BOOT_CONFIG.professional.messages;
+                    const expectedKeywords = [
+                        'AI integration',
+                        'blockchain infrastructure',
+                        'collaboration',
+                        'high-impact',
+                        'payment rails',
+                        'Strategic consulting'
+                    ];
+                    
+                    const allMessages = messages.join(' ');
+                    const foundKeywords = expectedKeywords.filter(keyword => 
+                        allMessages.includes(keyword) || 
+                        allMessages.toLowerCase().includes(keyword.toLowerCase())
+                    );
+                    
+                    if (foundKeywords.length > 0) {
+                        results.mode.innerHTML = '<p class="pass">✅ Professional mode messages contain expected keywords</p>';
+                        results.mode.innerHTML += `<p class="info">Found keywords: ${foundKeywords.join(', ')}</p>`;
+                        results.mode.innerHTML += `<pre>Messages:\n${messages.map((m, i) => `${i + 1}. ${m}`).join('\n')}</pre>`;
+                    } else {
+                        results.mode.innerHTML = '<p class="fail">❌ Professional mode messages missing expected keywords</p>';
+                        results.mode.innerHTML += `<pre>Current messages:\n${messages.map((m, i) => `${i + 1}. ${m}`).join('\n')}</pre>`;
+                    }
+                } else {
+                    results.mode.innerHTML = '<p class="fail">❌ BOOT_CONFIG not available for testing</p>';
+                }
+            } catch (error) {
+                results.mode.innerHTML = `<p class="fail">❌ Error testing mode: ${error.message}</p>`;
+            }
+        }
+
+        // Run tests
+        async function runTests() {
+            console.log('Starting JavaScript fixes verification...');
+            
+            await testBootSequence();
+            await testMermaid();
+            testProfessionalMode();
+            
+            console.log('Tests completed. Check the page for results.');
+        }
+
+        // Start tests when page loads
+        window.addEventListener('DOMContentLoaded', runTests);
+    </script>
+</body>
+</html>

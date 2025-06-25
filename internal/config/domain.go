@@ -7,6 +7,7 @@ type SiteConfig struct {
 	Contact        ContactInfo         `yaml:"contact"`
 	Branding       BrandingInfo        `yaml:"branding"`
 	Services       ServicesInfo        `yaml:"services"`
+	Problems       ProblemsInfo        `yaml:"problems"`
 	Packages       PackagesInfo        `yaml:"packages"`
 	Features       FeaturesInfo        `yaml:"features"`
 	Stats          []StatInfo          `yaml:"stats"`
@@ -15,12 +16,49 @@ type SiteConfig struct {
 	WorkExperience WorkExperienceInfo  `yaml:"work_experience"`
 }
 
+// ServicesConfig represents the complete services page configuration
+type ServicesConfig struct {
+	PageTitle    string                  `yaml:"page_title"`
+	PageSubtitle string                  `yaml:"page_subtitle"`
+	Categories   ServicesCategoriesInfo  `yaml:"categories"`
+	Packages     PackagesInfo            `yaml:"packages"`
+	CTA          ServicesCTAInfo         `yaml:"cta"`
+}
+
+type ServicesCategoriesInfo struct {
+	Crypto ServiceCategoryInfo `yaml:"crypto"`
+	AI     ServiceCategoryInfo `yaml:"ai"`
+}
+
+type ServiceCategoryInfo struct {
+	Title       string   `yaml:"title"`
+	Icon        string   `yaml:"icon"`
+	Description string   `yaml:"description"`
+	Items       []string `yaml:"items"`
+}
+
+type ServicesCTAInfo struct {
+	Headline        string `yaml:"headline"`
+	Subheadline     string `yaml:"subheadline"`
+	PrimaryButton   string `yaml:"primary_button"`
+	SecondaryButton string `yaml:"secondary_button"`
+}
+
 type SiteInfo struct {
 	Name        string `yaml:"name"`
 	Description string `yaml:"description"`
 	Tagline     string `yaml:"tagline"`
 	Subtitle    string `yaml:"subtitle"`
 	HeroStyle   string `yaml:"hero_style"`
+	BaseURL     string `yaml:"base_url"`
+	Social      SocialInfo `yaml:"social"`
+}
+
+type SocialInfo struct {
+	TwitterHandle   string `yaml:"twitter_handle"`
+	DefaultImage    string `yaml:"default_image"`
+	AuthorName      string `yaml:"author_name"`
+	AuthorTwitter   string `yaml:"author_twitter"`
 }
 
 type AboutInfo struct {
@@ -55,6 +93,17 @@ type ServicesInfo struct {
 	AI           ServiceInfo `yaml:"ai"`
 }
 
+type ProblemsInfo struct {
+	Title string        `yaml:"title"`
+	Items []ProblemItem `yaml:"items"`
+}
+
+type ProblemItem struct {
+	Challenge string `yaml:"challenge"`
+	Solution  string `yaml:"solution"`
+	Outcome   string `yaml:"outcome"`
+}
+
 type PackageInfo struct {
 	Title         string   `yaml:"title"`
 	Price         string   `yaml:"price"`
@@ -77,6 +126,37 @@ type PackagesInfo struct {
 	Pilot           PackageInfo `yaml:"pilot"`
 	Accelerator     PackageInfo `yaml:"accelerator"`
 	AIAcceleration  PackageInfo `yaml:"ai_acceleration"`
+	Embedded        PackageInfo `yaml:"embedded"`
+}
+
+// PackageItem represents a package with its key for ordering
+type PackageItem struct {
+	Key     string
+	Package PackageInfo
+}
+
+// GetAllPackages returns a map of all packages for dynamic iteration
+func (p *PackagesInfo) GetAllPackages() map[string]PackageInfo {
+	return map[string]PackageInfo{
+		"evaluation":     p.Evaluation,
+		"assessment":     p.Assessment,
+		"pilot":          p.Pilot,
+		"accelerator":    p.Accelerator,
+		"ai_acceleration": p.AIAcceleration,
+		"embedded":       p.Embedded,
+	}
+}
+
+// GetOrderedPackages returns packages in a specific order
+func (p *PackagesInfo) GetOrderedPackages() []PackageItem {
+	return []PackageItem{
+		{Key: "evaluation", Package: p.Evaluation},
+		{Key: "assessment", Package: p.Assessment},
+		{Key: "pilot", Package: p.Pilot},
+		{Key: "accelerator", Package: p.Accelerator},
+		{Key: "ai_acceleration", Package: p.AIAcceleration},
+		{Key: "embedded", Package: p.Embedded},
+	}
 }
 
 type FeaturesInfo struct {
@@ -154,6 +234,39 @@ type WorkConfig struct {
 	FinTech    WorkSection       `yaml:"fintech"`
 	Blockchain WorkSection       `yaml:"blockchain"`
 	AI         WorkSection       `yaml:"ai"`
+	SectionOrder []string        `yaml:"-"` // Hidden field to store order
+}
+
+// OrderedSection represents a work section with its key for ordering
+type OrderedSection struct {
+	Key     string
+	Section WorkSection
+}
+
+// GetOrderedSections returns work sections in the order they appear in the YAML file
+func (w *WorkConfig) GetOrderedSections() []OrderedSection {
+	if len(w.SectionOrder) > 0 {
+		// Use explicitly set order
+		sections := make([]OrderedSection, 0, len(w.SectionOrder))
+		for _, key := range w.SectionOrder {
+			switch key {
+			case "ai":
+				sections = append(sections, OrderedSection{Key: "ai", Section: w.AI})
+			case "blockchain":
+				sections = append(sections, OrderedSection{Key: "blockchain", Section: w.Blockchain})
+			case "fintech":
+				sections = append(sections, OrderedSection{Key: "fintech", Section: w.FinTech})
+			}
+		}
+		return sections
+	}
+	
+	// Default order if no order specified (maintaining current order for backwards compatibility)
+	return []OrderedSection{
+		{Key: "fintech", Section: w.FinTech},
+		{Key: "blockchain", Section: w.Blockchain},
+		{Key: "ai", Section: w.AI},
+	}
 }
 
 type WorkSection struct {
@@ -202,4 +315,15 @@ type ProjectDetail struct {
 	Description  string   `yaml:"description"`
 	Impact       string   `yaml:"impact"`
 	Technologies []string `yaml:"technologies"`
+}
+
+// LegacySiteConfig represents the legacy site configuration for backward compatibility
+type LegacySiteConfig struct {
+	CalendarEnabled bool
+	BlogEnabled     bool
+	SiteName        string
+	Environment     string
+	HeroStyle       string
+	ConsoleLogging  bool
+	CSPNonce        string
 }

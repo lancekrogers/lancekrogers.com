@@ -18,12 +18,14 @@ func HeadersMiddleware(config *SecurityHeaders) func(http.Handler) http.Handler 
 			if config.CSPNonce != "" {
 				cspPolicy := fmt.Sprintf(`
 					default-src 'self';
-					script-src 'self' 'nonce-%s' https://unpkg.com;
+					script-src 'self' 'nonce-%s' 'sha256-YmKTq6EVwpGF9cw/TV8u8y/LtWEVqaJt+/Rs4pjOlUw=' https://unpkg.com;
 					style-src 'self' 'unsafe-inline';
 					img-src 'self' data: https:;
 					font-src 'self' data:;
 					connect-src 'self';
 					frame-ancestors 'none';
+					base-uri 'self';
+					form-action 'self';
 				`, config.CSPNonce)
 				
 				// Clean up the CSP policy (remove extra whitespace and newlines)
@@ -57,6 +59,11 @@ func HeadersMiddleware(config *SecurityHeaders) func(http.Handler) http.Handler 
 
 			// Additional security headers
 			w.Header().Set("Referrer-Policy", "strict-origin-when-cross-origin")
+			
+			// Cross-Origin headers for enhanced security
+			w.Header().Set("Cross-Origin-Embedder-Policy", "require-corp")
+			w.Header().Set("Cross-Origin-Opener-Policy", "same-origin")
+			w.Header().Set("Cross-Origin-Resource-Policy", "same-origin")
 			
 			// Permissions-Policy: configurable policy for blocking sensitive features
 			if config.PermissionsPolicy != "" {
@@ -94,11 +101,36 @@ func InputValidationMiddleware() func(http.Handler) http.Handler {
 			// Check for common attack patterns in URL path and query
 			fullURL := r.URL.String()
 			suspiciousPatterns := []string{
-				"../", "..\\", "..",
-				"<script", "</script",
-				"javascript:", "vbscript:",
-				"onload=", "onerror=",
-				"eval(", "alert(",
+				// Path traversal
+				"../", "..\\", "..", "%2e%2e", "%252e%252e",
+				
+				// XSS vectors - script tags
+				"<script", "</script", "%3cscript", "%3c/script",
+				
+				// XSS vectors - event handlers
+				"onload=", "onerror=", "onclick=", "onmouseover=",
+				"onfocus=", "onblur=", "onchange=", "onsubmit=",
+				"ondblclick=", "onkeydown=", "onkeyup=", "onkeypress=",
+				"onmouseout=", "onmousemove=", "onmousedown=", "onmouseup=",
+				
+				// XSS vectors - javascript protocols
+				"javascript:", "vbscript:", "data:text/html",
+				"data:application/x-javascript",
+				
+				// XSS vectors - common payloads
+				"eval(", "alert(", "confirm(", "prompt(",
+				"document.cookie", "window.location",
+				"<iframe", "<embed", "<object", "<link",
+				"<meta", "<base", "<form",
+				
+				// SQL injection patterns (defense in depth)
+				"union select", "union all select", "drop table", "drop database",
+				"insert into", "delete from", "update set",
+				"';", "\";", "' or", "\" or",
+				
+				// Command injection patterns
+				"|", "||", "&&", ";", "`", "$(",  "${",
+				"&lt;", "&gt;", "&amp;",
 			}
 
 			lowerURL := strings.ToLower(fullURL)

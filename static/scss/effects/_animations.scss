@@ -1,0 +1,60 @@
+// Animation Keyframes
+// Extracted from styles.scss lines 1025-1081
+
+/* Subtle periodic glitch animations */
+@keyframes glitch-periodic {
+  0% {
+    clip: rect(20px, 9999px, 25px, 0);
+    transform: skew(0deg);
+    opacity: 0;
+  }
+  25% {
+    clip: rect(30px, 9999px, 35px, 0);
+    transform: skew(0.02deg);
+    opacity: 0.15;
+  }
+  50% {
+    clip: rect(15px, 9999px, 20px, 0);
+    transform: skew(-0.01deg);
+    opacity: 0.2;
+  }
+  75% {
+    clip: rect(25px, 9999px, 30px, 0);
+    transform: skew(0.015deg);
+    opacity: 0.1;
+  }
+  100% {
+    clip: rect(0, 0, 0, 0);
+    transform: skew(0deg);
+    opacity: 0;
+  }
+}
+
+@keyframes glitch-periodic2 {
+  0% {
+    clip: rect(45px, 9999px, 55px, 0);
+    transform: skew(0deg);
+    opacity: 0;
+  }
+  30% {
+    clip: rect(50px, 9999px, 60px, 0);
+    transform: skew(-0.015deg);
+    opacity: 0.12;
+  }
+  60% {
+    clip: rect(40px, 9999px, 50px, 0);
+    transform: skew(0.01deg);
+    opacity: 0.18;
+  }
+  90% {
+    clip: rect(55px, 9999px, 65px, 0);
+    transform: skew(-0.008deg);
+    opacity: 0.08;
+  }
+  100% {
+    clip: rect(0, 0, 0, 0);
+    transform: skew(0deg);
+    opacity: 0;
+  }
+}
+

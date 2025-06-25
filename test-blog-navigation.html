@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog Navigation Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+        .success { color: green; }
+        .error { color: red; }
+        iframe { width: 100%; height: 400px; border: 1px solid #333; }
+    </style>
+</head>
+<body>
+    <h1>Blog Navigation Test</h1>
+    
+    <div class="test-section">
+        <h2>Test 1: Blog Page Elements</h2>
+        <button onclick="testBlogPage()">Test Blog Page</button>
+        <div id="blog-page-results"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 2: Blog Post Navigation</h2>
+        <button onclick="testBlogPost()">Test Blog Post</button>
+        <div id="blog-post-results"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Test 3: HTMX Navigation</h2>
+        <button onclick="testHTMXNavigation()">Test HTMX Navigation</button>
+        <div id="htmx-results"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Live Preview</h2>
+        <iframe id="preview" src="http://localhost:8087/blog"></iframe>
+    </div>
+    
+    <script>
+        async function testBlogPage() {
+            const results = document.getElementById('blog-page-results');
+            results.innerHTML = '<p>Testing blog page...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:8087/blog');
+                const html = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                const tests = [
+                    { element: '#blog-posts-container', name: 'Blog posts container' },
+                    { element: '#blog-posts', name: 'Blog posts grid' },
+                    { element: '.pagination-controls', name: 'Pagination controls' },
+                    { element: '.pagination-next', name: 'Next button' },
+                    { element: '.pagination-prev', name: 'Previous button' }
+                ];
+                
+                let output = '<h3>Blog Page Test Results:</h3><ul>';
+                tests.forEach(test => {
+                    const found = doc.querySelector(test.element);
+                    output += `<li class="${found ? 'success' : 'error'}">
+                        ${test.name}: ${found ? '✓ Found' : '✗ Not found'}
+                    </li>`;
+                });
+                output += '</ul>';
+                
+                results.innerHTML = output;
+            } catch (error) {
+                results.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+            }
+        }
+        
+        async function testBlogPost() {
+            const results = document.getElementById('blog-post-results');
+            results.innerHTML = '<p>Testing blog post page...</p>';
+            
+            try {
+                // Get a blog post slug
+                const response = await fetch('http://localhost:8087/api/blog/posts?page=1&per_page=1');
+                const data = await response.json();
+                
+                if (!data.posts || data.posts.length === 0) {
+                    results.innerHTML = '<p class="error">No blog posts found</p>';
+                    return;
+                }
+                
+                const slug = data.posts[0].slug;
+                const postResponse = await fetch(`http://localhost:8087/blog/${slug}`);
+                const html = await postResponse.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                const tests = [
+                    { element: '#main-content', name: 'Main content' },
+                    { element: '.back-link', name: 'Back to blog link' },
+                    { element: '.post-nav-all', name: 'All posts link' }
+                ];
+                
+                let output = `<h3>Blog Post Test Results (${slug}):</h3><ul>`;
+                tests.forEach(test => {
+                    const found = doc.querySelector(test.element);
+                    output += `<li class="${found ? 'success' : 'error'}">
+                        ${test.name}: ${found ? '✓ Found' : '✗ Not found'}
+                    </li>`;
+                });
+                output += '</ul>';
+                
+                results.innerHTML = output;
+            } catch (error) {
+                results.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+            }
+        }
+        
+        async function testHTMXNavigation() {
+            const results = document.getElementById('htmx-results');
+            results.innerHTML = '<p>Testing HTMX navigation...</p>';
+            
+            try {
+                // Test content endpoint
+                const response = await fetch('http://localhost:8087/content/blog?page=1');
+                const html = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                
+                const hasContent = doc.querySelector('.blog-grid') !== null;
+                const hasPagination = doc.querySelector('.pagination-controls') !== null;
+                
+                let output = '<h3>HTMX Content Endpoint Test:</h3><ul>';
+                output += `<li class="${response.ok ? 'success' : 'error'}">
+                    Response status: ${response.status} ${response.ok ? '✓' : '✗'}
+                </li>`;
+                output += `<li class="${hasContent ? 'success' : 'error'}">
+                    Blog grid content: ${hasContent ? '✓ Found' : '✗ Not found'}
+                </li>`;
+                output += `<li class="${hasPagination ? 'success' : 'error'}">
+                    Pagination controls: ${hasPagination ? '✓ Found' : '✗ Not found'}
+                </li>`;
+                output += '</ul>';
+                
+                results.innerHTML = output;
+            } catch (error) {
+                results.innerHTML = `<p class="error">Error: ${error.message}</p>`;
+            }
+        }
+        
+        // Auto-run tests on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                testBlogPage();
+                testBlogPost();
+                testHTMXNavigation();
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

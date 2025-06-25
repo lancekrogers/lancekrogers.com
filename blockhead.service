@@ -5,13 +5,13 @@ Wants=network-online.target
 
 [Service]
 Type=simple
-User=www-data
-Group=www-data
-WorkingDirectory=/opt/blockhead
-ExecStart=/opt/blockhead/bin/blockhead-server
+User=lance
+Group=lance
+WorkingDirectory=/home/lance/Blockhead.Consulting
+ExecStart=/home/lance/Blockhead.Consulting/bin/blockhead-server
 Restart=always
 RestartSec=5
-EnvironmentFile=/opt/blockhead/.env
+EnvironmentFile=/home/lance/Blockhead.Consulting/.env
 
 # Security settings
 NoNewPrivileges=true

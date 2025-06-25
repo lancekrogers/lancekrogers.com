@@ -1,0 +1,42 @@
+{{define "technical-insights"}}
+<!-- Latest Technical Insights Section -->
+<section class="latest-insights">
+  <div class="container">
+    <h2 class="section-title">Latest Technical Insights</h2>
+    {{if .RecentPosts}}
+    <div class="insights-grid">
+      {{range .RecentPosts}}
+      <article class="insight-card insight-card-clickable"
+               onclick="window.location.href='/blog/{{.Slug}}'"
+               hx-get="/blog/{{.Slug}}"
+               hx-target="#main-content"
+               hx-push-url="/blog/{{.Slug}}"
+               hx-swap="innerHTML show:window:top"
+               style="cursor: pointer;">
+        <div class="insight-meta">
+          <time datetime="{{.Date.Format "2006-01-02"}}">
+            {{.Date.Format "Jan 2, 2006"}}
+          </time>
+          <span class="reading-time">{{.ReadingTime}} min read</span>
+        </div>
+        <h3 class="insight-title">{{.Title}}</h3>
+        <div class="insight-excerpt">{{.SummaryHTML}}</div>
+        <div class="insight-tags">
+          {{range .Tags}}
+          <span class="tag">{{.}}</span>
+          {{end}}
+        </div>
+      </article>
+      {{end}}
+    </div>
+    {{else}}
+    <p style="color: #666; text-align: center;">No recent posts found</p>
+    {{end}}
+    <div class="insights-cta">
+      <a href="/blog" hx-get="/content/blog" hx-target="#main-content" hx-push-url="/blog" class="btn-view-all">
+        View All Posts →
+      </a>
+    </div>
+  </div>
+</section>
+{{end}}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigation Speed Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+        .timing { font-weight: bold; }
+        .fast { color: green; }
+        .slow { color: orange; }
+        .very-slow { color: red; }
+    </style>
+</head>
+<body>
+    <h1>Navigation Speed Test</h1>
+    
+    <div class="test-section">
+        <h2>Blog Post → About Page Navigation Test</h2>
+        <button onclick="runNavigationTest()">Run Test</button>
+        <div id="results"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>Response Time Tests</h2>
+        <button onclick="runResponseTests()">Test All Endpoints</button>
+        <div id="response-results"></div>
+    </div>
+    
+    <script>
+        async function measureResponseTime(url) {
+            const start = performance.now();
+            try {
+                const response = await fetch(url);
+                const end = performance.now();
+                const time = end - start;
+                return {
+                    url,
+                    status: response.status,
+                    time: time.toFixed(2),
+                    ok: response.ok
+                };
+            } catch (error) {
+                const end = performance.now();
+                return {
+                    url,
+                    status: 'error',
+                    time: (end - start).toFixed(2),
+                    ok: false,
+                    error: error.message
+                };
+            }
+        }
+        
+        function getSpeedClass(time) {
+            if (time < 100) return 'fast';
+            if (time < 500) return 'slow';
+            return 'very-slow';
+        }
+        
+        async function runNavigationTest() {
+            const results = document.getElementById('results');
+            results.innerHTML = '<p>Running navigation test...</p>';
+            
+            const endpoints = [
+                '/blog',
+                '/content/blog',
+                '/api/blog/posts?page=1&per_page=1',
+                '/content/about',
+                '/about'
+            ];
+            
+            let output = '<h3>Navigation Speed Results:</h3><ul>';
+            
+            for (const endpoint of endpoints) {
+                const result = await measureResponseTime(`http://localhost:8087${endpoint}`);
+                const speedClass = getSpeedClass(parseFloat(result.time));
+                
+                output += `<li>
+                    <strong>${endpoint}</strong>: 
+                    <span class="timing ${speedClass}">${result.time}ms</span>
+                    (Status: ${result.status})
+                </li>`;
+            }
+            
+            output += '</ul>';
+            results.innerHTML = output;
+        }
+        
+        async function runResponseTests() {
+            const results = document.getElementById('response-results');
+            results.innerHTML = '<p>Testing all endpoints...</p>';
+            
+            const endpoints = [
+                { path: '/content/about', name: 'About (HTMX)' },
+                { path: '/content/blog', name: 'Blog (HTMX)' },
+                { path: '/content/home', name: 'Home (HTMX)' },
+                { path: '/api/blog/posts?page=1', name: 'Blog API' },
+                { path: '/api/blog/search?q=test', name: 'Search API' }
+            ];
+            
+            let output = '<h3>Endpoint Response Times:</h3><table border="1" cellpadding="5">';
+            output += '<tr><th>Endpoint</th><th>Time (ms)</th><th>Status</th></tr>';
+            
+            for (const endpoint of endpoints) {
+                const result = await measureResponseTime(`http://localhost:8087${endpoint.path}`);
+                const speedClass = getSpeedClass(parseFloat(result.time));
+                
+                output += `<tr>
+                    <td>${endpoint.name}</td>
+                    <td class="${speedClass}">${result.time}</td>
+                    <td>${result.status}</td>
+                </tr>`;
+            }
+            
+            output += '</table>';
+            
+            // Test sequential navigation simulation
+            output += '<h3>Sequential Navigation Test (Blog → Post → About):</h3>';
+            const navStart = performance.now();
+            
+            const blogResult = await measureResponseTime('http://localhost:8087/content/blog');
+            const apiResult = await measureResponseTime('http://localhost:8087/api/blog/posts?page=1&per_page=1');
+            
+            let postSlug = 'test';
+            if (apiResult.ok) {
+                const data = await (await fetch('http://localhost:8087/api/blog/posts?page=1&per_page=1')).json();
+                if (data.posts && data.posts.length > 0) {
+                    postSlug = data.posts[0].slug;
+                }
+            }
+            
+            const postResult = await measureResponseTime(`http://localhost:8087/blog/${postSlug}`);
+            const aboutResult = await measureResponseTime('http://localhost:8087/content/about');
+            
+            const totalTime = performance.now() - navStart;
+            
+            output += `<ul>
+                <li>Blog list: ${blogResult.time}ms</li>
+                <li>Blog post (${postSlug}): ${postResult.time}ms</li>
+                <li>About page: ${aboutResult.time}ms</li>
+                <li><strong>Total navigation time: ${totalTime.toFixed(2)}ms</strong></li>
+            </ul>`;
+            
+            results.innerHTML = output;
+        }
+        
+        // Auto-run tests on load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                runNavigationTest();
+                runResponseTests();
+            }, 500);
+        });
+    </script>
+</body>
+</html>

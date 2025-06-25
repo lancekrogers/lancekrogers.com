@@ -1,0 +1,101 @@
+// Syntax Highlighting - Chroma Monokai Theme
+
+// Background
+.bg { 
+  color: #f8f8f2; 
+  background-color: #272822; 
+}
+
+// PreWrapper
+.chroma { 
+  color: #f8f8f2; 
+  background-color: #272822; 
+  border-radius: 8px; 
+  padding: 1rem; 
+  margin: 1rem 0; 
+  overflow-x: auto; 
+  
+  @media (min-width: 75rem) { 
+    margin: 1rem -4rem; 
+    padding: 1rem 2rem; 
+  }
+  
+  // Error
+  .err { color: #960050; background-color: #1e0010 }
+  
+  // Line elements
+  .lnlinks { outline: none; text-decoration: none; color: inherit }
+  .lntd { vertical-align: top; padding: 0; margin: 0; border: 0; }
+  .lntable { border-spacing: 0; padding: 0; margin: 0; border: 0; }
+  .hl { background-color: #3c3d38 }
+  .lnt { white-space: pre; -webkit-user-select: none; user-select: none; margin-right: 0.4em; padding: 0 0.4em 0 0.4em; color: #7f7f7f }
+  .ln { white-space: pre; -webkit-user-select: none; user-select: none; margin-right: 0.4em; padding: 0 0.4em 0 0.4em; color: #7f7f7f }
+  .line { display: flex; }
+  
+  // Keywords
+  .k { color: #66d9ef }
+  .kc { color: #66d9ef }
+  .kd { color: #66d9ef }
+  .kn { color: #f92672 }
+  .kp { color: #66d9ef }
+  .kr { color: #66d9ef }
+  .kt { color: #66d9ef }
+  
+  // Names
+  .na { color: #a6e22e }
+  .nc { color: #a6e22e }
+  .no { color: #66d9ef }
+  .nd { color: #a6e22e }
+  .ne { color: #a6e22e }
+  .nx { color: #a6e22e }
+  .nt { color: #f92672 }
+  .nf { color: #a6e22e }
+  .fm { color: #a6e22e }
+  
+  // Literals
+  .l { color: #ae81ff }
+  .ld { color: #e6db74 }
+  .s { color: #e6db74 }
+  .sa { color: #e6db74 }
+  .sb { color: #e6db74 }
+  .sc { color: #e6db74 }
+  .dl { color: #e6db74 }
+  .sd { color: #e6db74 }
+  .s2 { color: #e6db74 }
+  .se { color: #ae81ff }
+  .sh { color: #e6db74 }
+  .si { color: #e6db74 }
+  .sx { color: #e6db74 }
+  .sr { color: #e6db74 }
+  .s1 { color: #e6db74 }
+  .ss { color: #e6db74 }
+  
+  // Numbers
+  .m { color: #ae81ff }
+  .mb { color: #ae81ff }
+  .mf { color: #ae81ff }
+  .mh { color: #ae81ff }
+  .mi { color: #ae81ff }
+  .il { color: #ae81ff }
+  .mo { color: #ae81ff }
+  
+  // Operators
+  .o { color: #f92672 }
+  .ow { color: #f92672 }
+  
+  // Comments
+  .c { color: #75715e }
+  .ch { color: #75715e }
+  .cm { color: #75715e }
+  .c1 { color: #75715e }
+  .cs { color: #75715e }
+  .cp { color: #75715e }
+  .cpf { color: #75715e }
+  
+  // Generic
+  .gd { color: #f92672 }
+  .ge { font-style: italic }
+  .gi { color: #a6e22e }
+  .gs { font-weight: bold }
+  .gu { color: #75715e }
+}

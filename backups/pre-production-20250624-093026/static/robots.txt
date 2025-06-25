@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://blockheadconsulting.com/sitemap.xml
+
+# Block access to admin/sensitive areas if any exist in the future
+Disallow: /admin/
+Disallow: /api/slots/admin
+Disallow: /.env
+Disallow: /config/
+
+# Allow all blog content and pages
+Allow: /blog/
+Allow: /work/
+Allow: /about/
+Allow: /static/
+
+# Crawl delay (optional, helps with server load)
+Crawl-delay: 1

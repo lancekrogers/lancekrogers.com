@@ -1,0 +1,32 @@
+# Test Dockerfile - includes test dependencies and tools
+FROM golang:1.24-alpine
+
+# Install additional tools for testing
+RUN apk add --no-cache git ca-certificates curl jq
+
+# Set working directory
+WORKDIR /app
+
+# Copy go mod files
+COPY go.mod go.sum ./
+
+# Download dependencies
+RUN go mod download
+
+# Copy source code
+COPY . .
+
+# Install test tools
+RUN go install -a -installsuffix cgo .
+
+# Create test results directory
+RUN mkdir -p /app/test_results
+
+# Create data directory for git storage
+RUN mkdir -p /app/data/test-messages
+
+# Build the application for testing
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o main .
+
+# Default command for running tests
+CMD ["go", "test", "./...", "-v"]

@@ -5,18 +5,11 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
-
-	"blockhead.consulting/internal/security"
-	"github.com/gorilla/mux"
 )
 
 func TestComprehensiveNavigation(t *testing.T) {
-	// Initialize everything
-	initializeTestEnvironment(t)
-	
-	// Create router
-	r := mux.NewRouter()
-	setupRoutes(r)
+	// Initialize test app
+	_, r := createTestApp(t)
 	
 	// Test cases for all navigation scenarios
 	tests := []struct {
@@ -44,29 +37,13 @@ func TestComprehensiveNavigation(t *testing.T) {
 			},
 		},
 		{
-			name:           "Work page loads correctly",
-			method:         "GET",
-			path:           "/work",
-			expectedStatus: http.StatusOK,
-			expectedContent: []string{
-				"Work Experience",
-				"Bank of America",
-				"Mythical Games",
-				"FinTech &amp; Enterprise",
-			},
-			notExpected: []string{
-				"BLOCKHEAD CONSULTING", // Hero title shouldn't appear on work page
-				"Technical Expertise",   // This is only on home page
-			},
-		},
-		{
 			name:           "About page loads correctly",
 			method:         "GET",
 			path:           "/about",
 			expectedStatus: http.StatusOK,
 			expectedContent: []string{
 				"About Lance Rogers",
-				"Strategic Systems Architect",
+				"Fractional CTO",
 			},
 			notExpected: []string{
 				"Work Experience",
@@ -90,16 +67,6 @@ func TestComprehensiveNavigation(t *testing.T) {
 			expectedContent: []string{
 				"Technical Expertise",
 				"Core Languages",
-			},
-		},
-		{
-			name:           "Work content endpoint",
-			method:         "GET",
-			path:           "/content/work",
-			expectedStatus: http.StatusOK,
-			expectedContent: []string{
-				"Work Experience",
-				"Bank of America",
 			},
 		},
 	}
@@ -139,12 +106,8 @@ func TestComprehensiveNavigation(t *testing.T) {
 }
 
 func TestPageRefreshNavigation(t *testing.T) {
-	// Initialize everything
-	initializeTestEnvironment(t)
-	
-	// Create router
-	r := mux.NewRouter()
-	setupRoutes(r)
+	// Initialize test app
+	_, r := createTestApp(t)
 	
 	// Test multiple refreshes don't cause navigation issues
 	pages := []struct {
@@ -152,7 +115,6 @@ func TestPageRefreshNavigation(t *testing.T) {
 		expectedContent string
 	}{
 		{"/", "BLOCKHEAD CONSULTING"},
-		{"/work", "Work Experience"},
 		{"/about", "About Lance Rogers"},
 		{"/blog", "Blog"},
 	}
@@ -183,12 +145,8 @@ func TestPageRefreshNavigation(t *testing.T) {
 }
 
 func TestHTMXNavigation(t *testing.T) {
-	// Initialize everything
-	initializeTestEnvironment(t)
-	
-	// Create router
-	r := mux.NewRouter()
-	setupRoutes(r)
+	// Initialize test app
+	_, r := createTestApp(t)
 	
 	// Test HTMX requests
 	tests := []struct {
@@ -205,15 +163,6 @@ func TestHTMXNavigation(t *testing.T) {
 				"HX-Target":  "#main-content",
 			},
 			expectedContent: "Technical Expertise",
-		},
-		{
-			name: "HTMX work content request",
-			path: "/content/work",
-			htmxHeaders: map[string]string{
-				"HX-Request": "true",
-				"HX-Target":  "#main-content",
-			},
-			expectedContent: "Work Experience",
 		},
 	}
 
@@ -244,52 +193,3 @@ func TestHTMXNavigation(t *testing.T) {
 	}
 }
 
-// Helper functions
-
-func initializeTestEnvironment(t *testing.T) {
-	// Initialize configuration
-	initializeConfig()
-	
-	// Initialize blog service
-	if err := initializeBlogService(); err != nil {
-		t.Fatalf("Failed to initialize blog service: %v", err)
-	}
-	
-	// Initialize security
-	initializeSecurity()
-}
-
-func setupRoutes(r *mux.Router) {
-	// Routes
-	r.HandleFunc("/", homeHandler).Methods("GET")
-	r.HandleFunc("/work", workHandler).Methods("GET")
-	r.HandleFunc("/about", aboutHandler).Methods("GET")
-	r.HandleFunc("/blog", blogHandler).Methods("GET")
-	
-	// HTMX content-only routes
-	r.HandleFunc("/content/home", homeContentHandler).Methods("GET")
-	r.HandleFunc("/content/work", workContentHandler).Methods("GET")
-	r.HandleFunc("/content/about", aboutContentHandler).Methods("GET")
-	r.HandleFunc("/content/blog", blogContentHandler).Methods("GET")
-	
-	// Other routes
-	r.HandleFunc("/contact", contactHandler).Methods("POST")
-	r.HandleFunc("/health", healthHandler).Methods("GET")
-	
-	// Blog routes
-	if siteConfig.BlogEnabled {
-		r.HandleFunc("/blog/{slug}", blogPostHandler).Methods("GET")
-	}
-	
-	// Calendar routes
-	if siteConfig.CalendarEnabled {
-		r.HandleFunc("/calendar", calendarHandler).Methods("GET")
-		r.HandleFunc("/content/calendar", calendarContentHandler).Methods("GET")
-		r.HandleFunc("/api/slots", slotsHandler).Methods("GET")
-		r.HandleFunc("/api/book", bookingHandler).Methods("POST")
-	}
-	
-	// Apply middleware
-	r.Use(security.SecurityMiddleware(securityConfig))
-	r.Use(loggingMiddleware)
-}

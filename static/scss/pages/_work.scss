@@ -1,0 +1,693 @@
+// Enhanced Work Page Styles
+
+// Work Hero
+.work-hero {
+  padding: 8rem 0 4rem;
+  background: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.work-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, var(--accent-crypto) 0%, var(--accent-ai) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.work-intro {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  max-width: 50rem;
+  line-height: 1.8;
+}
+
+.work-categories {
+  padding: 4rem 0;
+  background: var(--bg-primary);
+}
+
+.work-category {
+  margin-bottom: 6rem;
+}
+
+.category-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  padding-bottom: 1rem;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.category-icon {
+  font-size: 2.5rem;
+}
+
+.category-header h2 {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.companies-grid {
+  display: grid;
+  gap: 2rem;
+}
+
+.company-card {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2.5rem;
+  transition: all 0.3s ease;
+}
+
+.company-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-crypto);
+  box-shadow: 0 10px 30px rgba(0, 255, 136, 0.1);
+}
+
+.company-header {
+  margin-bottom: 1.5rem;
+}
+
+.company-header h3 {
+  font-size: 1.5rem;
+  color: var(--accent-crypto);
+  margin-bottom: 0.5rem;
+}
+
+.role {
+  color: var(--text-primary);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+.duration {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.company-description {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.achievements {
+  margin-bottom: 1.5rem;
+}
+
+.achievements h4 {
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.achievements ul {
+  list-style: none;
+  padding: 0;
+}
+
+.achievements li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.achievements li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--accent-crypto);
+}
+
+.tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.tech-tag {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+}
+
+// Enhanced Work Experience Section
+.work-experience-enhanced {
+  padding: 2rem 0;
+  background: var(--bg-secondary);
+}
+
+// Tabbed Work Experience Section
+.work-tabbed-section {
+  padding: 2rem 0;
+  min-height: 600px;
+}
+
+.work-tabbed-section .work-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.work-tabbed-section .section-title {
+  font-size: 2rem;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+// Mobile Tab Navigation
+.work-tabs-mobile {
+  display: none;
+  gap: 0;
+  margin-bottom: 2rem;
+  background: var(--bg-tertiary);
+  border-radius: 8px;
+  padding: 4px;
+}
+
+.tab-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+}
+
+.tab-btn.active {
+  background: var(--bg-primary);
+  color: var(--accent-crypto);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.tab-btn:hover:not(.active) {
+  color: var(--text-primary);
+}
+
+.tab-icon {
+  width: 18px;
+  height: 18px;
+}
+
+// Legacy work-tab styles for compatibility
+.work-tab {
+  padding: 0.75rem 1.5rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  flex-shrink: 0;
+  text-align: center;
+  min-width: 100px;
+}
+
+.work-tab:hover {
+  background: rgba(0, 255, 136, 0.05);
+  border-color: rgba(0, 255, 136, 0.3);
+  color: var(--text-primary);
+}
+
+.work-tab.active {
+  background: var(--accent-crypto);
+  color: var(--bg-primary);
+  border-color: var(--accent-crypto);
+  font-weight: 600;
+}
+
+// Desktop Container Layout
+.work-containers-desktop {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+// For medium screens, show 2 columns
+@media (max-width: 1200px) and (min-width: 769px) {
+  .work-containers-desktop {
+    grid-template-columns: 1fr 1fr;
+  }
+  
+  .work-containers-desktop .work-container:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+// Individual Work Container
+.work-container,
+.work-container-fintech {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.work-container:hover,
+.work-container-fintech:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 255, 136, 0.3);
+  box-shadow: 
+    0 10px 30px rgba(0, 255, 136, 0.1),
+    0 0 0 1px rgba(0, 255, 136, 0.1),
+    inset 0 0 20px rgba(0, 255, 136, 0.02);
+}
+
+.work-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--accent-crypto), transparent);
+  opacity: 0.5;
+}
+
+.container-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.sector-icon {
+  width: 24px;
+  height: 24px;
+  filter: drop-shadow(0 0 8px currentColor);
+}
+
+.container-header h3 {
+  font-size: 1.3rem;
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+// Scrollable Content Area
+.container-scroll {
+  height: 400px;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.container-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.container-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.container-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.container-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+// Items Group
+.items-group {
+  margin-bottom: 0.5rem;
+}
+
+.items-group:last-child {
+  margin-bottom: 0;
+}
+
+// Work Rows
+.work-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  margin-bottom: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.work-row.clickable {
+  cursor: pointer;
+}
+
+.work-row.clickable:hover {
+  background: rgba(0, 255, 136, 0.1);
+  transform: translateX(4px);
+  border-left: 2px solid var(--accent-crypto);
+  padding-left: calc(1rem - 2px);
+}
+
+.work-row.clickable::after {
+  content: '→';
+  position: absolute;
+  right: 1rem;
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: all 0.3s ease;
+  color: var(--accent-crypto);
+}
+
+.work-row.clickable:hover::after {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+// Mobile touch indicator
+@media (max-width: 768px) {
+  .work-row.clickable {
+    position: relative;
+    padding-right: 2.5rem;
+  }
+  
+  .work-row.clickable::before {
+    content: '';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(0, 255, 136, 0.1);
+    border: 1px solid rgba(0, 255, 136, 0.3);
+    animation: pulse-ring 2s ease-out infinite;
+  }
+  
+  .work-row.clickable::after {
+    content: '›';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 1;
+    font-size: 1.2rem;
+    color: var(--accent-crypto);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: translateY(-50%) scale(1);
+    opacity: 1;
+  }
+  70% {
+    transform: translateY(-50%) scale(1.3);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(-50%) scale(1.3);
+    opacity: 0;
+  }
+}
+
+.row-name {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.row-role,
+.row-duration {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+}
+
+// Mobile Tab Content
+.work-tabs-content-mobile {
+  display: none;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.container-scroll-mobile {
+  padding: 1rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.work-experience-enhanced .work-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.work-experience-enhanced .section-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+.work-experience-enhanced .work-sector {
+  margin-bottom: 4rem;
+}
+
+.work-experience-enhanced .sector-header {
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.work-experience-enhanced .sector-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.work-experience-enhanced .sector-icon {
+  font-size: 2rem;
+}
+
+.work-experience-enhanced .sector-title h3 {
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.work-experience-enhanced .sector-description {
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+// Work Grid Layout
+.work-experience-enhanced .work-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+// Work Cards
+.work-experience-enhanced .work-card {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.work-experience-enhanced .work-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent-crypto), transparent);
+  transform: translateX(-100%);
+  transition: transform 0.5s ease;
+}
+
+.work-experience-enhanced .work-card:hover::before {
+  transform: translateX(100%);
+}
+
+.work-experience-enhanced .work-card.featured {
+  border-color: var(--accent-crypto);
+  background: rgba(0, 255, 136, 0.03);
+}
+
+.work-experience-enhanced .work-card.interactive {
+  cursor: pointer;
+}
+
+.work-experience-enhanced .work-card.interactive:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 255, 136, 0.2);
+  border-color: var(--accent-crypto);
+}
+
+.work-experience-enhanced .card-header {
+  margin-bottom: 1rem;
+}
+
+.work-experience-enhanced .card-type {
+  font-size: 0.75rem;
+  color: var(--accent-ai);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.5rem;
+  opacity: 0.8;
+}
+
+.work-experience-enhanced .card-header h4 {
+  font-size: 1.3rem;
+  color: var(--text-primary);
+  margin: 0;
+  font-weight: 600;
+}
+
+.work-experience-enhanced .card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.work-experience-enhanced .card-meta .role {
+  color: var(--accent-crypto);
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.work-experience-enhanced .card-meta .duration {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  font-family: var(--font-mono);
+}
+
+.work-experience-enhanced .card-summary {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.work-experience-enhanced .card-footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.work-experience-enhanced .expand-hint {
+  font-size: 0.85rem;
+  color: var(--accent-crypto);
+  font-family: var(--font-mono);
+  opacity: 0.7;
+  transition: opacity 0.3s;
+}
+
+.work-experience-enhanced .work-card:hover .expand-hint {
+  opacity: 1;
+}
+
+// Company vs Project Card Variations
+.work-experience-enhanced .company-card {
+  border-left: 3px solid var(--accent-ai);
+}
+
+.work-experience-enhanced .project-card {
+  border-left: 3px solid var(--accent-crypto);
+}
+
+// Work Popups Container - should be invisible but present for modal functionality
+.work-popups {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+  
+  // When a child popup is active, enable pointer events
+  &:has(.work-popup.active) {
+    pointer-events: auto;
+  }
+}
+
+// Alternative for browsers without :has() support
+.work-popups.has-active-popup {
+  pointer-events: auto;
+}
+
+// Mobile Responsive
+@media (max-width: 768px) {
+  .work-tabs-mobile {
+    display: flex;
+  }
+  
+  .work-containers-desktop {
+    display: none;
+  }
+  
+  .work-tabs-content-mobile {
+    display: block;
+  }
+  
+  .work-tabbed-section {
+    padding: 1rem 0;
+  }
+  
+  .work-tabbed-section .work-header {
+    margin-bottom: 2rem;
+  }
+
+  .work-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .work-intro {
+    font-size: 1.1rem;
+  }
+  
+  .company-card {
+    padding: 1.5rem;
+  }
+
+  .work-experience-enhanced .work-grid {
+    grid-template-columns: 1fr;
+  }
+}

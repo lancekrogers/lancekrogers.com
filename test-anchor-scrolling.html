@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anchor Link Scrolling Test</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        .test-section {
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #333;
+            background: #f5f5f5;
+        }
+        
+        .hero-section {
+            height: 100vh;
+            background: #000;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .hero-buttons {
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 24px;
+            margin: 0 10px;
+            background: #00ff88;
+            color: black;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        .target-section {
+            height: 80vh;
+            padding: 40px;
+            margin: 20px 0;
+        }
+        
+        #problems {
+            background: #ffebee;
+        }
+        
+        #services {
+            background: #e8f5e8;
+        }
+        
+        .test-results {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: white;
+            border: 2px solid #333;
+            padding: 15px;
+            border-radius: 8px;
+            max-width: 300px;
+            z-index: 1000;
+        }
+        
+        .test-item {
+            margin: 5px 0;
+            padding: 5px;
+        }
+        
+        .pass { background: #d4edda; color: #155724; }
+        .fail { background: #f8d7da; color: #721c24; }
+        .pending { background: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="test-results">
+        <h3>Anchor Link Tests</h3>
+        <div id="test-results">
+            <div class="test-item pending" id="test-smooth-scroll">⏳ Smooth scroll behavior</div>
+            <div class="test-item pending" id="test-problems-link">⏳ Problems link navigation</div>
+            <div class="test-item pending" id="test-services-link">⏳ Services link navigation</div>
+            <div class="test-item pending" id="test-no-page-refresh">⏳ No page refresh on click</div>
+            <div class="test-item pending" id="test-scroll-timing">⏳ Scroll timing (< 2s)</div>
+        </div>
+        <button onclick="runTests()" style="margin-top: 10px; padding: 8px 16px;">Run Tests</button>
+        <button onclick="resetTests()" style="margin-top: 10px; padding: 8px 16px;">Reset</button>
+    </div>
+
+    <div class="hero-section">
+        <h1>BLOCKHEAD CONSULTING</h1>
+        <p>Bridging traditional finance with blockchain technology</p>
+        <div class="hero-buttons">
+            <a href="#problems" class="btn" id="problems-btn">See your challenges →</a>
+            <a href="#services" class="btn" id="services-btn">Explore services →</a>
+        </div>
+    </div>
+
+    <div id="problems" class="target-section">
+        <h2>Problems Section</h2>
+        <p>This is the problems section that should be scrolled to smoothly when clicking "See your challenges"</p>
+        <p>Expected behavior:</p>
+        <ul>
+            <li>Smooth scroll animation (not instant jump)</li>
+            <li>Takes 1-2 seconds to complete</li>
+            <li>No page refresh or navigation</li>
+            <li>URL updates to show #problems</li>
+        </ul>
+    </div>
+
+    <div id="services" class="target-section">
+        <h2>Services Section</h2>
+        <p>This is the services section that should be scrolled to smoothly when clicking "Explore services"</p>
+        <p>Expected behavior:</p>
+        <ul>
+            <li>Smooth scroll animation (not instant jump)</li>
+            <li>Takes 1-2 seconds to complete</li>
+            <li>No page refresh or navigation</li>
+            <li>URL updates to show #services</li>
+        </ul>
+    </div>
+
+    <script>
+        let testResults = {
+            smoothScroll: false,
+            problemsLink: false,
+            servicesLink: false,
+            noPageRefresh: false,
+            scrollTiming: false
+        };
+
+        let scrollStartTime = null;
+        let targetScrollElement = null;
+        let isScrolling = false;
+
+        function updateTestResult(testId, passed, message = '') {
+            const element = document.getElementById(testId);
+            element.className = `test-item ${passed ? 'pass' : 'fail'}`;
+            element.textContent = `${passed ? '✅' : '❌'} ${element.textContent.replace(/^[⏳✅❌]\s*/, '')}${message ? ': ' + message : ''}`;
+        }
+
+        function resetTests() {
+            const testItems = document.querySelectorAll('.test-item');
+            testItems.forEach(item => {
+                item.className = 'test-item pending';
+                item.textContent = '⏳ ' + item.textContent.replace(/^[⏳✅❌]\s*/, '').split(':')[0];
+            });
+            testResults = {
+                smoothScroll: false,
+                problemsLink: false,
+                servicesLink: false,
+                noPageRefresh: false,
+                scrollTiming: false
+            };
+        }
+
+        function runTests() {
+            console.log('🧪 Starting anchor link tests...');
+            resetTests();
+            
+            // Test 1: Check if smooth scroll behavior is enabled
+            const computedBehavior = getComputedStyle(document.documentElement).scrollBehavior;
+            testResults.smoothScroll = computedBehavior === 'smooth';
+            updateTestResult('test-smooth-scroll', testResults.smoothScroll, computedBehavior);
+
+            // Set up scroll monitoring
+            let scrollMonitorActive = false;
+            
+            function monitorScroll(targetHash) {
+                return new Promise((resolve) => {
+                    scrollStartTime = Date.now();
+                    isScrolling = true;
+                    scrollMonitorActive = true;
+                    
+                    const targetElement = document.querySelector(targetHash);
+                    const targetTop = targetElement.offsetTop;
+                    const startPosition = window.scrollY;
+                    
+                    let hasScrolled = false;
+                    let scrollCompleted = false;
+                    
+                    function checkScroll() {
+                        if (!scrollMonitorActive) return;
+                        
+                        const currentPosition = window.scrollY;
+                        const distanceFromTarget = Math.abs(currentPosition - targetTop);
+                        
+                        // Consider scroll complete if we're within 50px of target
+                        if (distanceFromTarget < 50 && !scrollCompleted) {
+                            scrollCompleted = true;
+                            const duration = Date.now() - scrollStartTime;
+                            isScrolling = false;
+                            scrollMonitorActive = false;
+                            
+                            console.log(`Scroll to ${targetHash} completed in ${duration}ms`);
+                            resolve({
+                                completed: true,
+                                duration: duration,
+                                hasScrolled: hasScrolled,
+                                finalPosition: currentPosition,
+                                targetPosition: targetTop
+                            });
+                            return;
+                        }
+                        
+                        // Check if we're actually scrolling
+                        if (Math.abs(currentPosition - startPosition) > 10) {
+                            hasScrolled = true;
+                        }
+                        
+                        // Timeout after 5 seconds
+                        if (Date.now() - scrollStartTime > 5000) {
+                            scrollMonitorActive = false;
+                            isScrolling = false;
+                            resolve({
+                                completed: false,
+                                duration: Date.now() - scrollStartTime,
+                                hasScrolled: hasScrolled,
+                                timeout: true
+                            });
+                            return;
+                        }
+                        
+                        requestAnimationFrame(checkScroll);
+                    }
+                    
+                    requestAnimationFrame(checkScroll);
+                });
+            }
+
+            // Test 2: Test problems link
+            setTimeout(() => {
+                console.log('Testing problems link...');
+                
+                const problemsBtn = document.getElementById('problems-btn');
+                
+                monitorScroll('#problems').then(result => {
+                    console.log('Problems scroll result:', result);
+                    testResults.problemsLink = result.completed && result.hasScrolled;
+                    testResults.scrollTiming = result.duration > 200 && result.duration < 3000;
+                    
+                    updateTestResult('test-problems-link', testResults.problemsLink, 
+                        result.completed ? `${result.duration}ms` : 'failed');
+                    updateTestResult('test-scroll-timing', testResults.scrollTiming, 
+                        `${result.duration}ms`);
+                });
+                
+                problemsBtn.click();
+                
+                // Test 3: Test services link after problems test
+                setTimeout(() => {
+                    console.log('Testing services link...');
+                    
+                    const servicesBtn = document.getElementById('services-btn');
+                    
+                    monitorScroll('#services').then(result => {
+                        console.log('Services scroll result:', result);
+                        testResults.servicesLink = result.completed && result.hasScrolled;
+                        
+                        updateTestResult('test-services-link', testResults.servicesLink,
+                            result.completed ? `${result.duration}ms` : 'failed');
+                        
+                        // Test 4: Check no page refresh (URL should have hash)
+                        setTimeout(() => {
+                            testResults.noPageRefresh = window.location.hash === '#services';
+                            updateTestResult('test-no-page-refresh', testResults.noPageRefresh, 
+                                window.location.hash);
+                        }, 100);
+                    });
+                    
+                    servicesBtn.click();
+                }, 3000);
+            }, 1000);
+        }
+
+        // Monitor for any unexpected page navigation
+        let pageLoadTime = Date.now();
+        window.addEventListener('beforeunload', () => {
+            console.warn('⚠️ Page is being refreshed/navigated - this should not happen for anchor links!');
+        });
+
+        // Add click event logging
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('a[href^="#"]')) {
+                console.log('🔗 Anchor link clicked:', e.target.href);
+            }
+        });
+
+        console.log('Anchor link test page loaded. Click "Run Tests" to start automated testing.');
+    </script>
+</body>
+</html>

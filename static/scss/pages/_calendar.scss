@@ -1,0 +1,217 @@
+// Calendar Page Styles
+
+.calendar-section {
+  padding: 8rem 0 4rem;
+  min-height: 100vh;
+}
+
+.page-title {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-family: var(--font-mono);
+}
+
+.page-subtitle {
+  text-align: center;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+}
+
+.booking-container {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 3rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.booking-sidebar {
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  height: fit-content;
+}
+
+.consultation-types {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.consultation-type {
+  padding: 1.5rem;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.consultation-type h4 {
+  margin-bottom: 0.5rem;
+  color: var(--accent-crypto);
+}
+
+.duration {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.consultation-type p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.booking-main {
+  background: var(--bg-secondary);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.calendar-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.calendar-nav button {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+}
+
+.calendar-nav button:hover {
+  border-color: var(--accent-crypto);
+  color: var(--accent-crypto);
+}
+
+#current-week {
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+}
+
+.time-slots-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.date-group {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.date-header {
+  text-align: center;
+  padding: 1rem;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.day-name {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}
+
+.month-day {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.time-slots {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 0.5rem;
+}
+
+.time-slot {
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  padding: 0.75rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  transition: all 0.2s;
+}
+
+.time-slot:hover {
+  border-color: var(--accent-crypto);
+  color: var(--accent-crypto);
+}
+
+.time-slot.selected {
+  background: var(--accent-crypto);
+  color: var(--bg-primary);
+  border-color: var(--accent-crypto);
+}
+
+.loading {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 3rem;
+}
+
+.no-slots {
+  text-align: center;
+  color: var(--text-secondary);
+  padding: 3rem;
+}
+
+.booking-form {
+  max-width: 600px;
+}
+
+.selected-time {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  color: var(--accent-crypto);
+  padding: 1rem;
+  background: var(--bg-tertiary);
+  border-radius: 4px;
+  border: 1px solid var(--border-color);
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.confirmation {
+  text-align: center;
+  padding: 3rem;
+}
+
+.confirmation-icon {
+  font-size: 4rem;
+  color: var(--accent-crypto);
+  margin-bottom: 1rem;
+}
+
+.confirmation-details {
+  font-family: var(--font-mono);
+  font-size: 1.25rem;
+  color: var(--text-secondary);
+  margin: 2rem 0;
+}

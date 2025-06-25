@@ -1,0 +1,122 @@
+{{define "base-blog-post"}}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    {{/* Critical Meta Tags - First for social crawlers */}}
+    <title>{{.Post.Title}} - {{.AppConfig.Site.Name}}</title>
+    {{$description := ""}}{{if .Post.OGDescription}}{{$description = .Post.OGDescription}}{{else if .Post.Summary}}{{$description = .Post.Summary}}{{else}}{{$description = .AppConfig.Site.Description}}{{end}}
+    <meta name="description" content="{{$description}}">
+    
+    {{/* Open Graph meta tags */}}
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{formatURL .AppConfig.Site.BaseURL (printf "/blog/%s" .Post.Slug)}}">
+    <meta property="og:title" content="{{.Post.Title}}">
+    <meta property="og:description" content="{{$description}}">
+    {{$featuredImage := .AppConfig.Site.Social.DefaultImage}}{{if .Post.FeaturedImage}}{{$featuredImage = .Post.FeaturedImage}}{{end}}
+    <meta property="og:image" content="{{formatURL .AppConfig.Site.BaseURL $featuredImage}}">
+    <meta property="og:site_name" content="{{.AppConfig.Site.Name}}">
+    
+    {{/* Twitter Card meta tags */}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="{{formatURL .AppConfig.Site.BaseURL (printf "/blog/%s" .Post.Slug)}}">
+    <meta name="twitter:title" content="{{.Post.Title}}">
+    <meta name="twitter:description" content="{{$description}}">
+    <meta name="twitter:image" content="{{formatURL .AppConfig.Site.BaseURL $featuredImage}}">
+    {{$twitterCreator := .AppConfig.Site.Social.AuthorTwitter}}{{if .Post.TwitterHandle}}{{$twitterCreator = .Post.TwitterHandle}}{{end}}
+    {{if $twitterCreator}}
+    <meta name="twitter:creator" content="{{if hasPrefix $twitterCreator "@"}}{{$twitterCreator}}{{else}}@{{$twitterCreator}}{{end}}">
+    {{end}}
+    <meta name="twitter:site" content="{{if hasPrefix .AppConfig.Site.Social.TwitterHandle "@"}}{{.AppConfig.Site.Social.TwitterHandle}}{{else}}@{{.AppConfig.Site.Social.TwitterHandle}}{{end}}">
+    
+    {{/* Article-specific meta tags */}}
+    <meta property="article:author" content="{{.AppConfig.Site.Social.AuthorName}}">
+    <meta property="article:published_time" content="{{.Post.Date.Format "2006-01-02T15:04:05Z07:00"}}">
+    {{if not .Post.UpdatedAt.IsZero}}
+    <meta property="article:modified_time" content="{{.Post.UpdatedAt.Format "2006-01-02T15:04:05Z07:00"}}">
+    {{end}}
+    {{range .Post.Tags}}
+    <meta property="article:tag" content="{{.}}">
+    {{end}}
+    
+    {{/* Non-critical resources */}}
+    <link rel="alternate" type="application/rss+xml" title="{{.AppConfig.Site.Name}} RSS Feed" href="{{formatURL .AppConfig.Site.BaseURL "/feed.xml"}}">
+    <link rel="icon" type="image/svg+xml" href="/static/logos/svg/blockhead-single-medium-black.svg">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+    
+    {{/* Load CSS directly */}}
+    <link rel="stylesheet" href="/static/css/styles.css">
+    
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    <script nonce="{{.Config.CSPNonce}}">
+      // Configure HTMX to prevent duplicate requests
+      htmx.config.defaultSwapStyle = "innerHTML";
+      htmx.config.historyCacheSize = 0; // Disable cache to prevent stale requests
+      htmx.config.refreshOnHistoryMiss = false; // Prevent automatic refresh on back/forward
+    </script>
+    <script nonce="{{.Config.CSPNonce}}">
+      // Prevent Mermaid from auto-initializing
+      window.mermaidConfig = { startOnLoad: false };
+    </script>
+    <script src="https://unpkg.com/mermaid@11/dist/mermaid.min.js"></script>
+  </head>
+  <body{{if .Page}} class="page-{{.Page}}"{{end}}>
+    {{template "nav" .}}
+
+    <main id="main-content">
+      {{block "content" .}}{{end}}
+    </main>
+
+    {{template "footer" .}}
+    {{template "modal-contact" .}}
+    {{if .ServicesConfig}}{{template "services-modal" .}}{{end}}
+    {{if .AppConfig}}
+    <script nonce="{{.Config.CSPNonce}}">
+      // Inject boot sequences from configuration
+      window.bootSequences = {
+        professional: [
+          {{range $i, $msg := .AppConfig.BootSequences.Professional.Desktop}}
+          {{if $i}},{{end}}"{{$msg}}"
+          {{end}}
+        ],
+        professionalMobile: [
+          {{range $i, $msg := .AppConfig.BootSequences.Professional.Mobile}}
+          {{if $i}},{{end}}"{{$msg}}"
+          {{end}}
+        ],
+        cyberpunk: [
+          {{range $i, $msg := .AppConfig.BootSequences.Cyberpunk.Desktop}}
+          {{if $i}},{{end}}"{{$msg}}"
+          {{end}}
+        ],
+        cyberpunkMobile: [
+          {{range $i, $msg := .AppConfig.BootSequences.Cyberpunk.Mobile}}
+          {{if $i}},{{end}}"{{$msg}}"
+          {{end}}
+        ]
+      };
+      // Set console logging based on configuration
+      debugLogging = {{.Config.ConsoleLogging}};
+      // Disable HTMX console logging in production
+      if (!debugLogging && window.htmx) {
+        htmx.config.logLevel = 'none';
+      }
+    </script>
+    {{end}}
+    {{if eq .Config.Environment "production"}}
+    <script src="/static/js/production-logging.js"></script>
+    {{end}}
+    <script src="/static/boot-sequence.js"></script>
+    <script type="module" src="/static/js/main-init.js"></script>
+    <script src="/static/blog.js"></script>
+    <script src="/static/js/blog-enhanced.js"></script>
+    <script src="/static/js/blog-post.js"></script>
+    {{if eq .Config.Environment "development"}}
+    <script src="/static/mode-tests.js"></script>
+    {{end}}
+  </body>
+</html>
+{{end}}

@@ -1,0 +1,98 @@
+// Form Encryption Animation Styles
+
+.form-encrypting input,
+.form-encrypting textarea {
+  font-family: var(--font-mono);
+  background: var(--bg-secondary);
+  border: 1px solid var(--accent-crypto);
+  color: var(--accent-crypto);
+  text-shadow: 0 0 3px rgba(0, 255, 136, 0.3);
+  animation: form-field-encrypt 0.8s ease-in-out infinite alternate;
+}
+
+.form-encrypting input.encrypting-text,
+.form-encrypting textarea.encrypting-text {
+  color: var(--accent-ai);
+  text-shadow: 0 0 3px rgba(0, 212, 255, 0.3);
+  animation: none;
+}
+
+.form-encrypting input.scrambling,
+.form-encrypting textarea.scrambling {
+  animation: scramble-text 0.3s ease-in-out;
+}
+
+.form-encrypting input.glitching,
+.form-encrypting textarea.glitching {
+  animation: form-glitch 0.4s ease-in-out;
+}
+
+.form-encrypting .btn-primary {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: var(--bg-tertiary);
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+@keyframes form-field-encrypt {
+  0% {
+    box-shadow: 0 0 5px rgba(0, 255, 136, 0.2);
+    border-color: var(--accent-crypto);
+  }
+  100% {
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
+    border-color: var(--accent-ai);
+  }
+}
+
+@keyframes scramble-text {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-1px);
+  }
+  75% {
+    transform: translateX(1px);
+  }
+}
+
+@keyframes form-glitch {
+  0%, 100% {
+    transform: translateX(0);
+    filter: none;
+  }
+  10% {
+    transform: translateX(-2px);
+    filter: hue-rotate(90deg);
+  }
+  20% {
+    transform: translateX(2px);
+    filter: hue-rotate(180deg);
+  }
+  30% {
+    transform: translateX(-1px);
+    filter: hue-rotate(270deg);
+  }
+  40% {
+    transform: translateX(1px);
+    filter: hue-rotate(360deg);
+  }
+  50% {
+    transform: translateX(-2px);
+    filter: hue-rotate(90deg) saturate(2);
+  }
+  60% {
+    transform: translateX(2px);
+    filter: hue-rotate(180deg) saturate(0.5);
+  }
+  70% {
+    transform: translateX(-1px);
+    filter: hue-rotate(270deg) saturate(1.5);
+  }
+  80% {
+    transform: translateX(1px);
+    filter: hue-rotate(360deg) saturate(1);
+  }
+}

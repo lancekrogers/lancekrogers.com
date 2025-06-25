@@ -1,0 +1,122 @@
+// Main navigation component
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-color);
+  z-index: 1000;
+  padding: 1rem 0;
+  // Prevent layout shifts
+  min-height: 72px; // Fixed height for navbar
+  will-change: transform; // Optimize for animations
+
+  .container {
+    max-width: 100%;
+    padding: 0 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+.nav-brand {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.brand-logo {
+  height: 40px;
+  width: auto;
+  transition: filter 0.3s ease; // Only transition filter, not all properties
+  display: block; // Prevent inline layout issues
+
+  &:hover {
+    filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.3));
+  }
+}
+
+// Desktop Navigation
+.desktop-nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+
+  a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    position: relative;
+    // Prevent layout shift on hover
+    padding-bottom: 4px;
+    cursor: pointer;
+    
+    // Disable during HTMX requests
+    &.htmx-request {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 2px; // Adjusted to account for padding
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-crypto);
+      transition: width 0.3s ease;
+    }
+
+    &:hover {
+      color: var(--accent-crypto);
+
+      &::after {
+        width: 100%;
+      }
+    }
+    
+    // Active state
+    &.active {
+      color: var(--accent-crypto);
+      
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// CTA Button
+.cta-button {
+  background: var(--accent-crypto);
+  color: var(--bg-primary) !important;
+  padding: 0.5rem 1.25rem;
+  border-radius: 4px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  // Prevent layout shift
+  border: 1px solid transparent;
+  
+  &::after {
+    display: none !important; // No underline for buttons
+  }
+
+  &:hover {
+    background: var(--accent-ai);
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+// Hide desktop nav on mobile
+@media (max-width: 1024px) {
+  .desktop-nav {
+    display: none !important;
+  }
+}

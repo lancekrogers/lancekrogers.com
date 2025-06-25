@@ -1,0 +1,462 @@
+// Modal Components
+
+// Modal Contact Form
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-container {
+  position: relative;
+  width: 90%;
+  max-width: 600px;
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-container {
+  transform: translateY(0);
+}
+
+.modal-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 3rem;
+  position: relative;
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.5),
+    0 0 100px rgba(0, 255, 136, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  animation: modalGlitch 0.5s ease-out;
+}
+
+@keyframes modalGlitch {
+  0% {
+    transform: translateX(-2px);
+    filter: hue-rotate(90deg);
+  }
+  10% {
+    transform: translateX(2px) translateY(-2px);
+    filter: hue-rotate(180deg);
+  }
+  20% {
+    transform: translateX(-2px);
+    filter: hue-rotate(270deg);
+  }
+  30% {
+    transform: translateX(0);
+    filter: hue-rotate(360deg);
+  }
+  100% {
+    transform: translateX(0);
+    filter: hue-rotate(0deg);
+  }
+}
+
+// Packages Modal Trigger Buttons
+.packages-modal-trigger {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  border-radius: 8px;
+  background: var(--accent-crypto);
+  color: var(--bg-primary);
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: var(--font-mono);
+}
+
+.packages-modal-trigger:hover {
+  background: var(--accent-ai);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+}
+
+// Ensure button-style modal triggers have consistent styling
+button.packages-modal-trigger {
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+// Specific styling for view-packages button trigger
+.btn-view-packages.packages-modal-trigger {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: var(--accent-crypto);
+  color: var(--bg-primary);
+  text-decoration: none;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  transition: all 0.3s;
+  border: none;
+  cursor: pointer;
+}
+
+.btn-view-packages.packages-modal-trigger:hover {
+  background: var(--accent-ai);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+}
+
+// Specific styling for CTA secondary button trigger
+.btn-cta-secondary.packages-modal-trigger {
+  background: transparent;
+  color: var(--accent-ai);
+  border: 2px solid var(--accent-ai);
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s;
+}
+
+.btn-cta-secondary.packages-modal-trigger:hover {
+  background: var(--accent-ai);
+  color: var(--bg-primary);
+  transform: translateY(-2px);
+}
+
+// Main packages modal - MUST be hidden by default
+.packages-main-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  display: none !important;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  backdrop-filter: blur(3px);
+  pointer-events: none;
+}
+
+.packages-main-modal.active {
+  display: flex !important;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.packages-main-modal-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 95vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: scale(0.95) translateY(20px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  margin: 1rem;
+}
+
+.packages-main-modal.active .packages-main-modal-content {
+  transform: scale(1) translateY(0);
+}
+
+.packages-main-modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 2rem;
+  cursor: pointer;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.3s;
+  z-index: 1001; // Ensure it's above modal content
+  pointer-events: auto; // Ensure it's clickable
+}
+
+.packages-main-modal-close:hover {
+  color: var(--accent-crypto);
+  background: var(--bg-tertiary);
+}
+
+// Base modal class - ensures all modals are hidden by default
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  z-index: 1000;
+}
+
+.modal.active,
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Hide all modal wrappers by default - CRITICAL for preventing modal content from showing
+#contact-modal,
+.modal-overlay,
+.packages-main-modal,
+.package-popup,
+.expertise-popup,
+.work-detail-modal,
+.project-detail-modal,
+.experience-detail-modal,
+.work-popup {
+  display: none !important;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+// Note: .work-popups container is handled in _work.scss with special positioning
+
+// Show modals only when they have active state
+#contact-modal.active,
+.modal-overlay.active,
+.packages-main-modal.active,
+.package-popup.active,
+.expertise-popup.active,
+.work-detail-modal.active,
+.project-detail-modal.active,
+.experience-detail-modal.active,
+.work-popup.active {
+  display: flex !important;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+// Alternative show states for different modal systems
+#contact-modal.show,
+.modal-overlay.show,
+.packages-main-modal.show,
+.package-popup.show,
+.expertise-popup.show,
+.work-popup.show {
+  display: flex !important;
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+// Add body class when work modal is open to prevent scrolling
+body.work-modal-open {
+  overflow: hidden;
+}
+
+// Work/Project Detail Modal Styles
+.work-detail-modal,
+.project-detail-modal,
+.experience-detail-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.9);
+  backdrop-filter: blur(10px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.work-detail-modal.active,
+.project-detail-modal.active,
+.experience-detail-modal.active {
+  display: flex;
+  opacity: 1;
+  visibility: visible;
+}
+
+// Body state when modal is active
+body.modal-active {
+  overflow: hidden;
+}
+
+// Mobile optimizations for main modal
+@media (max-width: 768px) {
+  .packages-main-modal-content {
+    margin: 0.5rem;
+    max-width: calc(100vw - 1rem);
+    max-height: calc(100vh - 1rem);
+    padding: 1.5rem;
+    width: auto;
+    font-size: 0.9rem;
+  }
+  
+  .packages-main-modal-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 1.2rem;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 2rem;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.modal-close:hover {
+  color: var(--accent-warning);
+  background: rgba(255, 107, 107, 0.1);
+  transform: rotate(90deg);
+}
+
+.modal-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.modal-title {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-crypto) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.modal-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+}
+
+.modal-contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+// Work Popup Specific Styles
+.work-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(10px);
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.work-popup-content {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 90vw;
+  width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+  transform: scale(0.95) translateY(20px);
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  margin: 1rem;
+}
+
+.work-popup.active .work-popup-content {
+  transform: scale(1) translateY(0);
+}
+
+.work-popup-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: all 0.3s;
+  z-index: 1001;
+}
+
+.work-popup-close:hover {
+  color: var(--accent-warning);
+  background: var(--bg-tertiary);
+}
+
+// Work popup header styling
+.work-popup-header {
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+
+.work-popup-header h3 {
+  color: var(--accent-crypto);
+  margin-bottom: 0.5rem;
+}
+
+.work-popup-header .role {
+  color: var(--accent-ai);
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.work-popup-header .duration {
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
