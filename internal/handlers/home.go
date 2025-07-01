@@ -54,7 +54,7 @@ func (h *Handler) HomeHandler(w http.ResponseWriter, r *http.Request) {
 		Config         *SiteConfig
 		AppConfig      *config.SiteConfig
 		BioBrief       *bio.Bio
-		RecentPosts    []blog.Post
+		BlogPosts      []blog.Post  // Changed from RecentPosts to BlogPosts
 		ServicesConfig *config.ServicesConfig
 	}{
 		Title:          title,
@@ -62,7 +62,7 @@ func (h *Handler) HomeHandler(w http.ResponseWriter, r *http.Request) {
 		Config:         h.SiteConfig,
 		AppConfig:      h.AppConfig,
 		BioBrief:       bioBrief,
-		RecentPosts:    recentPosts,
+		BlogPosts:      recentPosts,  // Changed from RecentPosts to BlogPosts
 		ServicesConfig: servicesConfig,
 	}
 
@@ -109,19 +109,19 @@ func (h *Handler) HomeContentHandler(w http.ResponseWriter, r *http.Request) {
 		Config         *SiteConfig
 		AppConfig      *config.SiteConfig
 		BioBrief       *bio.Bio
-		RecentPosts    []blog.Post
+		BlogPosts      []blog.Post  // Changed from RecentPosts to BlogPosts to match template
 		ServicesConfig *config.ServicesConfig
 	}{
 		Config:         h.SiteConfig,
 		AppConfig:      h.AppConfig,
 		BioBrief:       bioBrief,
-		RecentPosts:    recentPosts,
+		BlogPosts:      recentPosts,  // Changed from RecentPosts to BlogPosts
 		ServicesConfig: servicesConfig,
 	}
 
 	w.Header().Set("Content-Type", "text/html")
 	
-	if err := h.Templates.ExecuteTemplate(w, "home-content", data); err != nil {
+	if err := h.Templates.ExecuteTemplate(w, "home-personal", data); err != nil {
 		log.Printf("Template execution error: %v", err)
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}

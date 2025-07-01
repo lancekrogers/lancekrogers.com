@@ -26,7 +26,7 @@
 
 .about-subtitle {
   font-size: 1.2rem;
-  color: var(--accent-ai);
+  color: var(--accent-primary);  /* Electric blue */
   font-weight: 500;
   margin: 0;
 }
@@ -42,7 +42,7 @@
   border-radius: 50%;
   object-fit: contain;
   object-position: center;
-  border: 3px solid var(--accent-crypto);
+  border: 3px solid var(--accent-primary);  /* Electric blue */
   box-shadow: var(--shadow-glow);
   background: var(--bg-primary);
 }
@@ -62,18 +62,18 @@
 }
 
 .about-body h2 {
-  color: var(--accent-crypto);
+  color: var(--accent-primary);  /* Electric blue */
   font-family: var(--font-mono);
   font-size: 2rem;
   font-weight: 700;
   margin: 3rem 0 1.5rem 0;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  text-shadow: 0 0 4px rgba(0, 255, 136, 0.2);
+  text-shadow: 0 0 4px rgba(0, 204, 255, 0.2);  /* Electric blue glow */
 }
 
 .about-body h3 {
-  color: var(--accent-ai);
+  color: var(--accent-secondary);  /* Purple */
   font-family: var(--font-mono);
   font-size: 1.5rem;
   font-weight: 600;
@@ -93,7 +93,7 @@
 }
 
 .about-body strong {
-  color: var(--accent-crypto);
+  color: var(--accent-primary);  /* Electric blue */
   font-weight: 600;
 }
 
@@ -115,12 +115,12 @@
   content: "▸";
   position: absolute;
   left: 0;
-  color: var(--accent-crypto);
+  color: var(--accent-primary);  /* Electric blue */
   font-weight: bold;
 }
 
 .about-body li strong {
-  color: var(--accent-ai);
+  color: var(--accent-secondary);  /* Purple */
 }
 
 // Section Background Classes
@@ -209,7 +209,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: radial-gradient(circle at 30% 20%, rgba(0, 255, 136, 0.03) 0%, transparent 50%),
+  background: radial-gradient(circle at 30% 20%, rgba(0, 204, 255, 0.03)  /* Electric blue */ 0%, transparent 50%),
               radial-gradient(circle at 70% 80%, rgba(0, 212, 255, 0.03) 0%, transparent 50%);
   pointer-events: none;
 }
@@ -230,7 +230,7 @@
   color: var(--text-primary);
   line-height: 1.3;
   margin-bottom: 1.5rem;
-  text-shadow: 0 0 8px rgba(0, 255, 136, 0.1);
+  text-shadow: 0 0 8px rgba(0, 204, 255, 0.1)  /* Electric blue */;
 }
 
 .about-hero-modern .hero-description {
@@ -247,7 +247,7 @@
 }
 
 .about-hero-modern .hero-intro strong {
-  color: var(--accent-crypto);
+  color: var(--accent-primary);  /* Electric blue */
   font-weight: 600;
 }
 
@@ -263,8 +263,8 @@
   height: 100%;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid var(--accent-crypto);
-  box-shadow: 0 0 30px rgba(0, 255, 136, 0.2);
+  border: 3px solid var(--accent-primary);  /* Electric blue */
+  box-shadow: 0 0 30px rgba(0, 204, 255, 0.2)  /* Electric blue */;
   position: relative;
   z-index: 2;
 }
@@ -276,7 +276,7 @@
   right: -10px;
   bottom: -10px;
   border-radius: 50%;
-  background: linear-gradient(45deg, var(--accent-crypto), var(--accent-ai));
+  background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));  /* Blue to purple */
   opacity: 0.1;
   animation: pulse 3s ease-in-out infinite;
 }
@@ -305,7 +305,7 @@
 .section-line {
   width: 80px;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-crypto), var(--accent-ai));
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));  /* Blue to purple */
   margin: 0 auto;
   border-radius: 2px;
 }
@@ -323,7 +323,7 @@
 
 .problem-card {
   background: var(--bg-primary);
-  border: 1px solid rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 204, 255, 0.1)  /* Electric blue */;
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
@@ -339,7 +339,7 @@
   left: 0;
   width: 100%;
   height: 3px;
-  background: linear-gradient(90deg, var(--accent-crypto), var(--accent-ai));
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));  /* Blue to purple */
   transform: translateX(-100%);
   transition: transform 0.5s ease;
 }
@@ -349,7 +349,7 @@
 }
 
 .problem-card:hover {
-  border-color: rgba(0, 255, 136, 0.3);
+  border-color: rgba(0, 204, 255, 0.3)  /* Electric blue */;
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
@@ -359,9 +359,9 @@
   height: 50px;
   margin-bottom: 1.5rem;
   padding: 12px;
-  background: rgba(0, 255, 136, 0.1);
+  background: rgba(0, 204, 255, 0.1)  /* Electric blue */;
   border-radius: 10px;
-  color: var(--accent-crypto);
+  color: var(--accent-primary);  /* Electric blue */
 }
 
 .problem-card h3 {

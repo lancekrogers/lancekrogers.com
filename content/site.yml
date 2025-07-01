@@ -4,15 +4,15 @@
 # This YAML file defines all site content and behavior
 
 site:
-    name: "Blockhead Consulting"
-    description: "Blockchain & AI Infrastructure"
-    tagline: "Protocol-level blockchain & AI engineering"
-    subtitle: "Ship faster, spend less, no vendor lock in."
+    name: "Lance Rogers"
+    description: "Software Engineer & Systems Architect"
+    tagline: "Software Engineer & Systems Architect"
+    subtitle: "Building scalable blockchain and AI infrastructure.<br />Creator of open source tools and frameworks."
     hero_style: "professional"
-    base_url: "https://blockhead.consulting"
+    base_url: "https://lancekrogers.com"
     social:
         twitter_handle: "@LKRBuilds"
-        default_image: "/static/images/blockhead-og-default.png"
+        default_image: "/static/images/lance-og-default.png"
         author_name: "Lance Rogers"
         author_twitter: "@LKRBuilds"
 
@@ -106,12 +106,61 @@ features:
 #     - value: "Go + Python"
 #       label: "Core Languages"
 stats:
-    - value: "10"
-      label: "Years shipping systems"
-    - value: "10×"
-      label: "Dev velocity via AI agents"
-    - value: "3M+/mo"
-      label: "Infra powering on-chain trx"
+    - value: "Go + Python"
+      label: "Daily Languages"
+    - value: "2016"
+      label: "Crypto Since"
+    - value: "OSS"
+      label: "Creator"
+
+# Featured Projects for Personal Homepage
+projects:
+    - name: "Guild AI Framework"
+      icon: "🤖"
+      status: "Active Development"
+      description: "Multi-agent orchestration framework allowing developers to contextualize, monitor and interact with multiple agentic teams in one terminal."
+      tech: ["Go", "Ollama", "OpenAI", "Anthropic"]
+      github: "https://github.com/lancekrogers/guild"
+      featured: true
+
+    - name: "Claude Code Go SDK"
+      icon: "⚡"
+      status: "Released"
+      description: "First Golang SDK for Anthropic's Claude Code CLI with real-time streaming, session management, and tool integration."
+      tech: ["Go", "Anthropic", "Claude", "SDK"]
+      github: "https://github.com/lancekrogers/claude-code-go"
+      featured: true
+
+    - name: "NFT Gaming Infrastructure"
+      icon: "🏗️"
+      status: "Production"
+      description: "Built Go microservices handling 15M+ on-chain transactions/month for Mythical Games' NFT marketplace and gaming platform."
+      tech: ["Go", "Solidity", "Polygon", "NFT"]
+      link: "/about"
+      link_text: "Learn More →"
+      featured: true
+
+    - name: "YouTube Summarizer"
+      icon: "📺"
+      status: "Open Source"
+      description: "CLI/TUI tool for AI-powered YouTube transcript summarization using local LLMs. Smart chunking, caching, and batch processing."
+      tech: ["Python", "Ollama", "TUI", "LLM"]
+      github: "https://github.com/lancekrogers/youtube-summarizer"
+      featured: true
+
+# Personal homepage content
+personal:
+    hero:
+        headline: "LANCE ROGERS"
+        tagline: "Software Engineer & Systems Architect"
+        subtitle: "Building scalable blockchain and AI infrastructure.<br />Creator of open source tools and frameworks."
+    
+    connect:
+        headline: "Let's Connect"
+        subheadline: "Always interested in discussing technology, open source projects, or potential collaborations."
+        note: "Open to interesting projects and collaborations."
+        cta_primary: "Get in Touch"
+        cta_secondary: "Work Experience →"
 
 expertise:
     languages:

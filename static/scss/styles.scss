@@ -55,6 +55,7 @@
 
 // 6. Pages
 @use 'pages/home';
+@use 'pages/home-personal';  // New personal homepage
 @use 'pages/about';
 @use 'pages/blog';
 @use 'pages/blog-post';

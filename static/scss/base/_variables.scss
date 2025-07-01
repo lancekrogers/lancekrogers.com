@@ -11,29 +11,31 @@
   --text-tertiary: #888888;
   --text-muted: #666666;
   
-  // Accent colors
-  --accent-crypto: #00ff88;
-  --accent-ai: #00d4ff;
-  --accent-warning: #ff6b6b;
+  // Cyberpunk Blue/Purple Accent colors  
+  --accent-primary: #0088ff;    /* Deep cyberpunk blue */
+  --accent-secondary: #8800ff;  /* Deep cyberpunk purple */
+  --accent-tertiary: #00ddff;   /* Cyan accent */
+  --accent-warning: #ff3366;    /* Red warning */
   
   // Borders and effects
   --border-color: #333333;
-  --shadow-glow: 0 0 20px rgba(0, 255, 136, 0.3);
+  --shadow-glow: 0 0 20px rgba(0, 136, 255, 0.3);  /* Blue glow */
+  --shadow-glow-purple: 0 0 20px rgba(136, 0, 255, 0.3);  /* Purple glow */
   
   // Typography
   --font-mono: "JetBrains Mono", "Fira Code", monospace;
   --font-heading: "JetBrains Mono", "Fira Code", monospace;
   
-  // Blog Typography Colors - Muted Cyberpunk
+  // Blog Typography Colors - Cyberpunk Blue/Purple
   --blog-h1: #e8e8e8;
-  --blog-h2: #66cc99;
-  --blog-h3: #66b8dd;
-  --blog-h4: #b8b8b8;
+  --blog-h2: #0088ff;         /* Deep cyberpunk blue */
+  --blog-h3: #8800ff;         /* Deep cyberpunk purple */
+  --blog-h4: #00ddff;         /* Cyan accent */
   --blog-text: #c8c8c8;
   --blog-text-muted: #9a9a9a;
-  --blog-link: #66b8dd;
-  --blog-link-hover: #66cc99;
-  --blog-strong: #66cc99;
-  --blog-em: #cc8888;
-  --blog-code-inline: #66b8dd;
+  --blog-link: #0088ff;       /* Deep blue links */
+  --blog-link-hover: #8800ff; /* Purple on hover */
+  --blog-strong: #0088ff;     /* Deep blue strong */
+  --blog-em: #ff3366;         /* Red emphasis */
+  --blog-code-inline: #00ddff; /* Cyan code */
 }

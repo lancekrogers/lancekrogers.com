@@ -14,6 +14,8 @@ type SiteConfig struct {
 	Expertise      ExpertiseInfo       `yaml:"expertise"`
 	BootSequences  BootSequencesInfo   `yaml:"boot_sequences"`
 	WorkExperience WorkExperienceInfo  `yaml:"work_experience"`
+	Projects       []ProjectInfo       `yaml:"projects"`
+	Personal       PersonalInfo        `yaml:"personal"`
 }
 
 // ServicesConfig represents the complete services page configuration
@@ -326,4 +328,39 @@ type LegacySiteConfig struct {
 	HeroStyle       string
 	ConsoleLogging  bool
 	CSPNonce        string
+}
+
+// ProjectInfo represents a project configuration
+type ProjectInfo struct {
+	Name        string   `yaml:"name"`
+	Icon        string   `yaml:"icon"`
+	Status      string   `yaml:"status"`
+	Description string   `yaml:"description"`
+	Tech        []string `yaml:"tech"`
+	Github      string   `yaml:"github,omitempty"`
+	Link        string   `yaml:"link,omitempty"`
+	LinkText    string   `yaml:"link_text,omitempty"`
+	Featured    bool     `yaml:"featured,omitempty"`
+}
+
+// PersonalInfo represents personal website content
+type PersonalInfo struct {
+	Hero    PersonalHero    `yaml:"hero"`
+	Connect PersonalConnect `yaml:"connect"`
+}
+
+// PersonalHero represents hero section content
+type PersonalHero struct {
+	Headline string `yaml:"headline"`
+	Tagline  string `yaml:"tagline"`
+	Subtitle string `yaml:"subtitle"`
+}
+
+// PersonalConnect represents connect section content
+type PersonalConnect struct {
+	Headline      string `yaml:"headline"`
+	Subheadline   string `yaml:"subheadline"`
+	Note          string `yaml:"note"`
+	CtaPrimary    string `yaml:"cta_primary"`
+	CtaSecondary  string `yaml:"cta_secondary"`
 }

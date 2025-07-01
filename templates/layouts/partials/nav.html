@@ -2,8 +2,8 @@
 <nav class="navbar">
   <div class="container">
     <div class="nav-brand">
-      <a href="/" hx-get="/content/home" hx-target="#main-content" hx-push-url="/" hx-swap="innerHTML show:window:top">
-        <img src="{{.AppConfig.Branding.LogoMain}}" alt="{{.AppConfig.Site.Name}}" class="brand-logo">
+      <a href="/" hx-get="/content/home" hx-target="#main-content" hx-push-url="/" hx-swap="innerHTML show:window:top" class="brand-text">
+        Lance Rogers
       </a>
     </div>
     <!-- Desktop Navigation -->
@@ -16,7 +16,7 @@
       {{if .Config.CalendarEnabled}}
       <a href="/calendar" class="cta-button {{if eq .Page "calendar"}}active{{end}}">Book Consultation</a>
       {{else}}
-      <button data-contact-modal class="cta-button">Contact</button>
+      <button data-contact-modal class="cta-button">Connect</button>
       {{end}}
     </div>
 
@@ -36,7 +36,7 @@
         {{if .Config.CalendarEnabled}}
         <a href="/calendar" class="mobile-cta {{if eq .Page "calendar"}}active{{end}}">Book Consultation</a>
         {{else}}
-        <button data-contact-modal class="mobile-cta">Contact</button>
+        <button data-contact-modal class="mobile-cta">Connect</button>
         {{end}}
       </div>
     </div>

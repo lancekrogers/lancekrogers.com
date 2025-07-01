@@ -1,0 +1,229 @@
+{{define "home-personal"}}
+<!-- Personal Hero Section -->
+<header class="hero-personal">
+  <div class="container">
+    <div class="hero-personal-content">
+      <h1 class="glitch-personal" data-text="{{.AppConfig.Personal.Hero.Headline}}">
+        {{.AppConfig.Personal.Hero.Headline}}
+      </h1>
+      <p class="hero-tagline">{{.AppConfig.Personal.Hero.Tagline}}</p>
+      <p class="hero-subtitle">
+        {{.AppConfig.Personal.Hero.Subtitle}}
+      </p>
+      
+      <!-- Personal Stats -->
+      <div class="hero-stats-personal">
+        {{range .AppConfig.Stats}}
+        <div class="stat-personal">
+          <span class="stat-value">{{.Value}}</span>
+          <span class="stat-label">{{.Label}}</span>
+        </div>
+        {{end}}
+      </div>
+
+      <!-- CTA Buttons -->
+      <div class="hero-cta-personal">
+        <a href="/about" hx-get="/content/about" hx-target="#main-content" hx-push-url="/about" class="btn-primary-personal">
+          About Me →
+        </a>
+        <a href="#projects" class="btn-secondary-personal">
+          Featured Projects →
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Featured Projects Section -->
+<section id="projects" class="featured-projects">
+  <div class="container">
+    <h2 class="section-title-personal">Featured Projects</h2>
+    <div class="projects-grid">
+      
+      <!-- Guild AI Framework -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🤖</div>
+          <h3>Guild AI Framework</h3>
+          <div class="project-status">Active Development</div>
+        </div>
+        <p class="project-description">
+          Multi-agent orchestration framework allowing developers to contextualize, 
+          monitor and interact with multiple agentic teams in one terminal.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Go</span>
+          <span class="tech-tag">Ollama</span>
+          <span class="tech-tag">OpenAI</span>
+          <span class="tech-tag">Anthropic</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/lancekrogers/guild" target="_blank" class="project-link">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- Claude Code Go SDK -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">⚡</div>
+          <h3>Claude Code Go SDK</h3>
+          <div class="project-status">Released</div>
+        </div>
+        <p class="project-description">
+          First Golang SDK for Anthropic's Claude Code CLI with real-time streaming, 
+          session management, and tool integration.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Go</span>
+          <span class="tech-tag">Anthropic</span>
+          <span class="tech-tag">Claude</span>
+          <span class="tech-tag">SDK</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/lancekrogers/claude-code-go" target="_blank" class="project-link">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+      <!-- Professional Highlight -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">🏗️</div>
+          <h3>NFT Gaming Infrastructure</h3>
+          <div class="project-status">Production</div>
+        </div>
+        <p class="project-description">
+          Built Go microservices handling 15M+ on-chain transactions/month for 
+          Mythical Games' NFT marketplace and gaming platform.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Go</span>
+          <span class="tech-tag">Solidity</span>
+          <span class="tech-tag">Polygon</span>
+          <span class="tech-tag">NFT</span>
+        </div>
+        <div class="project-links">
+          <a href="/about" hx-get="/content/about" hx-target="#main-content" hx-push-url="/about" class="project-link">
+            Learn More →
+          </a>
+        </div>
+      </div>
+
+      <!-- Personal Project -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-icon">📺</div>
+          <h3>YouTube Summarizer</h3>
+          <div class="project-status">Open Source</div>
+        </div>
+        <p class="project-description">
+          CLI/TUI tool for AI-powered YouTube transcript summarization using local LLMs. 
+          Smart chunking, caching, and batch processing.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">Ollama</span>
+          <span class="tech-tag">TUI</span>
+          <span class="tech-tag">LLM</span>
+        </div>
+        <div class="project-links">
+          <a href="https://github.com/lancekrogers/youtube-summarizer" target="_blank" class="project-link">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Latest Writing Section -->
+<section class="latest-writing">
+  <div class="container">
+    <h2 class="section-title-personal">Latest Writing</h2>
+    <div class="writing-grid">
+      {{if .BlogPosts}}
+        {{range $index, $post := .BlogPosts}}
+          {{if lt $index 3}}
+          <div class="writing-card">
+            <div class="writing-meta">
+              <span class="writing-date">{{$post.Date.Format "Jan 2, 2006"}}</span>
+              {{if $post.ReadingTime}}
+              <span class="writing-reading-time">{{$post.ReadingTime}} min read</span>
+              {{end}}
+            </div>
+            <h3 class="writing-title">
+              <a href="/blog/{{$post.Slug}}" hx-get="/content/blog/{{$post.Slug}}" hx-target="#main-content" hx-push-url="/blog/{{$post.Slug}}">
+                {{$post.Title}}
+              </a>
+            </h3>
+            <p class="writing-summary">{{$post.Summary}}</p>
+            <div class="writing-tags">
+              {{range $post.Tags}}
+              <span class="writing-tag">{{.}}</span>
+              {{end}}
+            </div>
+          </div>
+          {{end}}
+        {{end}}
+      {{else}}
+      <div class="writing-placeholder">
+        <p>Blog posts coming soon...</p>
+      </div>
+      {{end}}
+    </div>
+    <div class="writing-cta">
+      <a href="/blog" hx-get="/content/blog" hx-target="#main-content" hx-push-url="/blog" class="btn-secondary-personal">
+        View All Posts →
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Connect Section -->
+<section id="connect" class="connect-section">
+  <div class="container">
+    <div class="connect-content">
+      <h2 class="connect-headline">Let's Connect</h2>
+      <p class="connect-subheadline">
+        Always interested in discussing technology, open source projects, or potential collaborations.
+      </p>
+      <div class="connect-actions">
+        <button data-contact-modal class="btn-primary-personal">Get in Touch</button>
+        <a href="/about" hx-get="/content/about" hx-target="#main-content" hx-push-url="/about" class="btn-secondary-personal">
+          Work Experience →
+        </a>
+      </div>
+      <div class="connect-social">
+        <a href="https://github.com/lancekrogers" target="_blank" class="social-link">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.30.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+          </svg>
+          GitHub
+        </a>
+        <a href="https://twitter.com/LKRBuilds" target="_blank" class="social-link">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+          </svg>
+          Twitter
+        </a>
+      </div>
+      <div class="connect-note">
+        <p>Open to interesting projects and collaborations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+{{end}}

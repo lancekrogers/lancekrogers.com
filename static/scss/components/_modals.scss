@@ -43,7 +43,7 @@
   position: relative;
   box-shadow: 
     0 20px 50px rgba(0, 0, 0, 0.5),
-    0 0 100px rgba(0, 255, 136, 0.1),
+    0 0 100px rgba(0, 204, 255, 0.1)  /* Electric blue */,
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   animation: modalGlitch 0.5s ease-out;
 }
@@ -76,7 +76,7 @@
   padding: 1rem 2rem;
   font-size: 1.1rem;
   border-radius: 8px;
-  background: var(--accent-crypto);
+  background: var(--accent-primary)  /* Electric blue */;
   color: var(--bg-primary);
   border: none;
   cursor: pointer;
@@ -85,9 +85,9 @@
 }
 
 .packages-modal-trigger:hover {
-  background: var(--accent-ai);
+  background: var(--accent-secondary)  /* Purple */;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(0, 255, 136, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 204, 255, 0.3)  /* Electric blue */;
 }
 
 // Ensure button-style modal triggers have consistent styling
@@ -101,7 +101,7 @@ button.packages-modal-trigger {
 .btn-view-packages.packages-modal-trigger {
   display: inline-block;
   padding: 1rem 2rem;
-  background: var(--accent-crypto);
+  background: var(--accent-primary)  /* Electric blue */;
   color: var(--bg-primary);
   text-decoration: none;
   border-radius: 8px;
@@ -113,16 +113,16 @@ button.packages-modal-trigger {
 }
 
 .btn-view-packages.packages-modal-trigger:hover {
-  background: var(--accent-ai);
+  background: var(--accent-secondary)  /* Purple */;
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 255, 136, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 204, 255, 0.3)  /* Electric blue */;
 }
 
 // Specific styling for CTA secondary button trigger
 .btn-cta-secondary.packages-modal-trigger {
   background: transparent;
-  color: var(--accent-ai);
-  border: 2px solid var(--accent-ai);
+  color: var(--accent-secondary)  /* Purple */;
+  border: 2px solid var(--accent-secondary)  /* Purple */;
   padding: 1rem 2rem;
   border-radius: 8px;
   font-family: var(--font-mono);
@@ -135,7 +135,7 @@ button.packages-modal-trigger {
 }
 
 .btn-cta-secondary.packages-modal-trigger:hover {
-  background: var(--accent-ai);
+  background: var(--accent-secondary)  /* Purple */;
   color: var(--bg-primary);
   transform: translateY(-2px);
 }
@@ -206,7 +206,7 @@ button.packages-modal-trigger {
 }
 
 .packages-main-modal-close:hover {
-  color: var(--accent-crypto);
+  color: var(--accent-primary)  /* Electric blue */;
   background: var(--bg-tertiary);
 }
 
@@ -364,7 +364,7 @@ body.modal-active {
   font-size: 2rem;
   font-weight: 800;
   margin-bottom: 0.5rem;
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-crypto) 100%);
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-primary)  /* Electric blue */ 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -444,12 +444,12 @@ body.modal-active {
 }
 
 .work-popup-header h3 {
-  color: var(--accent-crypto);
+  color: var(--accent-primary)  /* Electric blue */;
   margin-bottom: 0.5rem;
 }
 
 .work-popup-header .role {
-  color: var(--accent-ai);
+  color: var(--accent-secondary)  /* Purple */;
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 0.25rem;

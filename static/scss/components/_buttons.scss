@@ -16,11 +16,11 @@
 
 // Primary button
 .btn-primary {
-  background: var(--accent-crypto);
+  background: var(--accent-primary)  /* Electric blue */;
   color: var(--bg-primary);
 
   &:hover {
-    background: var(--accent-ai);
+    background: var(--accent-secondary)  /* Purple */;
     box-shadow: var(--shadow-glow);
     transform: translateY(-2px);
   }
@@ -33,14 +33,14 @@
   border: 2px solid var(--border-color);
 
   &:hover {
-    border-color: var(--accent-crypto);
-    color: var(--accent-crypto);
+    border-color: var(--accent-primary)  /* Electric blue */;
+    color: var(--accent-primary)  /* Electric blue */;
   }
 }
 
 // View packages button variant
 .btn-view-packages {
-  background: var(--accent-crypto);
+  background: var(--accent-primary)  /* Electric blue */;
   color: var(--bg-primary);
   padding: 1rem 2.5rem;
   font-size: 1.1rem;
@@ -52,9 +52,9 @@
   margin-top: 2rem;
 
   &:hover {
-    background: var(--accent-ai);
+    background: var(--accent-secondary)  /* Purple */;
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 204, 255, 0.3)  /* Electric blue */;
   }
 }
 
@@ -63,7 +63,7 @@
   display: inline-block;
   margin-top: 2rem;
   padding: 0.75rem 2rem;
-  background: var(--accent-crypto);
+  background: var(--accent-primary)  /* Electric blue */;
   color: var(--bg-primary);
   text-decoration: none;
   border-radius: 4px;
@@ -71,7 +71,7 @@
   transition: all 0.3s ease;
 
   &:hover {
-    background: var(--accent-ai);
+    background: var(--accent-secondary)  /* Purple */;
     transform: translateY(-2px);
     box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
   }
@@ -91,13 +91,13 @@
 }
 
 .btn-cta-primary {
-  background: var(--accent-crypto);
+  background: var(--accent-primary)  /* Electric blue */;
   color: var(--bg-primary);
 
   &:hover {
-    background: var(--accent-ai);
+    background: var(--accent-secondary)  /* Purple */;
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+    box-shadow: 0 10px 30px rgba(0, 204, 255, 0.3)  /* Electric blue */;
   }
 }
 
@@ -107,8 +107,8 @@
   border: 2px solid var(--border-color);
 
   &:hover {
-    border-color: var(--accent-crypto);
-    color: var(--accent-crypto);
+    border-color: var(--accent-primary)  /* Electric blue */;
+    color: var(--accent-primary)  /* Electric blue */;
     transform: translateY(-2px);
   }
 }

@@ -1,132 +1,108 @@
-# Blockhead Consulting Website
+# Lance Rogers Personal Website
 
-## Current State Overview
-This is a professional consulting website for blockchain/AI infrastructure services. The design features a clean, cyberpunk-inspired aesthetic with subtle CRT monitor effects.
+## Technical Overview
+Personal website built with Go backend and HTMX frontend, featuring a cyberpunk-inspired design for networking and personal branding.
+
+## Backend Architecture
+
+### **Go Web Server**
+- **Framework**: Native Go HTTP server with custom routing
+- **Templates**: Go template engine for server-side rendering
+- **Configuration**: YAML-based configuration system (`content/site.yml`)
+- **Content Management**: Markdown files for blog posts with frontmatter
+- **Static Assets**: CSS/SCSS compilation and JavaScript modules
+
+### **Key Go Packages**
+- `internal/handlers/` - HTTP request handlers
+- `internal/config/` - Configuration management
+- `internal/blog/` - Blog post processing
+- `internal/bio/` - About page content
+- `internal/templates/` - Template management
+
+### **Data Storage**
+- **Blog**: SQLite database for posts and metadata
+- **Configuration**: YAML files for site content
+- **Static Files**: File system serving
+
+## Frontend Framework
+
+### **HTMX Integration**
+- **Page Navigation**: HTMX handles SPA-style navigation without full page reloads
+- **Content Loading**: Dynamic content loading with `hx-get` attributes
+- **URL Management**: `hx-push-url` for proper browser history
+- **Target Updates**: `hx-target="#main-content"` for content replacement
+
+### **JavaScript Architecture**
+- **Modular Design**: ES6 modules in `/static/js/modules/`
+- **Animation System**: Custom animations for cyberpunk effects
+- **Home Enhancements**: Terminal typing effects, floating particles, 3D transforms
+- **No Heavy Frameworks**: Vanilla JavaScript for performance
+
+### **CSS/SCSS Structure**
+- **SCSS Compilation**: Automated build process with `make build-css`
+- **Component-Based**: Separate SCSS files for different page sections
+- **CSS Variables**: Cyberpunk color scheme with CSS custom properties
+- **Responsive Design**: Mobile-first approach with breakpoints
+
+## File Structure
+```
+/templates/
+  /layouts/ - Base templates and partials
+  /pages/ - Full page templates
+  /fragments/ - Reusable template components
+
+/static/
+  /scss/ - Source SCSS files
+  /css/ - Compiled CSS output
+  /js/ - JavaScript modules and main files
+
+/content/ - YAML configuration files
+/internal/ - Go backend code
+```
+
+## Development Workflow
+
+### **Build Commands**
+- `make dev` - Start development server
+- `make build-css` - Compile SCSS to CSS
+- `make build` - Build Go binary
+- `make test` - Run test suite
+
+### **Configuration**
+- All content managed through YAML files in `/content/`
+- Personal homepage content in `site.yml`
+- Blog configuration and posts in separate files
+- No hardcoded content in templates
+
+### **Security Features**
+- Content Security Policy (CSP) headers
+- CSRF protection
+- Rate limiting
+- Secure headers and HTTPS enforcement
 
 ## Current Features
 
 ### **Visual Design**
-- **Terminal/CRT Aesthetic**: Clean monospace fonts with subtle scan-line effects throughout the hero section
-- **Color Scheme**: 
-  - Primary: Black backgrounds (`#0a0a0a`, `#1a1a1a`, `#252525`)
-  - Text: White primary text (`#ffffff`) with gray secondaries
-  - Accents: Green crypto (`#00ff88`), blue AI (`#00d4ff`), red warning (`#ff6b6b`)
-- **Typography**: Mix of system fonts for readability and JetBrains Mono for code/technical elements
+- Cyberpunk aesthetic with terminal/CRT styling
+- Color scheme: Black backgrounds with blue/purple accents
+- Typography: Monospace fonts for technical elements
+- Glassmorphism effects and subtle animations
 
-### **Animation System**
-- **Full-Page Black Mirror Effect (12s duration)**: Coordinated chaos across entire page
-  - Page-wide glitch overlay with moving RGB scan lines
-  - All sections experience movement, color shifts, and corruption effects
-  - Creates immersive tech dystopia atmosphere for maximum attention
-- **Main Animation (7s duration)**: Glitch effect on "BLOCKHEAD CONSULTING" heading
-  - Uses CSS pseudo-elements (::before, ::after) with different colored text shadows
-  - Clips portions of text at different timings for authentic glitch effect
-  - Runs simultaneously with full-page effect
-- **Typewriter Effect**: JavaScript-driven character-by-character reveal starting after 500ms
-- **Periodic Glitch**: Subtle glitch effects trigger every 20-30 seconds after main animation
-- **CRT Scan Lines**: Permanent subtle horizontal lines across hero section for monitor aesthetic
+### **Interactive Elements**
+- Terminal typing animation for hero text
+- Floating code particles background
+- 3D project card hover effects
+- Animated stat counters
+- Smooth scrolling navigation
 
-### **Technical Implementation**
-
-**CSS Structure:**
-- `.glitch` - Main heading with data-text attribute for pseudo-element content
-- `.glitch::before` - Red text shadow glitch layer
-- `.glitch::after` - Green/blue text shadow glitch layer
-- Complex keyframe animations (`glitch-anim`, `glitch-anim2`, `glitch-rotate`) with precise timing
-- `hide-pseudo` animation to hide glitch layers after main animation
-- `.subtle-glitch` class for periodic effects
-
-**JavaScript Functions:**
-- Full-page glitch overlay creation and management
-- Global glitch class coordination across all page elements
-- Typewriter effect with character-by-character text reveal
-- Animation loop using `requestAnimationFrame` for smooth performance
-- Periodic glitch scheduling with randomized 20-30 second intervals
-- Animation state management (typing, glitch active/inactive, timing)
-
-### **Current Content**
-- **Hero Heading**: "BLOCKHEAD CONSULTING"
-- **Subtitle**: "Bridging traditional finance with blockchain technology. Building production-grade AI systems that scale."
-- **Services**: Crypto Infrastructure and AI/LLM Consulting with detailed service lists
-- **Pricing**: Hourly rates ($200-500/hour) and service packages ($2.5k-$50k+)
-- **Technical Expertise**: Languages, Blockchain, AI/ML, Infrastructure sections
-
-### **Performance Considerations**
-- Uses `requestAnimationFrame` for smooth animations
-- Minimal DOM manipulation with efficient text replacement
-- Lightweight CSS animations with hardware acceleration hints
-- No heavy libraries - vanilla JavaScript implementation
-
-## Files
-- `/static/styles.css` - Complete CSS with cyberpunk theme and glitch animations
-- `/static/main.js` - Animation system and smooth scrolling
-- `/templates/index.html` - Main page structure with hero, services, and contact sections
-
-## Animation Timing
-- **Full-Page Glitch**: 12-second Black Mirror-style chaos affecting entire page
-- **Typewriter**: Starts 500ms after page load, 50ms per character
-- **Main Glitch**: 7-second complex animation sequence (runs during full-page effect)
-- **Periodic Glitch**: Every 20-30 seconds, 1-second duration (starts after full-page effect ends)
-- **Mobile**: No timing differences (same as desktop)
-
-## Configuration System
-The site includes a configuration system for deployment flexibility:
-
-### Calendar Feature Toggle
-- Calendar functionality can be disabled via config for rapid deployment
-- When disabled, calendar links are completely removed from navigation (not just hidden)
-- Prevents hackers from discovering calendar endpoints in HTML/JavaScript
-- Environment variable: `CALENDAR_ENABLED=false` disables calendar features
-
-### Mobile Navigation
-- Responsive hamburger menu on mobile/tablet devices
-- Desktop navigation remains unchanged
-- Automatically adapts based on screen size
-- Contains: Services, Blog, and Book Consultation (when calendar enabled)
-
-## ⚠️ CRITICAL: Booking System Security Requirements
-
-### **DO NOT IMPLEMENT WITHOUT EXPLICIT APPROVAL**
-**The booking system has CRITICAL security vulnerabilities and must NOT be worked on until:**
-1. Website content development is completed (current priority)
-2. Explicit approval is given by the project owner
-3. Security implementation plan is reviewed and approved
-
-### **Current Security Status: HIGH RISK**
-The existing booking implementation contains severe vulnerabilities:
-- **Public API endpoints** with no authentication (`/api/slots`)
-- **Hardcoded admin credentials** (`admin:changeme`) 
-- **Unencrypted sensitive data** storage (client emails, project details)
-- **No access monitoring** or audit logging
-- **Information disclosure** of business patterns
-
-### **Required Security Implementation**
-**⚠️ AGENTS: Do NOT implement these fixes without explicit project owner approval**
-
-See detailed security implementation plan: `ai_docs/BOOKING_SECURITY_IMPLEMENTATION.md`
-
-**Summary of required fixes:**
-1. **Authentication & Authorization**: JWT tokens, session management, remove hardcoded credentials
-2. **Data Protection**: Encryption at rest, input validation, data sanitization  
-3. **Monitoring & Logging**: Access logging, security event monitoring, audit trails
-4. **Rate Limiting**: Endpoint-specific limits, enhanced protection
-5. **Configuration Security**: Environment-based secrets, validation
-
-### **Priority Level: LOW**
-- Content development takes precedence
-- Security implementation deferred until content completion
-- Booking feature should remain disabled in production until security fixes are implemented
-
-## Future Enhancement Ideas
-**Subtle Ongoing Interference** (to implement after main site development):
-- Random character substitution in text elements
-- Occasional chromatic aberration on images/icons
-- Micro-glitches on hover states
-- Background static during form interactions
-- Memory leak simulation in console logs
-- Cursor corruption effects
-- Loading state anomalies
+### **Content Management**
+- YAML-driven content for easy updates
+- Blog system with markdown support
+- Dynamic GitHub stats integration
+- Project showcase with tech stack tags
 
 ## Code Organization
-- Binaries should live in @bin no binaries should be committed to git tracking
-- Use the make file for testing, stop creating binaries in the top level directory
+- Binaries in `/bin/` - not committed to git
+- Use Makefile for all build/test operations
+- Modular Go code with clear separation of concerns
+- Component-based frontend architecture

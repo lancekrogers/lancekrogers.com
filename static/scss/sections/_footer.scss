@@ -23,16 +23,30 @@
   align-items: center;
 }
 
-.footer-logo {
-  height: 32px;
-  width: auto;
-  opacity: 0.8;
+.footer-brand .brand-text {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  position: relative;
   transition: all 0.3s ease;
 }
 
-.footer-logo:hover {
-  opacity: 1;
-  filter: drop-shadow(0 0 8px rgba(0, 255, 136, 0.2));
+.footer-brand .brand-text::before {
+  content: '[';
+  color: var(--accent-primary);
+  margin-right: 0.25rem;
+}
+
+.footer-brand .brand-text::after {
+  content: ']';
+  color: var(--accent-primary);
+  margin-left: 0.25rem;
+}
+
+.footer-brand .brand-text:hover {
+  color: var(--accent-primary);
+  text-shadow: 0 0 10px rgba(var(--accent-primary-rgb), 0.3);
 }
 
 .footer-links {

@@ -29,14 +29,42 @@
   justify-content: flex-start;
 }
 
+.brand-text {
+  font-family: var(--font-mono);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--accent-primary);  /* Electric blue */
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: var(--accent-secondary);  /* Purple on hover */
+    text-shadow: 0 0 8px var(--accent-primary);
+    transform: scale(1.05);
+  }
+  
+  &::before {
+    content: "[ ";
+    color: var(--accent-tertiary);  /* Light cyan brackets */
+  }
+  
+  &::after {
+    content: " ]";
+    color: var(--accent-tertiary);  /* Light cyan brackets */
+  }
+}
+
+// Keep old brand-logo class for compatibility
 .brand-logo {
   height: 40px;
   width: auto;
-  transition: filter 0.3s ease; // Only transition filter, not all properties
-  display: block; // Prevent inline layout issues
+  transition: filter 0.3s ease;
+  display: block;
 
   &:hover {
-    filter: drop-shadow(0 0 10px rgba(0, 255, 136, 0.3));
+    filter: drop-shadow(0 0 10px rgba(0, 204, 255, 0.3));  /* Electric blue */
   }
 }
 
